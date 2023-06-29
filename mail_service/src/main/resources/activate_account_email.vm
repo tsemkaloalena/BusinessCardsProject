@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activate your account</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h2>Hello, ${name} ${surname}</h2>
+<h3>
+    To use uor service, you need to activate account.
+    To do this, please, follow the link
+    <a href="http://localhost:8080/user/activate_account/${activateAccountToken}">http://localhost:8080/user/activate_account/${activateAccountToken}</a>
+    Hurry up) In 24 hours this link won't be active.
+</h3>
+<h4>if you didn't send a request, ignore the email</h4>
+</body>
+</html>

@@ -1,0 +1,74 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.tsemkalo.businesscards;
+import "google/protobuf/empty.proto";
+
+message UserProto {
+  int64 id = 1;
+  string username = 2;
+  string password = 3;
+  string name = 4;
+  string surname = 5;
+  RoleProto role = 6;
+  string email = 7;
+}
+
+message SafeUserProto {
+  int64 id = 1;
+  string username = 2;
+  string name = 3;
+  string surname = 4;
+  RoleProto role = 5;
+  string email = 6;
+}
+
+message RoleProto {
+  int64 id = 1;
+  ProtoRoleType name = 2;
+  repeated PermissionProto permission = 3;
+}
+
+message PermissionProto {
+  int64 id = 1;
+  ProtoPermissionType name = 2;
+  RoleProto role = 3;
+}
+
+message UserByUsernameRequest {
+  string username = 1;
+}
+
+message Token {
+  string token = 1;
+}
+
+message ChangePasswordRequest {
+  string currentUsername = 1;
+  string oldPassword = 2;
+  string newPassword = 3;
+}
+
+message ChangePasswordResponse {
+  string newPassword = 1;
+}
+
+enum ProtoRoleType {
+  ADMIN = 0;
+  USER = 1;
+  COMPANY_REPRESENTATIVE = 2;
+}
+
+enum ProtoPermissionType {
+  READ = 0;
+  ADD = 1;
+  EDIT = 2;
+  DELETE = 3;
+  FOLLOW = 4;
+}
+
+service UserService {
+  rpc getUserByUsername(UserByUsernameRequest) returns (UserProto);
+  rpc saveUser(UserProto) returns (google.protobuf.Empty);
+  rpc changePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+  rpc activateAccount(Token) returns (Token);
+}
