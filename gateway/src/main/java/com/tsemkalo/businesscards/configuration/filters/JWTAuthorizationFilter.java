@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.exceptions.AuthorizationErrorException;
 import com.tsemkalo.businesscards.service.AuthorizationServiceImpl;
-import com.tsemkalo.businesscards.configuration.SecurityConstants;
+import com.tsemkalo.businesscards.configuration.constants.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -63,7 +63,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(SecurityConstants.HEADER_STRING);
+        String token = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(SecurityConstants.AUTHORIZATION_COOKIE_NAME)) {
+                    token = cookie.getValue();
+                }
+            }
+        }
         if (token != null) {
             String username = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
                     .build()

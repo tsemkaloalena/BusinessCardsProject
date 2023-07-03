@@ -7,6 +7,7 @@ import com.tsemkalo.businesscards.dao.NonActivatedUserDao;
 import com.tsemkalo.businesscards.dao.UserDao;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.User;
+import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
 import com.tsemkalo.businesscards.exceptions.UserExistsException;
 import com.tsemkalo.businesscards.mapper.NonActivatedUserMapper;
@@ -17,15 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
-import static com.tsemkalo.businesscards.configuration.SecurityConstants.EXPIRATION_TIME;
-import static com.tsemkalo.businesscards.configuration.SecurityConstants.SECRET;
-import static com.tsemkalo.businesscards.configuration.SecurityConstants.SECRET_ACTIVATE_ACCOUNT;
+import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.EXPIRATION_TIME;
+import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET;
+import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET_ACTIVATE_ACCOUNT;
+import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET_FORGOT_PASSWORD;
 
 @Slf4j
 @Component
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
@@ -95,10 +99,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.nonActivatedToActivated(nonActivatedUser);
         userDao.save(user);
         nonActivatedUserDao.delete(nonActivatedUser);
-        return JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(SECRET.getBytes()));
+        return user.getUsername();
     }
 
     @Override
@@ -108,6 +109,22 @@ public class UserServiceImpl implements UserService {
             nonActivatedUserDao.delete(nonActivatedUser);
         }
     }
+
+    @Override
+    public void editInfo(String currentUsername, SafeUserDTO editedInfo) throws IncorrectDataException {
+        User user = userDao.findByUsername(currentUsername);
+        if (!editedInfo.getName().isBlank() && ! editedInfo.getEmail().equals(user.getEmail())) {
+            user.setEmail(editedInfo.getEmail());
+            // TODO send email to check
+        }
+        if (!editedInfo.getName().isBlank()) {
+            user.setName(editedInfo.getName());
+        }
+        if (!editedInfo.getSurname().isBlank()) {
+            user.setSurname(editedInfo.getSurname());
+        }
+    }
+
 
 //    /**
 //     * @param currentUsername username of current user
@@ -140,78 +157,23 @@ public class UserServiceImpl implements UserService {
 //        throw new AccessDeniedException(user.getUsername() + "'s password is not correct.");
 //    }
 
-    /**
-     * @param currentUsername username of current user
-     * @param editedUser      user entity with fields that should be changed
-     * @return id of the edited user
-     */
-//    @Override
-//    public Long editInfo(String currentUsername, User editedUser) {
-//        User user = loadUserByUsername(currentUsername);
-//        if (editedUser.getName() == null && editedUser.getSurname() == null && editedUser.getEmail() == null) {
-//            throw new IncorrectDataException("You didn't change any data");
-//        }
-//        if (editedUser.getEmail() != null) {
-//            user.setEmail(editedUser.getEmail());
-//        }
-//        if (editedUser.getName() != null) {
-//            user.setName(editedUser.getName());
-//        }
-//        if (editedUser.getSurname() != null) {
-//            user.setSurname(editedUser.getSurname());
-//        }
-//
-//        return user.getId();
-//    }
 
     /**
-     * Sending an email with generated link for resetting a password
-     * @param username username of user for which the password should be reset
+     * @param resetPasswordToken token from email by which the username is taken
+     * @param newPassword new password
      */
-//    @Override
-//    public void sendForgotPasswordEmail(String username) {
-//        try {
-//            User user = loadUserByUsername(username);
-//            MimeMessage message = mailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(message);
-//            message.setFrom(emailFrom);
-//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-//            message.setSubject("Reset password");
-//
-//            String resetPasswordToken = JWT.create()
-//                    .withSubject(username)
-//                    .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-//                    .sign(Algorithm.HMAC512(SECRET_FORGOT_PASSWORD.getBytes()));
-//
-//            VelocityContext context = new VelocityContext();
-//            context.put("name", user.getName());
-//            context.put("surname", user.getSurname());
-//            context.put("resetPasswordToken", resetPasswordToken);
-//            StringWriter stringWriter = new StringWriter();
-//            velocityEngine.mergeTemplate("forgot_password.vm", "UTF-8", context, stringWriter);
-//            String text = stringWriter.toString();
-//            helper.setText(text, true);
-//            mailSender.send(message);
-//        } catch (Exception exception) {
-//            log.error(Arrays.toString(exception.getStackTrace()));
-//            throw new MailSendingException(exception.getMessage());
-//        }
-//    }
-
-//    /**
-//     * @param resetPasswordToken token from email by which the username is taken
-//     * @param newPassword new password
-//     */
-//    @Override
-//    public void resetPassword(String resetPasswordToken, String newPassword) {
-//        if (newPassword == null) {
-//            throw new IncorrectDataException("You didn't set new password");
-//        }
-//        String username = JWT.require(Algorithm.HMAC512(SECRET_FORGOT_PASSWORD.getBytes()))
-//                .build()
-//                .verify(resetPasswordToken)
-//                .getSubject();
-//        User user = loadUserByUsername(username);
-//        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
-//    }
+    @Override
+    public String resetPassword(String resetPasswordToken, String newPassword) {
+        if (newPassword == null) {
+            throw new IncorrectDataException("You didn't set new password");
+        }
+        String username = JWT.require(Algorithm.HMAC512(SECRET_FORGOT_PASSWORD.getBytes()))
+                .build()
+                .verify(resetPasswordToken)
+                .getSubject();
+        User user = loadUserByUsername(username);
+        newPassword = bCryptPasswordEncoder.encode(newPassword);
+        user.setPassword(newPassword);
+        return newPassword;
+    }
 }

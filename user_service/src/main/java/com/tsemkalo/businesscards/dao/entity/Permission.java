@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.dao.entity;
 
-import com.tsemkalo.businesscards.enums.PermissionType;
+import com.tsemkalo.businesscards.configuration.enums.PermissionType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

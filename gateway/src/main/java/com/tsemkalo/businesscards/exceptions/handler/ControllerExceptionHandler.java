@@ -2,6 +2,8 @@ package com.tsemkalo.businesscards.exceptions.handler;
 
 import com.tsemkalo.businesscards.exceptions.AuthenticationCredentialsReadingException;
 import com.tsemkalo.businesscards.exceptions.AuthorizationErrorException;
+import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
+import com.tsemkalo.businesscards.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -23,15 +25,15 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return makeResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-//	@ExceptionHandler({LessonSubscriptionException.class, IncorrectDataException.class, IllegalArgumentException.class, IllegalStateException.class})
-//	public ResponseEntity<Object> handleIllegalArgumentException(RuntimeException exception, WebRequest request) {
-//		return makeResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
-//	}
-//
-//	@ExceptionHandler({NotFoundException.class})
-//	public ResponseEntity<Object> handleNotFoundException(RuntimeException exception, WebRequest request) {
-//		return makeResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
-//	}
+	@ExceptionHandler({IncorrectDataException.class, IllegalArgumentException.class, IllegalStateException.class})
+	public ResponseEntity<Object> handleIllegalArgumentException(RuntimeException exception, WebRequest request) {
+		return makeResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler({NotFoundException.class})
+	public ResponseEntity<Object> handleNotFoundException(RuntimeException exception, WebRequest request) {
+		return makeResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+	}
 
 	@ExceptionHandler({AuthorizationErrorException.class, AuthenticationException.class})
 	public ResponseEntity<Object> handleUnauthorizedErrorException(RuntimeException exception, WebRequest request) {

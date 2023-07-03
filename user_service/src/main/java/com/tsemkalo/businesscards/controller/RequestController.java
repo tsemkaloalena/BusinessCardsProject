@@ -3,18 +3,19 @@ package com.tsemkalo.businesscards.controller;
 import com.google.protobuf.Empty;
 import com.tsemkalo.businesscards.ChangePasswordRequest;
 import com.tsemkalo.businesscards.ChangePasswordResponse;
+import com.tsemkalo.businesscards.EditInfoRequest;
+import com.tsemkalo.businesscards.ForgotPasswordRequest;
 import com.tsemkalo.businesscards.Token;
-import com.tsemkalo.businesscards.UserByUsernameRequest;
 import com.tsemkalo.businesscards.UserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;
-import com.tsemkalo.businesscards.configuration.QueueConstants;
+import com.tsemkalo.businesscards.UsernameProto;
+import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.dao.entity.User;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
 import com.tsemkalo.businesscards.exceptions.UserExistsException;
 import com.tsemkalo.businesscards.mapper.NonActivatedUserMapper;
 import com.tsemkalo.businesscards.mapper.SafeUserMapper;
 import com.tsemkalo.businesscards.mapper.UserMapper;
-import com.tsemkalo.businesscards.service.NonActivatedUserService;
 import com.tsemkalo.businesscards.service.UserService;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -27,7 +28,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @RestController
 @EnableRabbit
@@ -35,9 +35,6 @@ import java.util.Arrays;
 public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private NonActivatedUserService nonActivatedUserService;
 
     @Autowired
     private UserMapper userMapper;
@@ -49,7 +46,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     private SafeUserMapper safeUserMapper;
 
     @Override
-    public void getUserByUsername(UserByUsernameRequest request,
+    public void getUserByUsername(UsernameProto request,
                                   StreamObserver<UserProto> responseObserver) {
         User user;
         try {
@@ -95,11 +92,11 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void activateAccount(Token tokenRequest, StreamObserver<Token> responseObserver) {
+    public void activateAccount(Token tokenRequest, StreamObserver<UsernameProto> responseObserver) {
         try {
-            String token = userService.activateAccount(tokenRequest.getToken());
-            Token tokenResponse = Token.newBuilder().setToken(token).build();
-            responseObserver.onNext(tokenResponse);
+            String username = userService.activateAccount(tokenRequest.getToken());
+            UsernameProto usernameProto = UsernameProto.newBuilder().setUsername(username).build();
+            responseObserver.onNext(usernameProto);
             responseObserver.onCompleted();
         } catch (Exception exception) {
             Status status = Status.PERMISSION_DENIED.withDescription("Your link is expired or incorrect");
@@ -110,6 +107,34 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     @RabbitListener(queues = QueueConstants.DELETE_IF_NOT_ACTIVATED)
     public void deleteUserIfNotActivated(Message message) {
         userService.deleteUserIfNotActivated(new String(message.getBody(), StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public void resetPassword(ForgotPasswordRequest request, StreamObserver<ChangePasswordResponse> responseObserver) {
+        try {
+            String newPassword = userService.resetPassword(request.getResetPasswordToken(), request.getNewPassword());
+            responseObserver.onNext(ChangePasswordResponse.newBuilder().setNewPassword(newPassword).build());
+            responseObserver.onCompleted();
+        } catch (IncorrectDataException exception) {
+            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
+            responseObserver.onError(status.asRuntimeException());
+        } catch (Exception exception) {
+            Status status = Status.PERMISSION_DENIED.withDescription("Your link is expired or incorrect");
+            responseObserver.onError(status.asRuntimeException());
+        }
+    }
+
+    @Override
+    public void editInfo(EditInfoRequest request, StreamObserver<Empty> responseObserver) {
+        try {
+            userService.editInfo(request.getCurrentUsername(), safeUserMapper.protoToDTO(request.getEditedInfo()));
+        } catch (IncorrectDataException exception) {
+            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
+            responseObserver.onError(status.asRuntimeException());
+            return;
+        }
+        responseObserver.onNext(Empty.newBuilder().build());
+        responseObserver.onCompleted();
     }
 
 //    @RabbitListener(queues = QueueName.SIGN_UP_USER)
@@ -170,11 +195,5 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
 //        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
 //    }
 //
-//    @PostMapping("/reset_password/{resetPasswordToken}")
-//    public ResponseEntity<Object> resetPassword(@PathVariable String resetPasswordToken, @RequestParam String newPassword) {
-//        userService.resetPassword(resetPasswordToken, newPassword);
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("message",  "Your password is successfully changed.");
-//        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
-//    }
+
 }

@@ -8,9 +8,11 @@ public interface Mapper<E extends AbstractEntity, D extends AbstractDTO, P exten
 
     E dtoToEntity(D dto);
 
-    E protoToEntity(P userProto);
+    E protoToEntity(P proto);
 
-    P entityToProto(E user);
+    P entityToProto(E entity);
 
-    P dtoToProto(D DTOEntity);
+    P dtoToProto(D dto);
+
+    D protoToDTO(P proto);
 }

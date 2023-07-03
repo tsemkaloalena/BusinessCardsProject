@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.controller;
 
-import com.tsemkalo.businesscards.configuration.QueueConstants;
+import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import com.tsemkalo.businesscards.service.MailService;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;

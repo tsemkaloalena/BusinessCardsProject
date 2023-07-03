@@ -3,6 +3,7 @@ package com.tsemkalo.businesscards.service;
 import com.tsemkalo.businesscards.ChangePasswordRequest;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.User;
+import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -19,9 +20,9 @@ public interface UserService extends UserDetailsService {
 
 //    String changeUsername(String currentUsername, String newUsername, String password);
 
-//    Long editInfo(String currentUsername, User editedUser);
+    void editInfo(String currentUsername, SafeUserDTO editedInfo);
 
 //    void sendForgotPasswordEmail(String username);
 
-//    void resetPassword(String resetPasswordToken, String newPassword);
+    String resetPassword(String resetPasswordToken, String newPassword);
 }

@@ -33,4 +33,9 @@ public class RoleMapper implements Mapper<Role, RoleDTO, RoleProto> {
     public RoleProto dtoToProto(RoleDTO DTOEntity) {
         return null;
     }
+
+    @Override
+    public RoleDTO protoToDTO(RoleProto proto) {
+        return null;
+    }
 }

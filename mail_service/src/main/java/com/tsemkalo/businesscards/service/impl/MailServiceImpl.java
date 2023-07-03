@@ -19,9 +19,9 @@ import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.util.Date;
 
-import static com.tsemkalo.businesscards.configuration.MailConstants.EXPIRATION_TIME;
-import static com.tsemkalo.businesscards.configuration.MailConstants.SECRET_ACTIVATE_ACCOUNT;
-import static com.tsemkalo.businesscards.configuration.MailConstants.SECRET_FORGOT_PASSWORD;
+import static com.tsemkalo.businesscards.configuration.constants.MailConstants.EXPIRATION_TIME;
+import static com.tsemkalo.businesscards.configuration.constants.MailConstants.SECRET_ACTIVATE_ACCOUNT;
+import static com.tsemkalo.businesscards.configuration.constants.MailConstants.SECRET_FORGOT_PASSWORD;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -77,17 +77,4 @@ public class MailServiceImpl implements MailService {
             throw new MailSendingException(exception.getMessage());
         }
     }
-
-//    @Override
-//    public void resetPassword(String resetPasswordToken, String newPassword) {
-//        if (newPassword == null) {
-//            throw new IncorrectDataException("You didn't set new password");
-//        }
-//        String username = JWT.require(Algorithm.HMAC512(SECRET_FORGOT_PASSWORD.getBytes()))
-//                .build()
-//                .verify(resetPasswordToken)
-//                .getSubject();
-//        User user = loadUserByUsername(username);
-//        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
-//    }
 }

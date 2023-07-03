@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.dto;
 
-import com.tsemkalo.businesscards.enums.RoleType;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

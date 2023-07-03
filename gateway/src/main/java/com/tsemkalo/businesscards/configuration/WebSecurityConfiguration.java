@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -43,8 +44,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			http.csrf().disable()
 					.cors().and()
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/user/sign_up", "/user/forgot_password", "/user/reset_password/*", "/user/activate_account/*").permitAll()
-					.antMatchers(HttpMethod.GET, "/user/login").permitAll()
 					.anyRequest().authenticated()
 					.and()
 					.formLogin().permitAll()
@@ -62,6 +61,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			log.error(Arrays.toString(exception.getStackTrace()));
 			throw new SecurityConfigurationException(Arrays.toString(exception.getStackTrace()));
 		}
+	}
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(HttpMethod.POST, "/user/sign_up", "/user/forgot_password", "/user/reset_password/*")
+				.antMatchers(HttpMethod.GET, "/user/login", "/user/activate_account/*", "/card/*/view", "/user/*/cards");
 	}
 
 	@Override

@@ -19,8 +19,8 @@
 //import java.util.Arrays;
 //import java.util.Date;
 //
-//import static com.tsemkalo.businesscards.configuration.SecurityConstants.EXPIRATION_TIME;
-//import static com.tsemkalo.businesscards.configuration.SecurityConstants.SECRET;
+//import static com.tsemkalo.businesscards.configuration.constant.SecurityConstants.EXPIRATION_TIME;
+//import static com.tsemkalo.businesscards.configuration.constant.SecurityConstants.SECRET;
 //
 //@Slf4j
 //public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

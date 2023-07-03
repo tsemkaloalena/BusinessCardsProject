@@ -79,7 +79,7 @@ public class User extends AbstractEntity implements UserDetails {
         return authorities;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws IncorrectDataException {
         if (!email.contains("@") || !email.contains(".") || email.indexOf("@") > email.lastIndexOf(".")) {
             throw new IncorrectDataException(email + " is not correct email");
         }

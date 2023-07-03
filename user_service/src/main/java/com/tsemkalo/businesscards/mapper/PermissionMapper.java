@@ -54,5 +54,10 @@ public class PermissionMapper implements Mapper<Permission, PermissionDTO, Permi
         return null;
     }
 
+    @Override
+    public PermissionDTO protoToDTO(PermissionProto proto) {
+        return null;
+    }
+
 
 }

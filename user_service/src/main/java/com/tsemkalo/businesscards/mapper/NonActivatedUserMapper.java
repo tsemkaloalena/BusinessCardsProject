@@ -10,8 +10,6 @@ import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.Permission;
 import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dto.UserDTO;
-import com.tsemkalo.businesscards.enums.PermissionType;
-import com.tsemkalo.businesscards.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -122,6 +120,11 @@ public class NonActivatedUserMapper implements Mapper<NonActivatedUser, UserDTO,
             userProtoBuilder.setRole(roleProto);
         }
         return userProtoBuilder.build();
+    }
+
+    @Override
+    public UserDTO protoToDTO(UserProto proto) {
+        return null;
     }
 }
 

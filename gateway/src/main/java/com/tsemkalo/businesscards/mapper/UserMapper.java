@@ -9,20 +9,18 @@ import com.tsemkalo.businesscards.entity.Permission;
 import com.tsemkalo.businesscards.entity.Role;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.dto.UserDTO;
-import com.tsemkalo.businesscards.enums.PermissionType;
-import com.tsemkalo.businesscards.enums.RoleType;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tsemkalo.businesscards.configuration.enums.PermissionType;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class UserMapper implements Mapper<User, UserDTO, UserProto> {
 
     @Override
-    public UserDTO entityToDto(User user) {
+    public UserDTO entityToDTO(User user) {
         return null;
     }
 
@@ -92,6 +90,11 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
             userBuilder.setId(userDTO.getId());
         }
         return userBuilder.build();
+    }
+
+    @Override
+    public UserDTO protoToDTO(UserProto proto) {
+        return null;
     }
 }
 

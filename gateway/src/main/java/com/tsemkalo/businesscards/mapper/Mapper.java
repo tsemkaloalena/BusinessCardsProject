@@ -4,13 +4,15 @@ import com.tsemkalo.businesscards.entity.AbstractEntity;
 import com.tsemkalo.businesscards.dto.AbstractDTO;
 
 public interface Mapper<E extends AbstractEntity, D extends AbstractDTO, P extends com.google.protobuf.GeneratedMessageV3> {
-    D entityToDto(E entity);
+    D entityToDTO(E entity);
 
     E dtoToEntity(D dto);
 
-    E protoToEntity(P userProto);
+    E protoToEntity(P proto);
 
-    P entityToProto(E user);
+    P entityToProto(E entity);
 
     P dtoToProto(D DTOEntity);
+
+    D protoToDTO(P proto);
 }

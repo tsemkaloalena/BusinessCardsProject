@@ -18,7 +18,7 @@ message SafeUserProto {
   string username = 2;
   string name = 3;
   string surname = 4;
-  RoleProto role = 5;
+  string role = 5;
   string email = 6;
 }
 
@@ -34,7 +34,7 @@ message PermissionProto {
   RoleProto role = 3;
 }
 
-message UserByUsernameRequest {
+message UsernameProto {
   string username = 1;
 }
 
@@ -52,23 +52,35 @@ message ChangePasswordResponse {
   string newPassword = 1;
 }
 
+message EditInfoRequest {
+  string currentUsername = 1;
+  SafeUserProto editedInfo = 2;
+}
+
+message ForgotPasswordRequest {
+  string resetPasswordToken = 1;
+  string newPassword = 2;
+}
+
 enum ProtoRoleType {
   ADMIN = 0;
   USER = 1;
-  COMPANY_REPRESENTATIVE = 2;
+//  COMPANY_REPRESENTATIVE = 2;
 }
 
 enum ProtoPermissionType {
   READ = 0;
-  ADD = 1;
-  EDIT = 2;
-  DELETE = 3;
-  FOLLOW = 4;
+  EDIT = 1;
+//  CREATE_FOR_OTHER_USERS = 2;
+  FOLLOW_LIKE = 2;
+  CHAT = 3;
 }
 
 service UserService {
-  rpc getUserByUsername(UserByUsernameRequest) returns (UserProto);
+  rpc getUserByUsername(UsernameProto) returns (UserProto);
   rpc saveUser(UserProto) returns (google.protobuf.Empty);
   rpc changePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
-  rpc activateAccount(Token) returns (Token);
+  rpc activateAccount(Token) returns (UsernameProto);
+  rpc resetPassword(ForgotPasswordRequest) returns (ChangePasswordResponse);
+  rpc editInfo(EditInfoRequest) returns (google.protobuf.Empty);
 }

@@ -11,8 +11,6 @@ import com.tsemkalo.businesscards.dao.entity.Permission;
 import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dao.entity.User;
 import com.tsemkalo.businesscards.dto.UserDTO;
-import com.tsemkalo.businesscards.enums.PermissionType;
-import com.tsemkalo.businesscards.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +24,7 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
     private RoleDao roleDao;
 
     public User nonActivatedToActivated(NonActivatedUser nonActivatedUser) {
-        return new User(nonActivatedUser.getId(),
+        return new User(
                 nonActivatedUser.getUsername(),
                 nonActivatedUser.getPassword(),
                 nonActivatedUser.getName(),
@@ -135,6 +133,11 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
             userProtoBuilder.setRole(roleProto);
         }
         return userProtoBuilder.build();
+    }
+
+    @Override
+    public UserDTO protoToDTO(UserProto proto) {
+        return null;
     }
 }
 

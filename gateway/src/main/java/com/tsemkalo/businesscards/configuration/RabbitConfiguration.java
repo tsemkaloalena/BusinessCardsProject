@@ -1,16 +1,13 @@
 package com.tsemkalo.businesscards.configuration;
 
+import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.CustomExchange;
-import org.springframework.amqp.core.Declarable;
 import org.springframework.amqp.core.Declarables;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Exchange;
-import org.springframework.amqp.core.ExchangeBuilder;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -21,16 +18,12 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import static com.tsemkalo.businesscards.configuration.QueueConstants.DELAYED_EXCHANGE_NAME;
-import static com.tsemkalo.businesscards.configuration.QueueConstants.DLQ_EXCHANGE_NAME;
-import static com.tsemkalo.businesscards.configuration.QueueConstants.EXCHANGE_NAME;
-import static com.tsemkalo.businesscards.configuration.QueueConstants.MESSAGE_DELAY_TIME;
+import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.DELAYED_EXCHANGE_NAME;
+import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.DLQ_EXCHANGE_NAME;
+import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.EXCHANGE_NAME;
 
 @Slf4j
 public class RabbitConfiguration {

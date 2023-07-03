@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.dao.entity;
 
-import com.tsemkalo.businesscards.enums.RoleType;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
