@@ -54,6 +54,6 @@ public class CardServiceImpl extends AbstractServiceImpl<Card, CardDao> implemen
         if (currentCardOwnerId.equals(currentUserId) && (oldCardOwnerId == null || currentCardOwnerId.equals(oldCardOwnerId))) {
             return currentCardOwnerId;
         }
-        throw new AccessDeniedException("This card belongs to other user");
+        throw new AccessDeniedException("This card owner id and your id don't match");
     }
 }

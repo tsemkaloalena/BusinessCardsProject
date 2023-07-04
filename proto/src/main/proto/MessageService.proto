@@ -1,0 +1,131 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.tsemkalo.businesscards;
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+message ChatProtoList {
+  repeated ChatProto chat = 1;
+}
+
+message MessageProtoList {
+  repeated MessageProto message = 1;
+}
+
+message ChatProto {
+  int64 id = 1;
+  string name = 2;
+  ChatTypeProto chatType = 3;
+}
+
+message MessageProto {
+  int64 id = 1;
+  int64 memberId = 2;
+  int64 chatId = 3;
+  google.protobuf.Timestamp sendingTime = 4;
+  string text = 5;
+  bool read = 6;
+}
+
+message ChatMemberProto {
+  int64 id = 1;
+  int64 userId = 2;
+  int64 chatId = 3;
+  string memberName = 4;
+  bool sendNotifications = 5;
+}
+
+message IdMessageServiceValue {
+  int64 id = 1;
+}
+
+message ChatUserProto {
+  int64 chatId = 1;
+  int64 userId = 2;
+}
+
+message ChatMemberIdList {
+  repeated int64 userId = 1;
+}
+
+message ChangeNameRequest {
+  int64 chatId = 1;
+  int64 userId = 2;
+  string newName = 3;
+}
+
+message SendMessageToChatRequest {
+  string text = 1;
+  int64 userId = 2;
+  int64 chatId = 3;
+}
+
+message SendMessageToUserRequest {
+  string text = 1;
+  int64 senderId = 2;
+  int64 recipientId = 3;
+  string senderName = 4;
+  string recipientName = 5;
+}
+
+message SendMessageToSupportRequest {
+  string text = 1;
+  int64 userId = 2;
+  string username = 3;
+  string theme = 4;
+}
+
+message InviteMemberRequest {
+  int64 userId = 1;
+  int64 chatId = 2;
+  int64 newMemberId = 3;
+  string newMemberName = 4;
+}
+
+message AssignSupportChatRequest {
+  int64 supporterId = 1;
+  string supporterName = 2;
+  int64 chatId = 3;
+  int64 oldSupporterId = 4;
+}
+
+message CloseQuestionRequest {
+  int64 userId = 1;
+  int64 chatId = 2;
+  bool isAdmin = 3;
+}
+
+message ChangeSendingNotificationsRequest {
+  int64 userId = 1;
+  int64 chatId = 2;
+  bool send = 3;
+}
+
+enum ChatTypeProto {
+  ERROR = 0;
+  SUPPORT_UNASSIGNED = 1;
+  SUPPORT_QUESTION = 2;
+  SUPPORT_CLOSED = 3;
+  GROUP = 4;
+  PRIVATE = 5;
+}
+
+
+service MessageService {
+  rpc getUserChats(IdMessageServiceValue) returns (ChatProtoList);
+  rpc getChatMessages(ChatUserProto) returns (MessageProtoList);
+  rpc getChatMemberIds(ChatUserProto) returns (ChatMemberIdList);
+  rpc changeMemberName(ChangeNameRequest) returns (google.protobuf.Empty);
+  rpc changeChatName(ChangeNameRequest) returns (google.protobuf.Empty);
+  rpc sendMessageToChat(SendMessageToChatRequest) returns (MessageProtoList);
+  rpc sendMessageToUser(SendMessageToUserRequest) returns (MessageProtoList);
+  rpc inviteMemberToChat(InviteMemberRequest) returns (google.protobuf.Empty);
+  rpc sendToSupport(SendMessageToSupportRequest) returns (google.protobuf.Empty);
+  rpc getUnassignedSupportChats(google.protobuf.Empty) returns (ChatProtoList);
+  rpc assignSupportChat(AssignSupportChatRequest) returns (google.protobuf.Empty);
+  rpc closeQuestion(CloseQuestionRequest) returns (google.protobuf.Empty);
+  rpc getSupportChats(IdMessageServiceValue) returns (ChatProtoList);
+  rpc changeSendingNotifications(ChangeSendingNotificationsRequest) returns (google.protobuf.Empty);
+  //  rpc sendToAdmin() returns ();
+  //  rpc getErrorChats() returns ();
+}

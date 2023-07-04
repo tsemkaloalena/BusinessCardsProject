@@ -72,17 +72,7 @@ public class UserController {
     @PostMapping("/sign_up")
     public ResponseEntity<Object> saveUser(@RequestBody UserDTO userDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            userService.saveUser(userMapper.dtoToProto(userDTO));
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-        }
+        userService.saveUser(userMapper.dtoToProto(userDTO));
         sendActivateAccountMail(userDTO);
         body.put("message", "Your account is created. Now you need to activate it by the link. Soon it will be sent to your email.");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
@@ -107,17 +97,7 @@ public class UserController {
     public ResponseEntity<Object> activateAccount(@PathVariable String activateAccountToken, HttpServletResponse response) {
         Map<String, Object> body = new LinkedHashMap<>();
         String username;
-        try {
-            username = userService.activateAccount(Token.newBuilder().setToken(activateAccountToken).build()).getUsername();
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", "Your link is expired or incorrect");
-            } else {
-                body.put("message", status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        username = userService.activateAccount(Token.newBuilder().setToken(activateAccountToken).build()).getUsername();
         String token = authorizationService.createToken(username);
         Cookie cookie = new Cookie(SecurityConstants.AUTHORIZATION_COOKIE_NAME, token);
         cookie.setMaxAge((int) SecurityConstants.COOKIE_EXPIRATION_TIME);
@@ -141,13 +121,7 @@ public class UserController {
     public ResponseEntity<Object> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws IOException {
         UserProto userProto;
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            userProto = userService.getUserByUsername(UsernameProto.newBuilder().setUsername(loginDTO.getUsername()).build());
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            body.put("message", status.getCode() + ": " + status.getDescription());
-            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-        }
+        userProto = userService.getUserByUsername(UsernameProto.newBuilder().setUsername(loginDTO.getUsername()).build());
         String token = authorizationService.loginUser(userMapper.protoToEntity(userProto), loginDTO.getPassword());
         Cookie cookie = new Cookie(SecurityConstants.AUTHORIZATION_COOKIE_NAME, token);
         cookie.setMaxAge((int) COOKIE_EXPIRATION_TIME);
@@ -166,15 +140,8 @@ public class UserController {
     public ResponseEntity<Object> changePassword(@RequestBody UserDTO userDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String newPassword;
-        try {
-            ChangePasswordRequest changePasswordRequest = ChangePasswordRequest.newBuilder().setCurrentUsername(authentication.getName()).setOldPassword(userDTO.getOldPassword()).setNewPassword(userDTO.getPassword()).build();
-            newPassword = userService.changePassword(changePasswordRequest).getNewPassword();
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            body.put("message", status.getCode() + ": " + status.getDescription());
-            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-        }
+        ChangePasswordRequest changePasswordRequest = ChangePasswordRequest.newBuilder().setCurrentUsername(authentication.getName()).setOldPassword(userDTO.getOldPassword()).setNewPassword(userDTO.getPassword()).build();
+        userService.changePassword(changePasswordRequest).getNewPassword();
         body.put("message", "Your password is successfully changed.");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
@@ -184,27 +151,17 @@ public class UserController {
         template.convertAndSend(QueueConstants.FORGOT_PASSWORD_MAIL, username);
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("message",  "Email for resetting your password will be sent. Follow the instructions and don't lose your new password :)");
+        body.put("message", "Email for resetting your password will be sent. Follow the instructions and don't lose your new password :)");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/reset_password/{resetPasswordToken}")
     public ResponseEntity<Object> resetPassword(@PathVariable String resetPasswordToken, @RequestParam String newPassword) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            ForgotPasswordRequest request = ForgotPasswordRequest.newBuilder().setResetPasswordToken(resetPasswordToken).setNewPassword(newPassword).build();
-            newPassword = userService.resetPassword(request).getNewPassword();
-            body.put("message",  "Your password is successfully changed.");
-            return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", "Your link is expired or incorrect");
-            } else {
-                body.put("message", status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        ForgotPasswordRequest request = ForgotPasswordRequest.newBuilder().setResetPasswordToken(resetPasswordToken).setNewPassword(newPassword).build();
+        newPassword = userService.resetPassword(request).getNewPassword();
+        body.put("message", "Your password is successfully changed.");
+        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @RabbitListener(queues = QueueConstants.FORGOT_PASSWORD_MAIL + ".dlq")
@@ -221,13 +178,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         EditInfoRequest request = EditInfoRequest.newBuilder().setCurrentUsername(authentication.getName())
                 .setEditedInfo(safeUserMapper.dtoToProto(safeUserDTO)).build();
-        try {
-            userService.editInfo(request);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            body.put("message", status.getCode() + ": " + status.getDescription());
-            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-        }
+        userService.editInfo(request);
         body.put("message", "Your info is successfully edited.");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }

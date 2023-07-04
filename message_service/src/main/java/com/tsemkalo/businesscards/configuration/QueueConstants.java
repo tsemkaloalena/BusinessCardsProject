@@ -12,7 +12,7 @@ public class QueueConstants {
 //    public static final String DELETE_IF_NOT_ACTIVATED = "q.delete-if-not-activated";
 
     public static List<String> getQueueNames() {
-        return new ArrayList<>(List.of(new String[]{}));
+        return new ArrayList<String>(List.of(new String[]{}));
     }
 
     public static List<String> getDelayedQueueNames() {

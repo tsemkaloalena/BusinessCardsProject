@@ -62,16 +62,25 @@ message ForgotPasswordRequest {
   string newPassword = 2;
 }
 
+message UserIdProtoList {
+  repeated int64 userIds = 1;
+}
+
+message SafeUserProtoList {
+  repeated SafeUserProto users = 1;
+}
+
 enum ProtoRoleType {
   ADMIN = 0;
-  USER = 1;
-//  COMPANY_REPRESENTATIVE = 2;
+  TECHNICAL_SUPPORT = 1;
+  USER = 2;
+  //  COMPANY_REPRESENTATIVE = 2;
 }
 
 enum ProtoPermissionType {
   READ = 0;
   EDIT = 1;
-//  CREATE_FOR_OTHER_USERS = 2;
+  //  CREATE_FOR_OTHER_USERS = 2;
   FOLLOW_LIKE = 2;
   CHAT = 3;
 }
@@ -83,4 +92,5 @@ service UserService {
   rpc activateAccount(Token) returns (UsernameProto);
   rpc resetPassword(ForgotPasswordRequest) returns (ChangePasswordResponse);
   rpc editInfo(EditInfoRequest) returns (google.protobuf.Empty);
+  rpc getUsersByTheirId(UserIdProtoList) returns (SafeUserProtoList);
 }

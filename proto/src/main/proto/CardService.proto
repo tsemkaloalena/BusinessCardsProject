@@ -22,16 +22,6 @@ message CardProto {
   AppearanceProto appearance = 12;
 }
 
-//message FullCardInfo {
-//  CardProto cardProto = 1;
-//  repeated GalleryPhotoProto photos = 2;
-//  repeated ContactProto contacts = 3;
-//  repeated AddressProto addresses = 4;
-//  int32 followersAmount = 5;
-//  int32 likesAmount = 6;
-//  AppearanceProto appearance = 7;
-//}
-
 message AddressProto {
   int64 id = 1;
   string address = 2;
@@ -184,4 +174,5 @@ service CardService {
   rpc addLike(LikeProto) returns (google.protobuf.Empty);
   rpc deleteLike(LikeProto) returns (google.protobuf.Empty);
   rpc editAppearance(EditAppearanceProto) returns (google.protobuf.Empty);
+  rpc getUserFollowings(IdValue) returns (CardListProto);
 }

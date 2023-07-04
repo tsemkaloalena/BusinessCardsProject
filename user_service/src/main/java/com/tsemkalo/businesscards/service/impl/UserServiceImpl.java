@@ -9,6 +9,7 @@ import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.User;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
+import com.tsemkalo.businesscards.exceptions.LinkExpiredException;
 import com.tsemkalo.businesscards.exceptions.UserExistsException;
 import com.tsemkalo.businesscards.mapper.NonActivatedUserMapper;
 import com.tsemkalo.businesscards.mapper.UserMapper;
@@ -20,7 +21,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.EXPIRATION_TIME;
 import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET;
@@ -88,10 +92,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String activateAccount(String activationToken) {
-        String username = JWT.require(Algorithm.HMAC512(SECRET_ACTIVATE_ACCOUNT.getBytes()))
-                .build()
-                .verify(activationToken)
-                .getSubject();
+        String username;
+        try {
+            username = JWT.require(Algorithm.HMAC512(SECRET_ACTIVATE_ACCOUNT.getBytes()))
+                    .build()
+                    .verify(activationToken)
+                    .getSubject();
+        } catch (Exception exception) {
+            throw new LinkExpiredException();
+        }
+
         NonActivatedUser nonActivatedUser = nonActivatedUserDao.findByUsername(username);
         if (nonActivatedUser == null) {
             throw new UsernameNotFoundException(username);
@@ -113,7 +123,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editInfo(String currentUsername, SafeUserDTO editedInfo) throws IncorrectDataException {
         User user = userDao.findByUsername(currentUsername);
-        if (!editedInfo.getName().isBlank() && ! editedInfo.getEmail().equals(user.getEmail())) {
+        if (!editedInfo.getName().isBlank() && !editedInfo.getEmail().equals(user.getEmail())) {
             user.setEmail(editedInfo.getEmail());
             // TODO send email to check
         }
@@ -125,6 +135,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public List<User> getUsersByTheirId(List<Long> userIds) {
+        List<User> users = new ArrayList<>();
+        for (Long userId : userIds) {
+            Optional<User> optional = userDao.findById(userId);
+            optional.ifPresent(users::add);
+        }
+        return users;
+    }
 
 //    /**
 //     * @param currentUsername username of current user
@@ -160,17 +179,22 @@ public class UserServiceImpl implements UserService {
 
     /**
      * @param resetPasswordToken token from email by which the username is taken
-     * @param newPassword new password
+     * @param newPassword        new password
      */
     @Override
     public String resetPassword(String resetPasswordToken, String newPassword) {
         if (newPassword == null) {
             throw new IncorrectDataException("You didn't set new password");
         }
-        String username = JWT.require(Algorithm.HMAC512(SECRET_FORGOT_PASSWORD.getBytes()))
-                .build()
-                .verify(resetPasswordToken)
-                .getSubject();
+        String username;
+        try {
+            username = JWT.require(Algorithm.HMAC512(SECRET_FORGOT_PASSWORD.getBytes()))
+                    .build()
+                    .verify(resetPasswordToken)
+                    .getSubject();
+        } catch (Exception exception) {
+            throw new LinkExpiredException();
+        }
         User user = loadUserByUsername(username);
         newPassword = bCryptPasswordEncoder.encode(newPassword);
         user.setPassword(newPassword);

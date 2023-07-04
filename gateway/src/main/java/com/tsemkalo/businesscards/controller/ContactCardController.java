@@ -28,7 +28,7 @@ import java.util.Map;
 import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.EDIT;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/card")
 public class ContactCardController {
     @GrpcClient(GRPCServiceNames.CardService)
     private CardServiceGrpc.CardServiceBlockingStub cardService;
@@ -40,80 +40,50 @@ public class ContactCardController {
     private ContactMapper contactMapper;
 
     @PreAuthorize(EDIT)
-    @PostMapping("/card/{cardId}/add/contact")
+    @PostMapping("/{cardId}/add/contact")
     public ResponseEntity<Object> addContact(@PathVariable Long cardId, @RequestBody ContactDTO contactDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            contactDTO.setCardId(cardId);
-            User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            EditContactProto editContactProto = EditContactProto.newBuilder()
-                    .setContactProto(contactMapper.dtoToProto(contactDTO))
-                    .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
-                    .setCurrentUserId(user.getId())
-                    .setCardId(cardId)
-                    .build();
-            cardService.addContact(editContactProto);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        contactDTO.setCardId(cardId);
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        EditContactProto editContactProto = EditContactProto.newBuilder()
+                .setContactProto(contactMapper.dtoToProto(contactDTO))
+                .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
+                .setCurrentUserId(user.getId())
+                .setCardId(cardId)
+                .build();
+        cardService.addContact(editContactProto);
         body.put("message", "Contact is added to card " + cardId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PreAuthorize(EDIT)
-    @PostMapping("/card/{cardId}/edit/contact")
+    @PostMapping("/{cardId}/edit/contact")
     public ResponseEntity<Object> editContact(@PathVariable Long cardId, @RequestBody ContactDTO contactDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            EditContactProto editContactProto = EditContactProto.newBuilder()
-                    .setContactProto(contactMapper.dtoToProto(contactDTO))
-                    .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
-                    .setCurrentUserId(user.getId())
-                    .setCardId(cardId)
-                    .build();
-            cardService.editContact(editContactProto);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        EditContactProto editContactProto = EditContactProto.newBuilder()
+                .setContactProto(contactMapper.dtoToProto(contactDTO))
+                .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
+                .setCurrentUserId(user.getId())
+                .setCardId(cardId)
+                .build();
+        cardService.editContact(editContactProto);
         body.put("message", "Contact of card " + cardId + " is edited");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PreAuthorize(EDIT)
-    @PostMapping("/card/{cardId}/delete/contact/{contactId}")
+    @PostMapping("/{cardId}/delete/contact/{contactId}")
     public ResponseEntity<Object> deleteContact(@PathVariable Long cardId, @PathVariable Long contactId) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            DeleteContactProto deleteContactProto = DeleteContactProto.newBuilder()
-                    .setContactId(contactId)
-                    .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
-                    .setCurrentUserId(user.getId())
-                    .setCardId(cardId)
-                    .build();
-            cardService.deleteContact(deleteContactProto);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        DeleteContactProto deleteContactProto = DeleteContactProto.newBuilder()
+                .setContactId(contactId)
+                .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
+                .setCurrentUserId(user.getId())
+                .setCardId(cardId)
+                .build();
+        cardService.deleteContact(deleteContactProto);
         body.put("message", "Contact of card " + cardId + " is deleted");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }

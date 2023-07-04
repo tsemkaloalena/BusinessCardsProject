@@ -1,8 +1,11 @@
 package com.tsemkalo.businesscards.controller;
 
 import com.tsemkalo.businesscards.exception.AccessDeniedException;
+import com.tsemkalo.businesscards.exception.AlreadyExistsException;
+import com.tsemkalo.businesscards.exception.IncorrectDataException;
 import com.tsemkalo.businesscards.exception.NotFoundException;
 import io.grpc.Status;
+import io.grpc.StatusException;
 import io.grpc.StatusRuntimeException;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
@@ -21,21 +24,21 @@ public class GrpcControllerExceptionHandler {
 		return status.asRuntimeException();
 	}
 
-	@GrpcExceptionHandler(Exception.class)
-	public StatusRuntimeException handleInvalidArgumentException(AccessDeniedException exception) {
+	@GrpcExceptionHandler(IncorrectDataException.class)
+	public StatusRuntimeException handleIncorrectDataException(IncorrectDataException exception) {
 		Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage()).withCause(exception);
 		return status.asRuntimeException();
 	}
 
+	@GrpcExceptionHandler(AlreadyExistsException.class)
+	public StatusRuntimeException handleAlreadyExistsException(AlreadyExistsException exception) {
+		Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage()).withCause(exception);
+		return status.asRuntimeException();
+	}
 
-//	public void handleNotFoundException(RuntimeException exception, io.grpc.stub.StreamObserver<com.google.protobuf.GeneratedMessageV3> responseObserver) {
-//		Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-//		responseObserver.onError(status.asRuntimeException());
-//	}
-//
-//	@ExceptionHandler({IOException.class})
-//	public void handleInternalErrorException(RuntimeException exception, io.grpc.stub.StreamObserver<com.google.protobuf.GeneratedMessageV3> responseObserver) {
-//		Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-//		responseObserver.onError(status.asRuntimeException());
-//	}
+	@GrpcExceptionHandler(Exception.class)
+	public StatusException handleOtherException(Exception exception) {
+		Status status = Status.UNKNOWN.withDescription(exception.getMessage()).withCause(exception);
+		return status.asException();
+	}
 }

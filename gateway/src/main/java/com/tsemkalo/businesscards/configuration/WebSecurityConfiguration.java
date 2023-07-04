@@ -3,7 +3,7 @@ package com.tsemkalo.businesscards.configuration;
 import com.tsemkalo.businesscards.configuration.filters.JWTAuthorizationFilter;
 import com.tsemkalo.businesscards.exceptions.handler.CustomAccessDeniedHandler;
 import com.tsemkalo.businesscards.exceptions.SecurityConfigurationException;
-import com.tsemkalo.businesscards.service.AuthorizationServiceImpl;
+import com.tsemkalo.businesscards.service.impl.AuthorizationServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

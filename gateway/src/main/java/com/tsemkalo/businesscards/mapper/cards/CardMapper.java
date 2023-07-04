@@ -93,6 +93,8 @@ public class CardMapper implements Mapper<AbstractEntity, CardDTO, CardProto> {
         dto.setPhotoDTOS(proto.getPhotosList().stream().map(galleryPhotoMapper::protoToDTO).collect(Collectors.toList()));
         dto.setContactDTOS(proto.getContactsList().stream().map(contactMapper::protoToDTO).collect(Collectors.toList()));
         dto.setAddressDTOS(proto.getAddressesList().stream().map(addressMapper::protoToDTO).collect(Collectors.toList()));
+        dto.setFollowersAmount(proto.getFollowersAmount());
+        dto.setLikesAmount(proto.getLikesAmount());
         return dto;
     }
 }

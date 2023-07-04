@@ -5,13 +5,17 @@ import com.tsemkalo.businesscards.ChangePasswordRequest;
 import com.tsemkalo.businesscards.ChangePasswordResponse;
 import com.tsemkalo.businesscards.EditInfoRequest;
 import com.tsemkalo.businesscards.ForgotPasswordRequest;
+import com.tsemkalo.businesscards.SafeUserProto;
+import com.tsemkalo.businesscards.SafeUserProtoList;
 import com.tsemkalo.businesscards.Token;
+import com.tsemkalo.businesscards.UserIdProtoList;
 import com.tsemkalo.businesscards.UserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;
 import com.tsemkalo.businesscards.UsernameProto;
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.dao.entity.User;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
+import com.tsemkalo.businesscards.exceptions.LinkExpiredException;
 import com.tsemkalo.businesscards.exceptions.UserExistsException;
 import com.tsemkalo.businesscards.mapper.NonActivatedUserMapper;
 import com.tsemkalo.businesscards.mapper.SafeUserMapper;
@@ -28,6 +32,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @EnableRabbit
@@ -49,13 +57,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     public void getUserByUsername(UsernameProto request,
                                   StreamObserver<UserProto> responseObserver) {
         User user;
-        try {
-            user = (User) userService.loadUserByUsername(request.getUsername());
-        } catch (UsernameNotFoundException exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription("Username " + request.getUsername() + " is not correct");
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        user = (User) userService.loadUserByUsername(request.getUsername());
         UserProto response = userMapper.entityToProto(user);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -64,13 +66,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void saveUser(UserProto request,
                          StreamObserver<Empty> responseObserver) {
-        try {
-            userService.saveUser(nonActivatedUserMapper.protoToEntity(request));
-        } catch (UserExistsException exception) {
-            Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        userService.saveUser(nonActivatedUserMapper.protoToEntity(request));
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -79,13 +75,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     public void changePassword(ChangePasswordRequest request,
                                StreamObserver<ChangePasswordResponse> responseObserver) {
         String newPassword;
-        try {
-            newPassword = userService.changePassword(request);
-        } catch (IncorrectDataException exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        newPassword = userService.changePassword(request);
         ChangePasswordResponse response = ChangePasswordResponse.newBuilder().setNewPassword(newPassword).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -93,15 +83,10 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void activateAccount(Token tokenRequest, StreamObserver<UsernameProto> responseObserver) {
-        try {
-            String username = userService.activateAccount(tokenRequest.getToken());
-            UsernameProto usernameProto = UsernameProto.newBuilder().setUsername(username).build();
-            responseObserver.onNext(usernameProto);
-            responseObserver.onCompleted();
-        } catch (Exception exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription("Your link is expired or incorrect");
-            responseObserver.onError(status.asRuntimeException());
-        }
+        String username = userService.activateAccount(tokenRequest.getToken());
+        UsernameProto usernameProto = UsernameProto.newBuilder().setUsername(username).build();
+        responseObserver.onNext(usernameProto);
+        responseObserver.onCompleted();
     }
 
     @RabbitListener(queues = QueueConstants.DELETE_IF_NOT_ACTIVATED)
@@ -111,29 +96,27 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void resetPassword(ForgotPasswordRequest request, StreamObserver<ChangePasswordResponse> responseObserver) {
-        try {
-            String newPassword = userService.resetPassword(request.getResetPasswordToken(), request.getNewPassword());
-            responseObserver.onNext(ChangePasswordResponse.newBuilder().setNewPassword(newPassword).build());
-            responseObserver.onCompleted();
-        } catch (IncorrectDataException exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-        } catch (Exception exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription("Your link is expired or incorrect");
-            responseObserver.onError(status.asRuntimeException());
-        }
+        String newPassword = userService.resetPassword(request.getResetPasswordToken(), request.getNewPassword());
+        responseObserver.onNext(ChangePasswordResponse.newBuilder().setNewPassword(newPassword).build());
+        responseObserver.onCompleted();
     }
 
     @Override
     public void editInfo(EditInfoRequest request, StreamObserver<Empty> responseObserver) {
-        try {
-            userService.editInfo(request.getCurrentUsername(), safeUserMapper.protoToDTO(request.getEditedInfo()));
-        } catch (IncorrectDataException exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        userService.editInfo(request.getCurrentUsername(), safeUserMapper.protoToDTO(request.getEditedInfo()));
         responseObserver.onNext(Empty.newBuilder().build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getUsersByTheirId(UserIdProtoList request, StreamObserver<SafeUserProtoList> responseObserver) {
+        List<Long> userIds = Collections.singletonList(request.getUserIds());
+        List<User> users = userService.getUsersByTheirId(userIds);
+        List<SafeUserProto> safeUserProtos = users.stream().map(safeUserMapper::entityToProto).collect(Collectors.toList());
+        SafeUserProtoList safeUserProtoList = SafeUserProtoList.newBuilder()
+                .addAllUsers(safeUserProtos)
+                .build();
+        responseObserver.onNext(safeUserProtoList);
         responseObserver.onCompleted();
     }
 

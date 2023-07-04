@@ -5,7 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.exceptions.AuthorizationErrorException;
-import com.tsemkalo.businesscards.service.AuthorizationServiceImpl;
+import com.tsemkalo.businesscards.service.impl.AuthorizationServiceImpl;
 import com.tsemkalo.businesscards.configuration.constants.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

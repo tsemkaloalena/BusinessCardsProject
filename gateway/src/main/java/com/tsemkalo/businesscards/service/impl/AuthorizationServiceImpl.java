@@ -1,4 +1,4 @@
-package com.tsemkalo.businesscards.service;
+package com.tsemkalo.businesscards.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -11,6 +11,7 @@ import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.exceptions.AuthorizationErrorException;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
 import com.tsemkalo.businesscards.mapper.UserMapper;
+import com.tsemkalo.businesscards.service.AuthorizationService;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;

@@ -21,13 +21,4 @@ public class CardDTO extends AbstractDTO {
     private List<AddressDTO> addressDTOS;
     private int followersAmount;
     private int likesAmount;
-
-//    public CardDTO(Long id, Long userId, String title, String logoImgPath, String headline, String description) {
-//        this.id = id;
-//        this.userId = userId;
-//        this.title = title;
-//        this.logoImgPath = logoImgPath;
-//        this.headline = headline;
-//        this.description = description;
-//    }
 }

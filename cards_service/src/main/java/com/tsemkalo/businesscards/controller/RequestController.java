@@ -49,6 +49,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -139,15 +140,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void deleteCard(DeleteCardProto request,
                            io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Card card = cardService.getById(request.getCardId());
-            cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            cardService.delete(card.getId());
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Card card = cardService.getById(request.getCardId());
+        cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        cardService.delete(card.getId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -156,14 +151,8 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     public void getCardInfoById(IdValue request,
                                 io.grpc.stub.StreamObserver<CardProto> responseObserver) {
         CardProto cardProto;
-        try {
-            Card card = cardService.getById(request.getId());
-            cardProto = cardMapper.entityToProto(card);
-        } catch (Exception exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Card card = cardService.getById(request.getId());
+        cardProto = cardMapper.entityToProto(card);
         responseObserver.onNext(cardProto);
         responseObserver.onCompleted();
     }
@@ -172,14 +161,8 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     public void getAllCardsInfoByUser(IdValue request,
                                       io.grpc.stub.StreamObserver<CardListProto> responseObserver) {
         List<CardProto> protos = new ArrayList<>();
-        try {
-            for (Card card : cardService.getCardsByUserId(request.getId())) {
-                protos.add(cardMapper.entityToProto(card));
-            }
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
+        for (Card card : cardService.getCardsByUserId(request.getId())) {
+            protos.add(cardMapper.entityToProto(card));
         }
         responseObserver.onNext(CardListProto.newBuilder().addAllCards(protos).build());
         responseObserver.onCompleted();
@@ -188,23 +171,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void editAppearance(EditAppearanceProto request,
                                io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Appearance oldAppearance = appearanceService.getById(request.getAppearanceProto().getId());
-            cardService.getAvailableCardOwnerId(oldAppearance.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            appearanceService.edit(oldAppearance, appearanceMapper.protoToEntity(request.getAppearanceProto()));
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Appearance oldAppearance = appearanceService.getById(request.getAppearanceProto().getId());
+        cardService.getAvailableCardOwnerId(oldAppearance.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        appearanceService.edit(oldAppearance, appearanceMapper.protoToEntity(request.getAppearanceProto()));
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -212,19 +181,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void addAddress(EditAddressProto request,
                            io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Address address = addressMapper.protoToEntity(request.getAddressProto());
-            cardService.getAvailableCardOwnerId(address.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            addressService.add(address);
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Address address = addressMapper.protoToEntity(request.getAddressProto());
+        cardService.getAvailableCardOwnerId(address.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        addressService.add(address);
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -232,27 +191,13 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void deleteAddress(DeleteAddressProto request,
                               io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Address address = addressService.getById(request.getAddressId());
-            Card card = cardService.getById(request.getCardId());
-            if (!address.getCard().getId().equals(card.getId())) {
-                throw new IncorrectDataException("This address belongs to other card");
-            }
-            cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            addressService.delete(address.getId());
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
+        Address address = addressService.getById(request.getAddressId());
+        Card card = cardService.getById(request.getCardId());
+        if (!address.getCard().getId().equals(card.getId())) {
+            throw new IncorrectDataException("This address belongs to other card");
         }
+        cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        addressService.delete(address.getId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -260,23 +205,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void editAddress(EditAddressProto request,
                             io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Address oldAddress = addressService.getById(request.getAddressProto().getId());
-            cardService.getAvailableCardOwnerId(oldAddress.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            addressService.edit(oldAddress, addressMapper.protoToEntity(request.getAddressProto()));
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Address oldAddress = addressService.getById(request.getAddressProto().getId());
+        cardService.getAvailableCardOwnerId(oldAddress.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        addressService.edit(oldAddress, addressMapper.protoToEntity(request.getAddressProto()));
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -284,19 +215,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void addContact(EditContactProto request,
                            io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Contact contact = contactMapper.protoToEntity(request.getContactProto());
-            cardService.getAvailableCardOwnerId(contact.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            contactService.add(contact);
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Contact contact = contactMapper.protoToEntity(request.getContactProto());
+        cardService.getAvailableCardOwnerId(contact.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        contactService.add(contact);
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -304,23 +225,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void editContact(EditContactProto request,
                             io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Contact oldContact = contactService.getById(request.getContactProto().getId());
-            cardService.getAvailableCardOwnerId(oldContact.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            contactService.edit(oldContact, contactMapper.protoToEntity(request.getContactProto()));
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        Contact oldContact = contactService.getById(request.getContactProto().getId());
+        cardService.getAvailableCardOwnerId(oldContact.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        contactService.edit(oldContact, contactMapper.protoToEntity(request.getContactProto()));
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -328,27 +235,13 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void deleteContact(DeleteContactProto request,
                               io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            Contact contact = contactService.getById(request.getContactId());
-            Card card = cardService.getById(request.getCardId());
-            if (!contact.getCard().getId().equals(card.getId())) {
-                throw new IncorrectDataException("This contact belongs to other card");
-            }
-            cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            contactService.delete(contact.getId());
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
+        Contact contact = contactService.getById(request.getContactId());
+        Card card = cardService.getById(request.getCardId());
+        if (!contact.getCard().getId().equals(card.getId())) {
+            throw new IncorrectDataException("This contact belongs to other card");
         }
+        cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        contactService.delete(contact.getId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -356,19 +249,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void addGalleryPhoto(EditGalleryPhotoProto request,
                                 io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            GalleryPhoto galleryPhoto = galleryPhotoMapper.protoToEntity(request.getGalleryPhotoProto());
-            cardService.getAvailableCardOwnerId(galleryPhoto.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            galleryPhotoService.add(galleryPhoto);
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        GalleryPhoto galleryPhoto = galleryPhotoMapper.protoToEntity(request.getGalleryPhotoProto());
+        cardService.getAvailableCardOwnerId(galleryPhoto.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        galleryPhotoService.add(galleryPhoto);
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -376,23 +259,9 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void editGalleryPhoto(EditGalleryPhotoProto request,
                                  io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            GalleryPhoto oldGalleryPhoto = galleryPhotoService.getById(request.getGalleryPhotoProto().getId());
-            cardService.getAvailableCardOwnerId(oldGalleryPhoto.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            galleryPhotoService.edit(oldGalleryPhoto, galleryPhotoMapper.protoToEntity(request.getGalleryPhotoProto()));
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        GalleryPhoto oldGalleryPhoto = galleryPhotoService.getById(request.getGalleryPhotoProto().getId());
+        cardService.getAvailableCardOwnerId(oldGalleryPhoto.getCard().getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        galleryPhotoService.edit(oldGalleryPhoto, galleryPhotoMapper.protoToEntity(request.getGalleryPhotoProto()));
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -400,27 +269,13 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void deleteGalleryPhoto(DeleteGalleryPhotoProto request,
                                    io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            GalleryPhoto galleryPhoto = galleryPhotoService.getById(request.getGalleryPhotoId());
-            Card card = cardService.getById(request.getCardId());
-            if (!galleryPhoto.getCard().getId().equals(card.getId())) {
-                throw new IncorrectDataException("This photo belongs to other card");
-            }
-            cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
-            galleryPhotoService.delete(galleryPhoto.getId());
-        } catch (AccessDeniedException exception) {
-            Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
+        GalleryPhoto galleryPhoto = galleryPhotoService.getById(request.getGalleryPhotoId());
+        Card card = cardService.getById(request.getCardId());
+        if (!galleryPhoto.getCard().getId().equals(card.getId())) {
+            throw new IncorrectDataException("This photo belongs to other card");
         }
+        cardService.getAvailableCardOwnerId(card.getUserId(), request.getCurrentUserId(), request.getAdmin(), null);
+        galleryPhotoService.delete(galleryPhoto.getId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -428,21 +283,7 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void addFollow(FollowProto request,
                           io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            followService.add(request.getUserId(), request.getCardId());
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (AlreadyExistsException exception) {
-            Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        followService.add(request.getUserId(), request.getCardId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -450,35 +291,26 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void deleteFollow(FollowProto request,
                              io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            followService.delete(request.getUserId(), request.getCardId());
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        followService.delete(request.getUserId(), request.getCardId());
         responseObserver.onNext(Empty.newBuilder().build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getUserFollowings(IdValue request,
+                                  io.grpc.stub.StreamObserver<CardListProto> responseObserver) {
+        List<Card> cards = followService.getUserFollowings(request.getId());
+        CardListProto cardListProto = CardListProto.newBuilder()
+                .addAllCards(cards.stream().map(cardMapper::entityToProto).collect(Collectors.toList()))
+                .build();
+        responseObserver.onNext(cardListProto);
         responseObserver.onCompleted();
     }
 
     @Override
     public void addLike(LikeProto request,
                         io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            likeService.add(request.getUserId(), request.getCardId());
-        } catch (NotFoundException exception) {
-            Status status = Status.NOT_FOUND.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (AlreadyExistsException exception) {
-            Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        likeService.add(request.getUserId(), request.getCardId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
@@ -486,13 +318,7 @@ public class RequestController extends CardServiceGrpc.CardServiceImplBase {
     @Override
     public void deleteLike(LikeProto request,
                            io.grpc.stub.StreamObserver<Empty> responseObserver) {
-        try {
-            likeService.delete(request.getUserId(), request.getCardId());
-        } catch (Exception exception) {
-            Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage());
-            responseObserver.onError(status.asRuntimeException());
-            return;
-        }
+        likeService.delete(request.getUserId(), request.getCardId());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }

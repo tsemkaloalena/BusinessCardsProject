@@ -7,6 +7,8 @@ import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 public interface UserService extends UserDetailsService {
     void saveUser(NonActivatedUser nonActivatedUser);
 
@@ -25,4 +27,6 @@ public interface UserService extends UserDetailsService {
 //    void sendForgotPasswordEmail(String username);
 
     String resetPassword(String resetPasswordToken, String newPassword);
+
+    List<User> getUsersByTheirId(List<Long> userIds);
 }

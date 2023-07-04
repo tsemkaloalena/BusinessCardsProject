@@ -29,7 +29,7 @@ import java.util.Map;
 import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.EDIT;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/card")
 public class GalleryPhotoCardController {
     @GrpcClient(GRPCServiceNames.CardService)
     private CardServiceGrpc.CardServiceBlockingStub cardService;
@@ -41,80 +41,50 @@ public class GalleryPhotoCardController {
     private GalleryPhotoMapper galleryPhotoMapper;
 
     @PreAuthorize(EDIT)
-    @PostMapping("/card/{cardId}/add/photo")
+    @PostMapping("/{cardId}/add/photo")
     public ResponseEntity<Object> addGalleryPhoto(@PathVariable Long cardId, @RequestBody GalleryPhotoDTO galleryPhotoDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            galleryPhotoDTO.setCardId(cardId);
-            User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            EditGalleryPhotoProto editGalleryPhotoProto = EditGalleryPhotoProto.newBuilder()
-                    .setGalleryPhotoProto(galleryPhotoMapper.dtoToProto(galleryPhotoDTO))
-                    .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
-                    .setCurrentUserId(user.getId())
-                    .setCardId(cardId)
-                    .build();
-            cardService.addGalleryPhoto(editGalleryPhotoProto);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        galleryPhotoDTO.setCardId(cardId);
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        EditGalleryPhotoProto editGalleryPhotoProto = EditGalleryPhotoProto.newBuilder()
+                .setGalleryPhotoProto(galleryPhotoMapper.dtoToProto(galleryPhotoDTO))
+                .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
+                .setCurrentUserId(user.getId())
+                .setCardId(cardId)
+                .build();
+        cardService.addGalleryPhoto(editGalleryPhotoProto);
         body.put("message", "Contact is added to card " + cardId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PreAuthorize(EDIT)
-    @PostMapping("/card/{cardId}/edit/photo")
+    @PostMapping("/{cardId}/edit/photo")
     public ResponseEntity<Object> editGalleryPhoto(@PathVariable Long cardId, @RequestBody GalleryPhotoDTO galleryPhotoDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            EditGalleryPhotoProto editGalleryPhotoProto = EditGalleryPhotoProto.newBuilder()
-                    .setGalleryPhotoProto(galleryPhotoMapper.dtoToProto(galleryPhotoDTO))
-                    .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
-                    .setCurrentUserId(user.getId())
-                    .setCardId(cardId)
-                    .build();
-            cardService.editGalleryPhoto(editGalleryPhotoProto);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        EditGalleryPhotoProto editGalleryPhotoProto = EditGalleryPhotoProto.newBuilder()
+                .setGalleryPhotoProto(galleryPhotoMapper.dtoToProto(galleryPhotoDTO))
+                .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
+                .setCurrentUserId(user.getId())
+                .setCardId(cardId)
+                .build();
+        cardService.editGalleryPhoto(editGalleryPhotoProto);
         body.put("message", "Photo of card " + cardId + " is edited");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PreAuthorize(EDIT)
-    @PostMapping("/card/{cardId}/delete/photo/{galleryPhotoId}")
+    @PostMapping("/{cardId}/delete/photo/{galleryPhotoId}")
     public ResponseEntity<Object> deleteGalleryPhoto(@PathVariable Long cardId, @PathVariable Long galleryPhotoId) {
         Map<String, Object> body = new LinkedHashMap<>();
-        try {
-            User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            DeleteGalleryPhotoProto deleteGalleryPhotoProto = DeleteGalleryPhotoProto.newBuilder()
-                    .setGalleryPhotoId(galleryPhotoId)
-                    .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
-                    .setCurrentUserId(user.getId())
-                    .setCardId(cardId)
-                    .build();
-            cardService.deleteGalleryPhoto(deleteGalleryPhotoProto);
-        } catch (Exception exception) {
-            Status status = Status.fromThrowable(exception);
-            if (status.getDescription() == null) {
-                body.put("message", status.getCode() + ": " + status.getCause().getMessage());
-            } else {
-                body.put("message", status.getCode() + ": " + status.getDescription());
-            }
-            return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-        }
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        DeleteGalleryPhotoProto deleteGalleryPhotoProto = DeleteGalleryPhotoProto.newBuilder()
+                .setGalleryPhotoId(galleryPhotoId)
+                .setAdmin(RoleType.ADMIN.equals(user.getRole().getName()))
+                .setCurrentUserId(user.getId())
+                .setCardId(cardId)
+                .build();
+        cardService.deleteGalleryPhoto(deleteGalleryPhotoProto);
         body.put("message", "Address of card " + cardId + " is deleted");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
