@@ -3,7 +3,6 @@ package com.tsemkalo.businesscards.configuration.constants;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO replace to each service
 public class QueueConstants {
     public final static String EXCHANGE_NAME = "x.direct-exchange";
     public final static String DELAYED_EXCHANGE_NAME = "x.delayed-exchange";
@@ -13,10 +12,20 @@ public class QueueConstants {
     public static final String ACTIVATE_ACCOUNT_MAIL = "q.activate-account-mail";
     public static final String DELETE_IF_NOT_ACTIVATED = "q.delete-if-not-activated";
 
+    public static final String MARK_MESSAGE_AS_READ = "q.mark-message-as-read";
+    public static final String MARK_CHAT_MESSAGES_AS_READ = "q.mark-chat-messages-as-read";
+
+    public static final String SEND_NOTIFICATION = "q.send-notification";
+
     public static final int MESSAGE_DELAY_TIME = 1000 * 60 * 60 * 24;
 
     public static List<String> getQueueNames() {
-        return new ArrayList<String>(List.of(new String[]{FORGOT_PASSWORD_MAIL, ACTIVATE_ACCOUNT_MAIL}));
+        return new ArrayList<String>(List.of(new String[]{
+                FORGOT_PASSWORD_MAIL,
+                ACTIVATE_ACCOUNT_MAIL,
+                MARK_MESSAGE_AS_READ,
+                MARK_CHAT_MESSAGES_AS_READ
+        }));
     }
 
     public static List<String> getDelayedQueueNames() {

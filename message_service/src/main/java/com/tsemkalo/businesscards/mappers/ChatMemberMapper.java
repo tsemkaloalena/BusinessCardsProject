@@ -22,7 +22,7 @@ public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatM
         dto.setUserId(entity.getUserId());
         dto.setChatId(entity.getChat().getId());
         dto.setMemberName(entity.getMemberName());
-        dto.setSendNotifications(entity.getSendNotifications());
+        dto.setNotify(entity.getNotify());
         return dto;
     }
 
@@ -36,7 +36,7 @@ public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatM
         Optional<Chat> optionalChat = chatDao.findById(dto.getChatId());
         optionalChat.ifPresent(chatMember::setChat);
         chatMember.setMemberName(dto.getMemberName());
-        chatMember.setSendNotifications(dto.getSendNotifications());
+        chatMember.setNotify(dto.getNotify());
         return chatMember;
     }
 
@@ -50,7 +50,7 @@ public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatM
         Optional<Chat> optionalChat = chatDao.findById(proto.getChatId());
         optionalChat.ifPresent(chatMember::setChat);
         chatMember.setMemberName(proto.getMemberName());
-        chatMember.setSendNotifications(proto.getSendNotifications());
+        chatMember.setNotify(proto.getNotify());
         return chatMember;
     }
 
@@ -60,7 +60,7 @@ public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatM
                 .setUserId(entity.getUserId())
                 .setChatId(entity.getChat().getId())
                 .setMemberName(entity.getMemberName())
-                .setSendNotifications(entity.getSendNotifications());
+                .setNotify(entity.getNotify());
         if (entity.getId() != null) {
             builder.setId(entity.getId());
         }
@@ -73,7 +73,7 @@ public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatM
                 .setUserId(dto.getUserId())
                 .setChatId(dto.getChatId())
                 .setMemberName(dto.getMemberName())
-                .setSendNotifications(dto.getSendNotifications());
+                .setNotify(dto.getNotify());
         if (dto.getId() != null) {
             builder.setId(dto.getId());
         }
@@ -89,7 +89,7 @@ public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatM
         dto.setUserId(proto.getUserId());
         dto.setChatId(proto.getChatId());
         dto.setMemberName(proto.getMemberName());
-        dto.setSendNotifications(proto.getSendNotifications());
+        dto.setNotify(proto.getNotify());
         return dto;
     }
 }

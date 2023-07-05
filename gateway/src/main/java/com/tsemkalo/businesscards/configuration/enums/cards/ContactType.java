@@ -6,5 +6,3 @@ public enum ContactType {
     MAIL_ADDRESS,
     WEB_SITE
 }
-
-// TODO pictures for known networks from db

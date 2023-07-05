@@ -1,6 +1,5 @@
 package com.tsemkalo.businesscards.dao;
 
-import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +10,6 @@ public interface ChatMemberDao extends JpaRepository<ChatMember, Long> {
     ChatMember findByUserIdAndChatId(Long userId, Long chatId);
 
     ChatMember findByMemberNameAndChatId(String memberName, Long chatId);
+
+    List<ChatMember> findByChatIdAndNotify(Long chatId, Boolean notify);
 }

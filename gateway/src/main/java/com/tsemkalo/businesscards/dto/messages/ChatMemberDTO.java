@@ -12,5 +12,5 @@ public class ChatMemberDTO extends AbstractDTO {
     private Long userId;
     private Long chatId;
     private String memberName;
-    private Boolean sendNotifications;
+    private Boolean notify;
 }

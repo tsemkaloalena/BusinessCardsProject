@@ -32,5 +32,5 @@ public class ChatMember extends AbstractEntity {
     @JoinColumn(name = "chat_id")
     private Chat chat;
 
-    private Boolean sendNotifications;
+    private Boolean notify;
 }

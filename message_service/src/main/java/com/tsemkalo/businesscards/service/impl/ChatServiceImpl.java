@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -93,8 +94,7 @@ public class ChatServiceImpl implements ChatService {
         chat.setName(newName);
     }
 
-    // TODO send messages to email
-    public void sendMessageToChat(String text, Long userId, Long chatId) {
+    public List<Long> sendMessageToChat(String text, Long userId, Long chatId) {
         checkUserAccessToChat(chatId, userId);
         LocalDateTime sendingTime = LocalDateTime.now();
         checkUserAccessToChat(chatId, userId);
@@ -102,9 +102,13 @@ public class ChatServiceImpl implements ChatService {
         ChatMember sender = chatMemberDao.findByUserIdAndChatId(userId, chatId);
         Message message = new Message(sender, chat, sendingTime, text, false);
         messageDao.save(message);
+
+        List<ChatMember> chatMembersToNotify = chatMemberDao.findByChatIdAndNotify(chatId, true);
+        return chatMembersToNotify.stream().map(ChatMember::getUserId).collect(Collectors.toList());
     }
 
-    public Long sendMessageToUser(String text, Long senderId, Long recipientId, String senderName, String recipientName) {
+    public Boolean sendMessageToUser(String text, Long senderId, Long recipientId, String senderName, String recipientName) {
+        Boolean notify = true;
         Chat chat = chatDao.findPrivateChatBetweenUsers(senderId, recipientId);
         ChatMember sender;
         if (chat == null) {
@@ -118,6 +122,7 @@ public class ChatServiceImpl implements ChatService {
             chatMemberDao.save(recipient);
         } else {
             sender = chatMemberDao.findByUserIdAndChatId(senderId, chat.getId());
+            notify = chatMemberDao.findByUserIdAndChatId(recipientId, chat.getId()).getNotify();
         }
         if (sender == null) {
             throw new IncorrectDataException("Sender is not found");
@@ -125,10 +130,9 @@ public class ChatServiceImpl implements ChatService {
         LocalDateTime sendingTime = LocalDateTime.now();
         Message message = new Message(sender, chat, sendingTime, text, false);
         messageDao.save(message);
-        return chat.getId();
+        return notify;
     }
 
-    // TODO rabbitmq
     public void markMessageAsRead(Long userId, Long messageId) {
         Message message = getMessageById(messageId);
         checkUserAccessToChat(message.getChat().getId(), userId);
@@ -200,12 +204,13 @@ public class ChatServiceImpl implements ChatService {
         chat.setChatType(ChatType.SUPPORT_QUESTION);
     }
 
-    public void closeQuestion(Long userId, Long chatId, Boolean isAdmin) {
+    public List<Long> closeQuestion(Long userId, Long chatId, Boolean isAdmin) {
         if (!isAdmin) {
             checkUserAccessToChat(chatId, userId);
         }
         Chat chat = getChatById(chatId);
         chat.setChatType(ChatType.SUPPORT_CLOSED);
+        return chat.getChatMembers().stream().map(ChatMember::getUserId).collect(Collectors.toList());
     }
 
     public List<Chat> getSupportChats(Long userId) {
@@ -220,7 +225,7 @@ public class ChatServiceImpl implements ChatService {
         if (chatMember == null) {
             throw new NotFoundException("User " + userId + " is not a member of chat " + chatId);
         }
-        chatMember.setSendNotifications(send);
+        chatMember.setNotify(send);
     }
     //sendToAdmin (for errors)
     //for admin: getErrorChats

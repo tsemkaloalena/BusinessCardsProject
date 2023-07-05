@@ -3,7 +3,6 @@ package com.tsemkalo.businesscards.configuration.constants;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO replace to each service
 public class QueueConstants {
     public final static String EXCHANGE_NAME = "x.direct-exchange";
     public final static String DELAYED_EXCHANGE_NAME = "x.delayed-exchange";

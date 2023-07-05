@@ -2,6 +2,7 @@ package com.tsemkalo.businesscards.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.tsemkalo.businesscards.dto.MailNotificationDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import com.tsemkalo.businesscards.exception.MailSendingException;
 import com.tsemkalo.businesscards.service.MailService;
@@ -58,6 +59,15 @@ public class MailServiceImpl implements MailService {
         context.put("surname", userDTO.getSurname());
         context.put("activateAccountToken", activateAccountToken);
         sendEmail(userDTO.getEmail(), "Activate account", "activate_account_email.vm", context);
+    }
+
+    @Override
+    public void sendNotification(MailNotificationDTO mailNotificationDTO) {
+        VelocityContext context = new VelocityContext();
+        context.put("name", mailNotificationDTO.getName());
+        context.put("surname", mailNotificationDTO.getSurname());
+        context.put("text", mailNotificationDTO.getText());
+        sendEmail(mailNotificationDTO.getEmail(), mailNotificationDTO.getTheme(), "notification_email.vm", context);
     }
 
     @Override

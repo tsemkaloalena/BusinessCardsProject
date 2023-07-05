@@ -33,7 +33,7 @@ public class ChatMemberMapper implements Mapper<AbstractEntity, ChatMemberDTO, C
                 .setUserId(dto.getUserId())
                 .setChatId(dto.getChatId())
                 .setMemberName(dto.getMemberName())
-                .setSendNotifications(dto.getSendNotifications());
+                .setNotify(dto.getNotify());
         if (dto.getId() != null) {
             builder.setId(dto.getId());
         }
@@ -49,7 +49,7 @@ public class ChatMemberMapper implements Mapper<AbstractEntity, ChatMemberDTO, C
         dto.setUserId(proto.getUserId());
         dto.setChatId(proto.getChatId());
         dto.setMemberName(proto.getMemberName());
-        dto.setSendNotifications(proto.getSendNotifications());
+        dto.setNotify(proto.getNotify());
         return dto;
     }
 }

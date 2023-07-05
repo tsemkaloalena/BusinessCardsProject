@@ -12,19 +12,13 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     void saveUser(NonActivatedUser nonActivatedUser);
 
-    String changePassword(ChangePasswordRequest request);
+    String changePassword(String oldPassword, String newPassword, String currentUsername);
 
     String activateAccount(String token);
 
     void deleteUserIfNotActivated(String username);
-//    User findByUsername(String username);
-//    User saveUser(User user);
-
-//    String changeUsername(String currentUsername, String newUsername, String password);
 
     void editInfo(String currentUsername, SafeUserDTO editedInfo);
-
-//    void sendForgotPasswordEmail(String username);
 
     String resetPassword(String resetPasswordToken, String newPassword);
 

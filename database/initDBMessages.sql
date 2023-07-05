@@ -18,5 +18,5 @@ id bigserial PRIMARY KEY,
 user_id bigint NOT NULL,
 chat_id bigint REFERENCES chats(id),
 member_name varchar(64) NOT NULL,
-send_notifications_to_email boolean NOT NULL DEFAULT TRUE
+notify boolean NOT NULL DEFAULT TRUE
 );

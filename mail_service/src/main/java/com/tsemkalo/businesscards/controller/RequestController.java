@@ -1,6 +1,7 @@
 package com.tsemkalo.businesscards.controller;
 
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.dto.MailNotificationDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import com.tsemkalo.businesscards.service.MailService;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -8,6 +9,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.management.Notification;
 
 @RestController
 @EnableRabbit
@@ -26,5 +29,10 @@ public class RequestController {
     @RabbitListener(queues = QueueConstants.FORGOT_PASSWORD_MAIL)
     public void sendForgotPasswordEmail(UserDTO userDTO) {
         mailService.sendForgotPasswordEmail(userDTO);
+    }
+
+    @RabbitListener(queues = QueueConstants.SEND_NOTIFICATION)
+    public void sendNotification(MailNotificationDTO mailNotificationDTO) {
+        mailService.sendNotification(mailNotificationDTO);
     }
 }

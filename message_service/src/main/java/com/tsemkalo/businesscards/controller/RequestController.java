@@ -17,15 +17,21 @@ import com.tsemkalo.businesscards.MessageServiceGrpc;
 import com.tsemkalo.businesscards.SendMessageToChatRequest;
 import com.tsemkalo.businesscards.SendMessageToSupportRequest;
 import com.tsemkalo.businesscards.SendMessageToUserRequest;
+import com.tsemkalo.businesscards.UserIdProtoList;
+import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;
 import com.tsemkalo.businesscards.dao.entities.Message;
+import com.tsemkalo.businesscards.dto.UserChatIdDTO;
 import com.tsemkalo.businesscards.mappers.ChatMapper;
 import com.tsemkalo.businesscards.mappers.ChatMemberMapper;
 import com.tsemkalo.businesscards.mappers.MessageMapper;
 import com.tsemkalo.businesscards.service.ChatService;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +39,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@EnableRabbit
 @GrpcService
 public class RequestController extends MessageServiceGrpc.MessageServiceImplBase {
     @Autowired
@@ -94,33 +101,36 @@ public class RequestController extends MessageServiceGrpc.MessageServiceImplBase
     }
 
     @Override
-    public void sendMessageToChat(SendMessageToChatRequest request, StreamObserver<MessageProtoList> responseObserver) {
-        chatService.sendMessageToChat(request.getText(), request.getUserId(), request.getChatId());
-        List<Message> messages = chatService.getChatMessages(request.getChatId(), request.getUserId());
-        List<MessageProto> protos = messages.stream().map(messageMapper::entityToProto).collect(Collectors.toList());
-        MessageProtoList messageProtoList = MessageProtoList.newBuilder()
-                .addAllMessage(protos)
+    public void sendMessageToChat(SendMessageToChatRequest request, StreamObserver<ChatMemberIdList> responseObserver) {
+        List<Long> userIds = chatService.sendMessageToChat(request.getText(), request.getUserId(), request.getChatId());
+        ChatMemberIdList chatMemberIdList = ChatMemberIdList.newBuilder()
+                .addAllUserId(userIds)
                 .build();
-        responseObserver.onNext(messageProtoList);
+        responseObserver.onNext(chatMemberIdList);
         responseObserver.onCompleted();
     }
 
     @Override
-    public void sendMessageToUser(SendMessageToUserRequest request, StreamObserver<MessageProtoList> responseObserver) {
-        Long chatId = chatService.sendMessageToUser(request.getText(), request.getSenderId(), request.getRecipientId(), request.getSenderName(), request.getRecipientName());
-        List<Message> messages = chatService.getChatMessages(chatId, request.getSenderId());
-        List<MessageProto> protos = messages.stream().map(messageMapper::entityToProto).collect(Collectors.toList());
-        MessageProtoList messageProtoList = MessageProtoList.newBuilder()
-                .addAllMessage(protos)
+    public void sendMessageToUser(SendMessageToUserRequest request, StreamObserver<IdMessageServiceValue> responseObserver) {
+        Boolean notify = chatService.sendMessageToUser(request.getText(), request.getSenderId(), request.getRecipientId(), request.getSenderName(), request.getRecipientName());
+        long userIdToNotify = 0L;
+        if (notify) {
+            userIdToNotify = request.getRecipientId();
+        }
+        IdMessageServiceValue idMessageServiceValue = IdMessageServiceValue.newBuilder()
+                .setId(userIdToNotify)
                 .build();
-        responseObserver.onNext(messageProtoList);
+        responseObserver.onNext(idMessageServiceValue);
         responseObserver.onCompleted();
     }
 
     @Override
-    public void inviteMemberToChat(InviteMemberRequest request, StreamObserver<Empty> responseObserver) {
+    public void inviteMemberToChat(InviteMemberRequest request, StreamObserver<IdMessageServiceValue> responseObserver) {
         chatService.inviteMemberToChat(request.getUserId(), request.getChatId(), request.getNewMemberId(), request.getNewMemberName());
-        responseObserver.onNext(Empty.newBuilder().build());
+        IdMessageServiceValue idMessageServiceValue = IdMessageServiceValue.newBuilder()
+                .setId(request.getNewMemberId())
+                .build();
+        responseObserver.onNext(idMessageServiceValue);
         responseObserver.onCompleted();
     }
 
@@ -153,9 +163,12 @@ public class RequestController extends MessageServiceGrpc.MessageServiceImplBase
     }
 
     @Override
-    public void closeQuestion(CloseQuestionRequest request, StreamObserver<Empty> responseObserver) {
-        chatService.closeQuestion(request.getUserId(), request.getChatId(), request.getIsAdmin());
-        responseObserver.onNext(Empty.newBuilder().build());
+    public void closeQuestion(CloseQuestionRequest request, StreamObserver<ChatMemberIdList> responseObserver) {
+        List<Long> userIds = chatService.closeQuestion(request.getUserId(), request.getChatId(), request.getIsAdmin());
+        ChatMemberIdList chatMemberIdList = ChatMemberIdList.newBuilder()
+                .addAllUserId(userIds)
+                .build();
+        responseObserver.onNext(chatMemberIdList);
         responseObserver.onCompleted();
     }
 
@@ -174,5 +187,15 @@ public class RequestController extends MessageServiceGrpc.MessageServiceImplBase
         chatService.changeSendingNotifications(request.getUserId(), request.getChatId(), request.getSend());
         responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
+    }
+
+    @RabbitListener(queues = QueueConstants.MARK_MESSAGE_AS_READ)
+    public void markMessageAsRead(UserChatIdDTO dto) {
+        chatService.markMessageAsRead(dto.getUserId(), dto.getChatId());
+    }
+
+    @RabbitListener(queues = QueueConstants.MARK_CHAT_MESSAGES_AS_READ)
+    public void markAllChatMessagesAsRead(UserChatIdDTO dto) {
+        chatService.markAllChatMessagesAsRead(dto.getUserId(), dto.getChatId());
     }
 }

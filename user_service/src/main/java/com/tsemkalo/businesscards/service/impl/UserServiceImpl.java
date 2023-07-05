@@ -16,6 +16,7 @@ import com.tsemkalo.businesscards.mapper.UserMapper;
 import com.tsemkalo.businesscards.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -75,16 +76,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String changePassword(ChangePasswordRequest request) {
-        if (request.getOldPassword().equals("")) {
+    public String changePassword(String oldPassword, String newPassword, String currentUsername) {
+        if (oldPassword.equals("")) {
             throw new IncorrectDataException("You didn't set old password");
         }
-        if (request.getNewPassword().equals("")) {
+        if (newPassword.equals("")) {
             throw new IncorrectDataException("You didn't set new password");
         }
-        User user = loadUserByUsername(request.getCurrentUsername());
-        if (bCryptPasswordEncoder.matches(request.getOldPassword(), user.getPassword())) {
-            user.setPassword(bCryptPasswordEncoder.encode(request.getNewPassword()));
+        User user = loadUserByUsername(currentUsername);
+        if (bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+            user.setPassword(bCryptPasswordEncoder.encode(newPassword));
             return user.getPassword();
         }
         throw new IncorrectDataException("Your old password is not correct.");
@@ -123,6 +124,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editInfo(String currentUsername, SafeUserDTO editedInfo) throws IncorrectDataException {
         User user = userDao.findByUsername(currentUsername);
+        if (!editedInfo.getUsername().equals(currentUsername)) {
+            throw new AccessDeniedException("You can not change username");
+        }
+
         if (!editedInfo.getName().isBlank() && !editedInfo.getEmail().equals(user.getEmail())) {
             user.setEmail(editedInfo.getEmail());
             // TODO send email to check

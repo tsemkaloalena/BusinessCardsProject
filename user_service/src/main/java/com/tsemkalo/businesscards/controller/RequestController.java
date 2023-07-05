@@ -75,7 +75,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     public void changePassword(ChangePasswordRequest request,
                                StreamObserver<ChangePasswordResponse> responseObserver) {
         String newPassword;
-        newPassword = userService.changePassword(request);
+        newPassword = userService.changePassword(request.getOldPassword(), request.getNewPassword(), request.getCurrentUsername());
         ChangePasswordResponse response = ChangePasswordResponse.newBuilder().setNewPassword(newPassword).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -110,7 +110,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void getUsersByTheirId(UserIdProtoList request, StreamObserver<SafeUserProtoList> responseObserver) {
-        List<Long> userIds = Collections.singletonList(request.getUserIds());
+        List<Long> userIds = request.getUserIdsList();
         List<User> users = userService.getUsersByTheirId(userIds);
         List<SafeUserProto> safeUserProtos = users.stream().map(safeUserMapper::entityToProto).collect(Collectors.toList());
         SafeUserProtoList safeUserProtoList = SafeUserProtoList.newBuilder()

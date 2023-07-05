@@ -39,18 +39,9 @@ public class User extends AbstractEntity implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<> businessCards;
-
-//    @OneToMany(mappedBy = "user")
-//    private List<> followers;
-
-    // chats
-
     @Column
     private String email;
 
-    // TODO заменить на RequiredArgsConstructor
     public User(String username, String password, String name, String surname, Role role, String email) {
         this.username = username;
         this.password = password;

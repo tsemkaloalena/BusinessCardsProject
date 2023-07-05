@@ -22,7 +22,6 @@ public class User extends AbstractEntity implements UserDetails {
     private Role role;
     private String email;
 
-    // TODO заменить на RequiredArgsConstructor
     public User(Long id, String username, String password, String name, String surname, Role role, String email) {
         this.setId(id);
         this.username = username;

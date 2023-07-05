@@ -17,11 +17,11 @@ public interface ChatService {
 
     void changeChatName(Long userId, Long chatId, String newName);
 
-    void sendMessageToChat(String text, Long userId, Long chatId); // TODO send email
+    List<Long> sendMessageToChat(String text, Long userId, Long chatId);
 
-    Long sendMessageToUser(String text, Long senderId, Long recipientId, String senderName, String recipientName);
+    Boolean sendMessageToUser(String text, Long senderId, Long recipientId, String senderName, String recipientName);
 
-    void markMessageAsRead(Long userId, Long messageId); // TODO rabbitMQ
+    void markMessageAsRead(Long userId, Long messageId);
 
     void markAllChatMessagesAsRead(Long userId, Long chatId);
 
@@ -33,7 +33,7 @@ public interface ChatService {
 
     void assignSupportChat(Long supporterId, String supporterName, Long chatId, Long oldSupporterId);
 
-    void closeQuestion(Long userId, Long chatId, Boolean isAdmin);
+    List<Long> closeQuestion(Long userId, Long chatId, Boolean isAdmin);
 
     List<Chat> getSupportChats(Long userId);
 

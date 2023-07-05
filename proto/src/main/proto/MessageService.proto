@@ -32,7 +32,7 @@ message ChatMemberProto {
   int64 userId = 2;
   int64 chatId = 3;
   string memberName = 4;
-  bool sendNotifications = 5;
+  bool notify = 5;
 }
 
 message IdMessageServiceValue {
@@ -117,13 +117,13 @@ service MessageService {
   rpc getChatMemberIds(ChatUserProto) returns (ChatMemberIdList);
   rpc changeMemberName(ChangeNameRequest) returns (google.protobuf.Empty);
   rpc changeChatName(ChangeNameRequest) returns (google.protobuf.Empty);
-  rpc sendMessageToChat(SendMessageToChatRequest) returns (MessageProtoList);
-  rpc sendMessageToUser(SendMessageToUserRequest) returns (MessageProtoList);
-  rpc inviteMemberToChat(InviteMemberRequest) returns (google.protobuf.Empty);
+  rpc sendMessageToChat(SendMessageToChatRequest) returns (ChatMemberIdList);
+  rpc sendMessageToUser(SendMessageToUserRequest) returns (IdMessageServiceValue);
+  rpc inviteMemberToChat(InviteMemberRequest) returns (IdMessageServiceValue);
   rpc sendToSupport(SendMessageToSupportRequest) returns (google.protobuf.Empty);
   rpc getUnassignedSupportChats(google.protobuf.Empty) returns (ChatProtoList);
   rpc assignSupportChat(AssignSupportChatRequest) returns (google.protobuf.Empty);
-  rpc closeQuestion(CloseQuestionRequest) returns (google.protobuf.Empty);
+  rpc closeQuestion(CloseQuestionRequest) returns (ChatMemberIdList);
   rpc getSupportChats(IdMessageServiceValue) returns (ChatProtoList);
   rpc changeSendingNotifications(ChangeSendingNotificationsRequest) returns (google.protobuf.Empty);
   //  rpc sendToAdmin() returns ();

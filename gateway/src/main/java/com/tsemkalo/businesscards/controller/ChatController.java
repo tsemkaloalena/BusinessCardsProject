@@ -18,9 +18,12 @@ import com.tsemkalo.businesscards.SendMessageToSupportRequest;
 import com.tsemkalo.businesscards.SendMessageToUserRequest;
 import com.tsemkalo.businesscards.UserIdProtoList;
 import com.tsemkalo.businesscards.UserServiceGrpc;
+import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.dto.messages.ChatDTO;
+import com.tsemkalo.businesscards.dto.messages.MailNotificationDTO;
 import com.tsemkalo.businesscards.dto.messages.MessageDTO;
+import com.tsemkalo.businesscards.dto.messages.UserChatIdDTO;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.mapper.SafeUserMapper;
 import com.tsemkalo.businesscards.mapper.messages.ChatMapper;
@@ -28,6 +31,8 @@ import com.tsemkalo.businesscards.mapper.messages.ChatMemberMapper;
 import com.tsemkalo.businesscards.mapper.messages.MessageMapper;
 import com.tsemkalo.businesscards.service.AuthorizationService;
 import net.devh.boot.grpc.client.inject.GrpcClient;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +46,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +59,7 @@ import static com.tsemkalo.businesscards.configuration.constants.PermissionsForC
 import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.TECHNICAL_SUPPORT;
 
 @RestController
+@EnableRabbit
 @RequestMapping("")
 public class ChatController {
     @GrpcClient(GRPCServiceNames.MessageService)
@@ -64,6 +72,9 @@ public class ChatController {
     private AuthorizationService authorizationService;
 
     @Autowired
+    private RabbitTemplate template;
+
+    @Autowired
     private ChatMapper chatMapper;
 
     @Autowired
@@ -71,7 +82,7 @@ public class ChatController {
 
     @Autowired
     private MessageMapper messageMapper;
-    
+
     @Autowired
     private SafeUserMapper safeUserMapper;
 
@@ -142,20 +153,24 @@ public class ChatController {
 
     @PreAuthorize(CHAT)
     @PostMapping("/chat/{chatId}/send_message")
-    public List<MessageDTO> sendMessageToChat(@PathVariable Long chatId, @RequestBody String text) {
+    public ResponseEntity<Object> sendMessageToChat(@PathVariable Long chatId, @RequestBody String text) {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         SendMessageToChatRequest sendMessageToChatRequest = SendMessageToChatRequest.newBuilder()
                 .setUserId(user.getId())
                 .setChatId(chatId)
                 .setText(text)
                 .build();
-        List<MessageProto> messageProtos = messageService.sendMessageToChat(sendMessageToChatRequest).getMessageList();
-        return messageProtos.stream().map(messageMapper::protoToDTO).collect(Collectors.toList());
+        List<Long> userIdsToNotify = messageService.sendMessageToChat(sendMessageToChatRequest).getUserIdList();
+        notifyUsers(userIdsToNotify, "You have new messages from " + user.getName(), text);
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("message", "Your message is sent to chat " + chatId);
+        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PreAuthorize(CHAT)
     @PostMapping("/user/{userId}/send_message")
-    public List<MessageDTO> sendMessageToUser(@PathVariable Long userId, @RequestBody String text) {
+    public ResponseEntity<Object> sendMessageToUser(@PathVariable Long userId, @RequestBody String text) {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         UserIdProtoList userIdProtoList = UserIdProtoList.newBuilder()
                 .addUserIds(userId)
@@ -168,8 +183,14 @@ public class ChatController {
                 .setSenderName(user.getName())
                 .setRecipientName(recipient.getName())
                 .build();
-        List<MessageProto> messageProtos = messageService.sendMessageToUser(sendMessageToUserRequest).getMessageList();
-        return messageProtos.stream().map(messageMapper::protoToDTO).collect(Collectors.toList());
+        Long userIdToNotify = messageService.sendMessageToUser(sendMessageToUserRequest).getId();
+        if (userIdToNotify != 0) {
+            notifyUsers(new ArrayList<Long>(Collections.singleton(userIdToNotify)), "You have new message from " + user.getName(), text);
+        }
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("message", "Your message is sent to " + recipient.getName());
+        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
     @PreAuthorize(CHAT)
@@ -261,7 +282,8 @@ public class ChatController {
                 .setChatId(chatId)
                 .setIsAdmin(false)
                 .build();
-        messageService.closeQuestion(closeQuestionRequest);
+        List<Long> userIdsToNotify = messageService.closeQuestion(closeQuestionRequest).getUserIdList();
+        notifyUsers(userIdsToNotify, "Question " + chatId + " has been closed", "If you have some more questions, please open another question");
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("message", "You closed question " + chatId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
@@ -275,7 +297,8 @@ public class ChatController {
                 .setChatId(chatId)
                 .setIsAdmin(true)
                 .build();
-        messageService.closeQuestion(closeQuestionRequest);
+        List<Long> userIdsToNotify = messageService.closeQuestion(closeQuestionRequest).getUserIdList();
+        notifyUsers(userIdsToNotify, "Question " + chatId + " has been closed", "If you have some more questions, please open another question");
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("message", "You closed question " + chatId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
@@ -309,5 +332,32 @@ public class ChatController {
             body.put("message", "You turned off email notifications for chat " + chatId);
         }
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
+    }
+
+    @PreAuthorize(CHAT)
+    @PostMapping("/chat/{chaId}/message/{messageId}/read")
+    public void markMessageAsRead(@PathVariable Long chatId, @PathVariable Long messageId) {
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserChatIdDTO dto = new UserChatIdDTO(user.getId(), messageId);
+        template.convertAndSend(QueueConstants.MARK_MESSAGE_AS_READ, dto);
+    }
+
+    @PreAuthorize(CHAT)
+    @PostMapping("/chat/{chaId}/messages/read")
+    public void markChatMessagesAsRead(@PathVariable Long chatId) {
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserChatIdDTO dto = new UserChatIdDTO(user.getId(), chatId);
+        template.convertAndSend(QueueConstants.MARK_CHAT_MESSAGES_AS_READ, dto);
+    }
+    //TODO dlq
+
+    private void notifyUsers(List<Long> userIdsToNotify, String theme, String text) {
+        UserIdProtoList userIdProtoList = UserIdProtoList.newBuilder()
+                .addAllUserIds(userIdsToNotify).build();
+        List<SafeUserProto> usersToNotify = userService.getUsersByTheirId(userIdProtoList).getUsersList();
+        for (SafeUserProto userProto : usersToNotify) {
+            MailNotificationDTO mailNotificationDTO = new MailNotificationDTO(userProto.getName(), userProto.getSurname(), userProto.getEmail(), theme, text);
+            template.convertAndSend(QueueConstants.SEND_NOTIFICATION, mailNotificationDTO);
+        }
     }
 }
