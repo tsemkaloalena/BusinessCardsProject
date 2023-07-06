@@ -4,7 +4,9 @@ import com.tsemkalo.businesscards.ChatMemberProto;
 import com.tsemkalo.businesscards.dto.messages.ChatMemberDTO;
 import com.tsemkalo.businesscards.entity.AbstractEntity;
 import com.tsemkalo.businesscards.mapper.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ChatMemberMapper implements Mapper<AbstractEntity, ChatMemberDTO, ChatMemberProto> {
 
     @Override

@@ -10,11 +10,16 @@ public class QueueConstants {
 
     public static final String FORGOT_PASSWORD_MAIL = "q.forgot-password-mail";
     public static final String ACTIVATE_ACCOUNT_MAIL = "q.activate-account-mail";
-
+    public static final String REJECT_ADDING_TECH_SUPPORT_MAIL = "q.reject-adding-tech-support-mail";
     public static final String SEND_NOTIFICATION = "q.send-notification";
 
     public static List<String> getQueueNames() {
-        return new ArrayList<String>(List.of(new String[]{FORGOT_PASSWORD_MAIL, ACTIVATE_ACCOUNT_MAIL}));
+        return new ArrayList<String>(List.of(new String[]{
+                FORGOT_PASSWORD_MAIL,
+                ACTIVATE_ACCOUNT_MAIL,
+                REJECT_ADDING_TECH_SUPPORT_MAIL,
+                SEND_NOTIFICATION
+        }));
     }
 
     public static List<String> getDelayedQueueNames() {

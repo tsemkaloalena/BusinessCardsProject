@@ -5,11 +5,13 @@ import com.tsemkalo.businesscards.MessageProto;
 import com.tsemkalo.businesscards.dto.messages.MessageDTO;
 import com.tsemkalo.businesscards.entity.AbstractEntity;
 import com.tsemkalo.businesscards.mapper.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+@Component
 public class MessageMapper implements Mapper<AbstractEntity, MessageDTO, MessageProto> {
 
     @Override

@@ -18,7 +18,7 @@ message SafeUserProto {
   string username = 2;
   string name = 3;
   string surname = 4;
-  string role = 5;
+  RoleProto role = 5;
   string email = 6;
 }
 
@@ -74,19 +74,21 @@ enum ProtoRoleType {
   ADMIN = 0;
   TECHNICAL_SUPPORT = 1;
   USER = 2;
-  //  COMPANY_REPRESENTATIVE = 2;
 }
 
 enum ProtoPermissionType {
   READ = 0;
   EDIT = 1;
-  //  CREATE_FOR_OTHER_USERS = 2;
   FOLLOW_LIKE = 2;
   CHAT = 3;
+  CONTROL_SUPPORT = 4;
+  RESOLVE_QUESTIONS = 5;
 }
 
 service UserService {
   rpc getUserByUsername(UsernameProto) returns (UserProto);
+  rpc getNonActivatedUserByUsername(UsernameProto) returns (SafeUserProto);
+  rpc deleteNonActivatedAccount(UsernameProto) returns (google.protobuf.Empty);
   rpc saveUser(UserProto) returns (google.protobuf.Empty);
   rpc changePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
   rpc activateAccount(Token) returns (UsernameProto);

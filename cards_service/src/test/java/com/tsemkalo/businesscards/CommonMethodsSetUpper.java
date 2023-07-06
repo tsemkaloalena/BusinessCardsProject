@@ -1,7 +1,7 @@
-package com.tsemkalo.businesscards.service.impl;
+package com.tsemkalo.businesscards;
 
 import com.tsemkalo.businesscards.dao.entity.AbstractEntity;
-import com.tsemkalo.businesscards.exceptions.NotFoundException;
+import com.tsemkalo.businesscards.exception.NotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;

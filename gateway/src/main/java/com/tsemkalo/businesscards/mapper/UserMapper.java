@@ -18,7 +18,6 @@ import java.util.List;
 
 @Component
 public class UserMapper implements Mapper<User, UserDTO, UserProto> {
-
     @Override
     public UserDTO entityToDTO(User user) {
         return null;
@@ -78,7 +77,8 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
     @Override
     public UserProto dtoToProto(UserDTO userDTO) {
         RoleProto.Builder roleProto = RoleProto.newBuilder()
-                .setId(userDTO.getRoleId());
+                .setId(userDTO.getRoleDTO().getId())
+                .setName(ProtoRoleType.valueOf(userDTO.getRoleDTO().getName().name()));
         UserProto.Builder userBuilder = UserProto.newBuilder()
                 .setUsername(userDTO.getUsername())
                 .setPassword(userDTO.getPassword())
@@ -97,4 +97,3 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
         return null;
     }
 }
-

@@ -10,13 +10,13 @@ import com.tsemkalo.businesscards.UserServiceGrpc;
 import com.tsemkalo.businesscards.UsernameProto;
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.configuration.constants.SecurityConstants;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.LoginDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import com.tsemkalo.businesscards.mapper.SafeUserMapper;
 import com.tsemkalo.businesscards.mapper.UserMapper;
 import com.tsemkalo.businesscards.service.AuthorizationService;
-import io.grpc.Status;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -27,6 +27,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,9 +73,17 @@ public class UserController {
     @PostMapping("/sign_up")
     public ResponseEntity<Object> saveUser(@RequestBody UserDTO userDTO) {
         Map<String, Object> body = new LinkedHashMap<>();
+        if (RoleType.ADMIN.equals(userDTO.getRoleDTO().getName())) {
+            throw new AccessDeniedException("You can not register yourself as admin");
+        }
         userService.saveUser(userMapper.dtoToProto(userDTO));
-        sendActivateAccountMail(userDTO);
-        body.put("message", "Your account is created. Now you need to activate it by the link. Soon it will be sent to your email.");
+        if (RoleType.TECHNICAL_SUPPORT.equals(userDTO.getRoleDTO().getName())) {
+            template.convertAndSend(QueueConstants.ADD_TECH_SUPPORTER_REQUEST, userDTO);
+            body.put("message", "Your request is sent to admin. Wait for reply");
+        } else {
+            sendActivateAccountMail(userDTO);
+            body.put("message", "Your account is created. Now you need to activate it by the link. Soon it will be sent to your email.");
+        }
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 

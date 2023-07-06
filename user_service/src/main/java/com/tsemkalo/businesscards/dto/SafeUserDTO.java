@@ -9,15 +9,15 @@ public class SafeUserDTO extends AbstractDTO {
     private String username;
     private String name;
     private String surname;
-    private String role;
+    private RoleDTO roleDTO;
     private String email;
 
-    public SafeUserDTO(Long id, String username, String name, String surname, String role, String email) {
+    public SafeUserDTO(Long id, String username, String name, String surname, RoleDTO roleDTO, String email) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.surname = surname;
-        this.role = role;
+        this.roleDTO = roleDTO;
         this.email = email;
     }
 }

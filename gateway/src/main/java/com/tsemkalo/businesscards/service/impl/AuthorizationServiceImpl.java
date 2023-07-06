@@ -26,7 +26,6 @@ import static com.tsemkalo.businesscards.configuration.constants.SecurityConstan
 import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET;
 
 @Component
-
 public class AuthorizationServiceImpl implements AuthorizationService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;

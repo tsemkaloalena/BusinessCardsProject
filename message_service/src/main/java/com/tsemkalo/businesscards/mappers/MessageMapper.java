@@ -10,6 +10,7 @@ import com.tsemkalo.businesscards.dao.entities.ChatMember;
 import com.tsemkalo.businesscards.dao.entities.Message;
 import com.tsemkalo.businesscards.dto.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Optional;
 
+@Component
 public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> {
     @Autowired
     private ChatDao chatDao;

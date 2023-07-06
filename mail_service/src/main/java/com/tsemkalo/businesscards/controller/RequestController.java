@@ -10,8 +10,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.Notification;
-
 @RestController
 @EnableRabbit
 public class RequestController {
@@ -33,6 +31,11 @@ public class RequestController {
 
     @RabbitListener(queues = QueueConstants.SEND_NOTIFICATION)
     public void sendNotification(MailNotificationDTO mailNotificationDTO) {
+        mailService.sendNotification(mailNotificationDTO);
+    }
+
+    @RabbitListener(queues = QueueConstants.REJECT_ADDING_TECH_SUPPORT_MAIL)
+    public void sendRejectAddingTechSupporter(MailNotificationDTO mailNotificationDTO) {
         mailService.sendNotification(mailNotificationDTO);
     }
 }

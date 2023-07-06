@@ -3,6 +3,7 @@ package com.tsemkalo.businesscards.service.impl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.tsemkalo.businesscards.ChangePasswordRequest;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dao.NonActivatedUserDao;
 import com.tsemkalo.businesscards.dao.UserDao;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
@@ -66,6 +67,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public NonActivatedUser loadNonActivateUserByUsername(String username) {
+        NonActivatedUser user = nonActivatedUserDao.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return user;
+    }
+
+    @Override
     public void saveUser(NonActivatedUser nonActivatedUser) {
         if (userDao.findByUsername(nonActivatedUser.getUsername()) != null || nonActivatedUserDao.findByUsername(nonActivatedUser.getUsername()) != null) {
             throw new UserExistsException(nonActivatedUser.getUsername());
@@ -77,10 +87,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String changePassword(String oldPassword, String newPassword, String currentUsername) {
-        if (oldPassword.equals("")) {
+        if (oldPassword.isBlank()) {
             throw new IncorrectDataException("You didn't set old password");
         }
-        if (newPassword.equals("")) {
+        if (newPassword.isBlank()) {
             throw new IncorrectDataException("You didn't set new password");
         }
         User user = loadUserByUsername(currentUsername);

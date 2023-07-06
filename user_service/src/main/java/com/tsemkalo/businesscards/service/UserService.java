@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
+    NonActivatedUser loadNonActivateUserByUsername(String username);
+
     void saveUser(NonActivatedUser nonActivatedUser);
 
     String changePassword(String oldPassword, String newPassword, String currentUsername);

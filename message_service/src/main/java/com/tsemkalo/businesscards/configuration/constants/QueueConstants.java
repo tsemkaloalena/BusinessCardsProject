@@ -12,7 +12,10 @@ public class QueueConstants {
     public static final String MARK_CHAT_MESSAGES_AS_READ = "q.mark-chat-messages-as-read";
 
     public static List<String> getQueueNames() {
-        return new ArrayList<String>(List.of(new String[]{MARK_MESSAGE_AS_READ, MARK_CHAT_MESSAGES_AS_READ}));
+        return new ArrayList<String>(List.of(new String[]{
+                MARK_MESSAGE_AS_READ,
+                MARK_CHAT_MESSAGES_AS_READ
+        }));
     }
 
     public static List<String> getDelayedQueueNames() {

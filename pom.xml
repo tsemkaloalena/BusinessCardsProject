@@ -15,6 +15,7 @@
         <module>mail_service</module>
         <module>cards_service</module>
         <module>message_service</module>
+        <module>admin_service</module>
     </modules>
 
     <properties>
@@ -94,6 +95,11 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>4.8.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-testing</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -2,10 +2,11 @@ package com.tsemkalo.businesscards.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.tsemkalo.businesscards.configuration.enums.RoleType;
+import com.tsemkalo.businesscards.AbstractServiceTest;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dao.entity.User;
+import com.tsemkalo.businesscards.dto.RoleDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
 import com.tsemkalo.businesscards.exceptions.LinkExpiredException;
@@ -32,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest extends AbstractServiceTest {
+public class UserServiceImplTest extends AbstractServiceTest {
     @InjectMocks
     private UserServiceImpl userService = new UserServiceImpl();
 
@@ -57,7 +58,7 @@ public class UserServiceTest extends AbstractServiceTest {
         String name = "Anatoliy";
         String surname = "English";
         String email = "tsemkaloalena@gmail.com";
-        Role role = new Role(RoleType.USER);
+        Role role = getRoleTable().get(3L);
         NonActivatedUser nonActivatedUser = new NonActivatedUser();
         nonActivatedUser.setUsername(username);
         nonActivatedUser.setPassword(password);
@@ -82,7 +83,7 @@ public class UserServiceTest extends AbstractServiceTest {
         String name = "otherName";
         String surname = "otherSurname";
         String email = "tsemkaloalena@gmail.com";
-        Role role = new Role(RoleType.USER);
+        Role role = getRoleTable().get(3L);
         NonActivatedUser nonActivatedUser = new NonActivatedUser();
         nonActivatedUser.setUsername(username);
         nonActivatedUser.setPassword(password);
@@ -180,7 +181,9 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void editInfo_whenSurnameIsChanged_thenAccessDeniedExceptionThrown() {
         String currentUsername = "marik";
-        SafeUserDTO editedUser = new SafeUserDTO(12L, "derevo", "Drevo", "Obrabotka", RoleType.USER.name(), "tsemkaloalena@gmail.com");
+        Role role = getRoleTable().get(3L);
+        RoleDTO roleDTO = new RoleDTO(role.getId(), role.getName());
+        SafeUserDTO editedUser = new SafeUserDTO(12L, "derevo", "Drevo", "Obrabotka", roleDTO, "tsemkaloalena@gmail.com");
 
         assertThrows(AccessDeniedException.class, () -> userService.editInfo(currentUsername, editedUser));
     }
@@ -191,7 +194,9 @@ public class UserServiceTest extends AbstractServiceTest {
         String oldName = "Derevo";
         String newName = "Bush";
         Long id = 12L;
-        SafeUserDTO editedUser = new SafeUserDTO(id, currentUsername, newName, "Obrabotka", RoleType.USER.name(), "tsemkaloalena@gmail.com");
+        Role role = getRoleTable().get(3L);
+        RoleDTO roleDTO = new RoleDTO(role.getId(), role.getName());
+        SafeUserDTO editedUser = new SafeUserDTO(id, currentUsername, newName, "Obrabotka", roleDTO, "tsemkaloalena@gmail.com");
 
         userService.editInfo(currentUsername, editedUser);
 

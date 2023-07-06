@@ -6,9 +6,11 @@ import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;
 import com.tsemkalo.businesscards.dto.ChatMemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatMemberProto> {
     @Autowired
     private ChatDao chatDao;

@@ -13,27 +13,21 @@ import com.tsemkalo.businesscards.UserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;
 import com.tsemkalo.businesscards.UsernameProto;
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.User;
-import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
-import com.tsemkalo.businesscards.exceptions.LinkExpiredException;
-import com.tsemkalo.businesscards.exceptions.UserExistsException;
 import com.tsemkalo.businesscards.mapper.NonActivatedUserMapper;
 import com.tsemkalo.businesscards.mapper.SafeUserMapper;
 import com.tsemkalo.businesscards.mapper.UserMapper;
 import com.tsemkalo.businesscards.service.UserService;
-import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +53,15 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
         User user;
         user = (User) userService.loadUserByUsername(request.getUsername());
         UserProto response = userMapper.entityToProto(user);
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getNonActivatedUserByUsername(UsernameProto request,
+                                  StreamObserver<SafeUserProto> responseObserver) {
+        NonActivatedUser user = userService.loadNonActivateUserByUsername(request.getUsername());
+        SafeUserProto response = nonActivatedUserMapper.entityToSafeProto(user);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -92,6 +95,13 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
     @RabbitListener(queues = QueueConstants.DELETE_IF_NOT_ACTIVATED)
     public void deleteUserIfNotActivated(Message message) {
         userService.deleteUserIfNotActivated(new String(message.getBody(), StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public void deleteNonActivatedAccount(UsernameProto request, StreamObserver<Empty> responseObserver) {
+        userService.deleteUserIfNotActivated(request.getUsername());
+        responseObserver.onNext(Empty.newBuilder().build());
+        responseObserver.onCompleted();
     }
 
     @Override

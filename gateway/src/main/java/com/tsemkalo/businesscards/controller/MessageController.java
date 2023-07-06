@@ -53,15 +53,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.ADMIN;
 import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.CHAT;
-import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.READ;
-import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.TECHNICAL_SUPPORT;
+import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.CONTROL_SUPPORT;
+import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.RESOLVE_QUESTIONS;
 
 @RestController
 @EnableRabbit
 @RequestMapping("")
-public class ChatController {
+public class MessageController {
     @GrpcClient(GRPCServiceNames.MessageService)
     private MessageServiceGrpc.MessageServiceBlockingStub messageService;
 
@@ -230,7 +229,7 @@ public class ChatController {
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize(TECHNICAL_SUPPORT)
+    @PreAuthorize(RESOLVE_QUESTIONS)
     @PostMapping("/support/chats/unassigned")
     public List<ChatDTO> getUnassignedSupportChats() {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -238,7 +237,7 @@ public class ChatController {
         return chatProtos.stream().map(chatMapper::protoToDTO).collect(Collectors.toList());
     }
 
-    @PreAuthorize(TECHNICAL_SUPPORT)
+    @PreAuthorize(RESOLVE_QUESTIONS)
     @PostMapping("/support/chat/{chatId}/assign")
     public ResponseEntity<Object> assignSupportChat(@PathVariable Long chatId) {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -253,9 +252,9 @@ public class ChatController {
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize(ADMIN)
-    @PostMapping("/support/chat/{chatId}/assign")
-    public ResponseEntity<Object> assignSupportChat(@PathVariable Long chatId, @RequestParam Long supporterId, @RequestParam Long oldSupporterId) {
+    @PreAuthorize(CONTROL_SUPPORT)
+    @PostMapping("/admin/support/chat/{chatId}/assign")
+    public ResponseEntity<Object> assignSupportChatByAdmin(@PathVariable Long chatId, @RequestParam Long supporterId, @RequestParam Long oldSupporterId) {
         UserIdProtoList userIdProtoList = UserIdProtoList.newBuilder()
                 .addUserIds(supporterId)
                 .build();
@@ -289,8 +288,8 @@ public class ChatController {
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize(ADMIN)
-    @PostMapping("/support/chat/{chatId}/close")
+    @PreAuthorize(CONTROL_SUPPORT)
+    @PostMapping("/admin/support/chat/{chatId}/close")
     public ResponseEntity<Object> closeQuestionByAdmin(@PathVariable Long chatId) {
         CloseQuestionRequest closeQuestionRequest = CloseQuestionRequest.newBuilder()
                 .setUserId(0)

@@ -1,8 +1,8 @@
-package com.tsemkalo.businesscards.service.impl;
+package com.tsemkalo.businesscards;
 
+import com.tsemkalo.businesscards.CommonMethodsSetUpper;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dao.NonActivatedUserDao;
-import com.tsemkalo.businesscards.dao.PermissionDao;
 import com.tsemkalo.businesscards.dao.RoleDao;
 import com.tsemkalo.businesscards.dao.UserDao;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
@@ -14,16 +14,13 @@ import com.tsemkalo.businesscards.mapper.RoleMapper;
 import com.tsemkalo.businesscards.mapper.UserMapper;
 import lombok.Getter;
 import lombok.Setter;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -35,10 +32,10 @@ import static org.mockito.Mockito.lenient;
 public abstract class AbstractServiceTest {
     @Mock
     private NonActivatedUserDao nonActivatedUserDao;
-    //    @Mock
-//    private PermissionDao permissionDao;
-//    @Mock
-//    private RoleDao roleDao;
+
+    @Mock
+    private RoleDao roleDao;
+
     @Mock
     private UserDao userDao;
 
@@ -59,23 +56,39 @@ public abstract class AbstractServiceTest {
 
     private Map<Long, NonActivatedUser> nonActivatedUserTable = new HashMap<>();
     private Map<Long, User> userTable = new HashMap<>();
-//    private Map<Long, Role> roleTable = new HashMap<>();
+    private Map<Long, Role> roleTable = new HashMap<>();
 
     private CommonMethodsSetUpper<User> userCommonMethodsSetUpper = new CommonMethodsSetUpper<>();
     private CommonMethodsSetUpper<NonActivatedUser> nonActivatedUserCommonMethodsSetUpper = new CommonMethodsSetUpper<>();
+    private CommonMethodsSetUpper<Role> roleCommonMethodsSetUpper = new CommonMethodsSetUpper<>();
 
     @BeforeEach
     public void fillDB() {
         nonActivatedUserTable = new HashMap<>();
         userTable = new HashMap<>();
+        roleTable = new HashMap<>();
         fillUserTable();
         fillNonActivatedUserTable();
+        fillRoleTable();
     }
 
     @BeforeEach
     public void setup() {
         userDaoSetup();
         nonActivatedUserDaoSetup();
+        roleDaoSetup();
+    }
+
+    private void fillRoleTable() {
+        addRole(1L, RoleType.ADMIN);
+        addRole(2L, RoleType.TECHNICAL_SUPPORT);
+        addRole(3L, RoleType.USER);
+    }
+
+    public void addRole(Long id, RoleType name) {
+        Role role = new Role(name);
+        role.setId(id);
+        roleTable.put(id, role);
     }
 
     private void fillUserTable() {
@@ -146,5 +159,22 @@ public abstract class AbstractServiceTest {
             }
             return null;
         }).when(nonActivatedUserDao).findByUsername(any(String.class));
+    }
+
+    private void roleDaoSetup() {
+        roleCommonMethodsSetUpper.findAllSetup(roleTable, roleDao);
+        roleCommonMethodsSetUpper.findByIdSetup(roleTable, roleDao);
+        roleCommonMethodsSetUpper.saveSetup(roleTable, roleDao, Role.class);
+        roleCommonMethodsSetUpper.deleteSetup(roleTable, roleDao, Role.class);
+        roleCommonMethodsSetUpper.deleteByIdSetup(roleTable, roleDao);
+        lenient().doAnswer(invocationOnMock -> {
+            RoleType name = invocationOnMock.getArgument(0);
+            for (Role role : roleTable.values()) {
+                if (role.getName().equals(name)) {
+                    return role;
+                }
+            }
+            return null;
+        }).when(roleDao).findByName(any(RoleType.class));
     }
 }

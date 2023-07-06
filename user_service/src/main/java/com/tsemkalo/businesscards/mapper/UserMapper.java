@@ -4,12 +4,15 @@ import com.tsemkalo.businesscards.PermissionProto;
 import com.tsemkalo.businesscards.ProtoPermissionType;
 import com.tsemkalo.businesscards.ProtoRoleType;
 import com.tsemkalo.businesscards.RoleProto;
+import com.tsemkalo.businesscards.SafeUserProto;
 import com.tsemkalo.businesscards.UserProto;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dao.RoleDao;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.Permission;
 import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dao.entity.User;
+import com.tsemkalo.businesscards.dto.RoleDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,26 +38,14 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
 
     @Override
     public UserDTO entityToDto(User user) {
-        Role role = user.getRole();
-        Long roleId = null;
-        if (role != null) {
-            roleId = role.getId();
-        }
-        return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), roleId, user.getEmail());
+        RoleDTO roleDTO = new RoleDTO(user.getRole().getId(), user.getRole().getName());
+        return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), roleDTO, user.getEmail());
     }
 
     @Override
     public User dtoToEntity(UserDTO DTO) {
-        Role role = null;
-        if (DTO.getRoleId() != null) {
-            Optional<Role> optionalRole = roleDao.findById(DTO.getRoleId());
-            if (optionalRole.isPresent()) {
-                role = optionalRole.get();
-            }
-        }
-        User user = new User(DTO.getUsername(), DTO.getPassword(), DTO.getName(), DTO.getSurname(), role, DTO.getEmail());
-        user.setId(DTO.getId());
-        return user;
+        Role role = roleDao.findByName(RoleType.valueOf(DTO.getRoleDTO().getName().name()));
+        return new User(DTO.getId(), DTO.getUsername(), DTO.getPassword(), DTO.getName(), DTO.getSurname(), role, DTO.getEmail());
     }
 
     @Override
@@ -88,15 +79,17 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
         }
         roleProto.addAllPermission(permissionProtos);
 
-        return UserProto.newBuilder()
-                .setId(user.getId())
+        UserProto.Builder userBuilder = UserProto.newBuilder()
                 .setUsername(user.getUsername())
                 .setPassword(user.getPassword())
                 .setName(user.getName())
                 .setSurname(user.getSurname())
                 .setRole(roleProto)
-                .setEmail(user.getEmail())
-                .build();
+                .setEmail(user.getEmail());
+        if (user.getId() != null) {
+            userBuilder.setId(user.getId());
+        }
+        return userBuilder.build();
     }
 
     @Override
@@ -110,16 +103,10 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
         if (userDTO.getId() != null) {
             userProtoBuilder.setId(userDTO.getId());
         }
-        Role role = null;
-        if (userDTO.getRoleId() != null) {
-            Optional<Role> optionalRole = roleDao.findById(userDTO.getRoleId());
-            if (optionalRole.isPresent()) {
-                role = optionalRole.get();
-            }
-        }
+        Role role = roleDao.findByName(RoleType.valueOf(userDTO.getRoleDTO().getName().name()));
         if (role != null) {
             RoleProto.Builder roleProto = RoleProto.newBuilder()
-                    .setId(userDTO.getRoleId())
+                    .setId(role.getId())
                     .setName(ProtoRoleType.valueOf(role.getName().name()));
             List<PermissionProto> permissionProtos = new ArrayList<>();
             for (Permission permission : role.getPermissions()) {

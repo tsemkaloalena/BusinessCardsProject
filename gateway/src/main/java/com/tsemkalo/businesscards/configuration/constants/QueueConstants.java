@@ -10,6 +10,8 @@ public class QueueConstants {
 
     public static final String FORGOT_PASSWORD_MAIL = "q.forgot-password-mail";
     public static final String ACTIVATE_ACCOUNT_MAIL = "q.activate-account-mail";
+    public static final String ADD_TECH_SUPPORTER_REQUEST = "q.add-tech-supporter";
+    public static final String REJECT_ADDING_TECH_SUPPORT_MAIL = "q.reject-adding-tech-support-mail";
     public static final String DELETE_IF_NOT_ACTIVATED = "q.delete-if-not-activated";
 
     public static final String MARK_MESSAGE_AS_READ = "q.mark-message-as-read";
@@ -23,6 +25,8 @@ public class QueueConstants {
         return new ArrayList<String>(List.of(new String[]{
                 FORGOT_PASSWORD_MAIL,
                 ACTIVATE_ACCOUNT_MAIL,
+                ADD_TECH_SUPPORTER_REQUEST,
+                REJECT_ADDING_TECH_SUPPORT_MAIL,
                 MARK_MESSAGE_AS_READ,
                 MARK_CHAT_MESSAGES_AS_READ
         }));

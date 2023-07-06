@@ -66,6 +66,7 @@ public class MailServiceImpl implements MailService {
         VelocityContext context = new VelocityContext();
         context.put("name", mailNotificationDTO.getName());
         context.put("surname", mailNotificationDTO.getSurname());
+        context.put("theme", mailNotificationDTO.getTheme());
         context.put("text", mailNotificationDTO.getText());
         sendEmail(mailNotificationDTO.getEmail(), mailNotificationDTO.getTheme(), "notification_email.vm", context);
     }

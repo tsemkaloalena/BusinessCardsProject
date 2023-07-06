@@ -6,14 +6,16 @@ INSERT INTO roles(id, name) VALUES
 INSERT INTO permissions (id, name, role_id) VALUES
 (1, 'READ', 1),
 (2, 'READ', 2),
-(2, 'READ', 3),
-(3, 'EDIT', 1),
-(4, 'EDIT', 2),
-(4, 'EDIT', 3),
-(5, 'FOLLOW_LIKE', 3),
-(6, 'CHAT', 1),
-(6, 'CHAT', 2),
-(7, 'CHAT', 3);
+(3, 'READ', 3),
+(4, 'EDIT', 1),
+(5, 'EDIT', 2),
+(6, 'EDIT', 3),
+(7, 'FOLLOW_LIKE', 3),
+(8, 'CHAT', 1),
+(9, 'CHAT', 2),
+(10, 'CHAT', 3),
+(11, 'CONTROL_SUPPORT', 1),
+(12, 'RESOLVE_QUESTIONS', 2);
 
 INSERT INTO users (id, username, password, name, surname, role_id, email) VALUES
 (1, 'svetlana', '$2a$10$eHrKX3q0Gi.K3IXxDVSnmevyIf.LLq/DEAoHCMSCkIPDsOQsrix7W', 'Svetlana', 'Oleina', 1, 'tsemkaloalena@gmail.com'),
