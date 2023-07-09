@@ -113,7 +113,7 @@ public class MessageController {
                 .setUserId(user.getId())
                 .setChatId(chatId)
                 .build();
-        List<Long> userIds = messageService.getChatMemberIds(chatUserProto).getUserIdList();
+        List<Long> userIds = messageService.getChatUsersIds(chatUserProto).getUserIdList();
         UserIdProtoList userIdProtoList = UserIdProtoList.newBuilder()
                 .addAllUserIds(userIds).build();
         List<SafeUserProto> safeUserProtos = userService.getUsersByTheirId(userIdProtoList).getUsersList();

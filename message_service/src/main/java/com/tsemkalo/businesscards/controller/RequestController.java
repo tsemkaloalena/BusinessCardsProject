@@ -4,9 +4,9 @@ import com.google.protobuf.Empty;
 import com.tsemkalo.businesscards.AssignSupportChatRequest;
 import com.tsemkalo.businesscards.ChangeNameRequest;
 import com.tsemkalo.businesscards.ChangeSendingNotificationsRequest;
-import com.tsemkalo.businesscards.ChatMemberIdList;
 import com.tsemkalo.businesscards.ChatProto;
 import com.tsemkalo.businesscards.ChatProtoList;
+import com.tsemkalo.businesscards.ChatUserIdList;
 import com.tsemkalo.businesscards.ChatUserProto;
 import com.tsemkalo.businesscards.CloseQuestionRequest;
 import com.tsemkalo.businesscards.IdMessageServiceValue;
@@ -17,7 +17,6 @@ import com.tsemkalo.businesscards.MessageServiceGrpc;
 import com.tsemkalo.businesscards.SendMessageToChatRequest;
 import com.tsemkalo.businesscards.SendMessageToSupportRequest;
 import com.tsemkalo.businesscards.SendMessageToUserRequest;
-import com.tsemkalo.businesscards.UserIdProtoList;
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;
@@ -31,14 +30,14 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@RestController // TODO not rest?
 @EnableRabbit
 @GrpcService
 public class RequestController extends MessageServiceGrpc.MessageServiceImplBase {
@@ -77,12 +76,12 @@ public class RequestController extends MessageServiceGrpc.MessageServiceImplBase
     }
 
     @Override
-    public void getChatMemberIds(ChatUserProto request, StreamObserver<ChatMemberIdList> responseObserver) {
+    public void getChatUsersIds(ChatUserProto request, StreamObserver<ChatUserIdList> responseObserver) {
         List<ChatMember> chatMembers = chatService.getChatMembersByChatId(request.getChatId(), request.getUserId());
-        ChatMemberIdList chatMemberIdList = ChatMemberIdList.newBuilder()
+        ChatUserIdList chatUserIdList = ChatUserIdList.newBuilder()
                 .addAllUserId(chatMembers.stream().map(ChatMember::getUserId).collect(Collectors.toList()))
                 .build();
-        responseObserver.onNext(chatMemberIdList);
+        responseObserver.onNext(chatUserIdList);
         responseObserver.onCompleted();
     }
 
@@ -101,12 +100,12 @@ public class RequestController extends MessageServiceGrpc.MessageServiceImplBase
     }
 
     @Override
-    public void sendMessageToChat(SendMessageToChatRequest request, StreamObserver<ChatMemberIdList> responseObserver) {
+    public void sendMessageToChat(SendMessageToChatRequest request, StreamObserver<ChatUserIdList> responseObserver) {
         List<Long> userIds = chatService.sendMessageToChat(request.getText(), request.getUserId(), request.getChatId());
-        ChatMemberIdList chatMemberIdList = ChatMemberIdList.newBuilder()
+        ChatUserIdList chatUserIdList = ChatUserIdList.newBuilder()
                 .addAllUserId(userIds)
                 .build();
-        responseObserver.onNext(chatMemberIdList);
+        responseObserver.onNext(chatUserIdList);
         responseObserver.onCompleted();
     }
 
@@ -163,12 +162,12 @@ public class RequestController extends MessageServiceGrpc.MessageServiceImplBase
     }
 
     @Override
-    public void closeQuestion(CloseQuestionRequest request, StreamObserver<ChatMemberIdList> responseObserver) {
+    public void closeQuestion(CloseQuestionRequest request, StreamObserver<ChatUserIdList> responseObserver) {
         List<Long> userIds = chatService.closeQuestion(request.getUserId(), request.getChatId(), request.getIsAdmin());
-        ChatMemberIdList chatMemberIdList = ChatMemberIdList.newBuilder()
+        ChatUserIdList chatUserIdList = ChatUserIdList.newBuilder()
                 .addAllUserId(userIds)
                 .build();
-        responseObserver.onNext(chatMemberIdList);
+        responseObserver.onNext(chatUserIdList);
         responseObserver.onCompleted();
     }
 

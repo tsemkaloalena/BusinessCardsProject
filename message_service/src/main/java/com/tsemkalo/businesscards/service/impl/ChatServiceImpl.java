@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,19 +70,26 @@ public class ChatServiceImpl implements ChatService {
     }
 
     public List<ChatMember> getChatMembersByChatId(Long chatId, Long userId) {
+        Chat chat = getChatById(chatId);
         checkUserAccessToChat(chatId, userId);
-        return getChatById(chatId).getChatMembers();
+        return chat.getChatMembers();
     }
 
     public void changeMemberName(Long userId, Long chatId, String newName) {
+        if (!chatDao.existsById(chatId)) {
+            throw new NotFoundException("Chat with id " + chatId);
+        }
         if (newName.isBlank()) {
             throw new IncorrectDataException("Member name can not be empty");
         }
         ChatMember chatMember = chatMemberDao.findByMemberNameAndChatId(newName, chatId);
         if (chatMember != null) {
-            throw new AlreadyExistsException("chat member " + newName + " already exists in chat " + chatId);
+            throw new AlreadyExistsException("Chat member " + newName + " already exists in chat " + chatId);
         }
         chatMember = chatMemberDao.findByUserIdAndChatId(userId, chatId);
+        if (chatMember == null) {
+            throw new AccessDeniedException("User " + userId + " is not a member of chat " + chatId);
+        }
         chatMember.setMemberName(newName);
     }
 
@@ -89,16 +97,16 @@ public class ChatServiceImpl implements ChatService {
         if (newName.isBlank()) {
             throw new IncorrectDataException("Chat name can not be empty");
         }
-        checkUserAccessToChat(chatId, userId);
         Chat chat = getChatById(chatId);
+        checkUserAccessToChat(chatId, userId);
         chat.setName(newName);
     }
 
     public List<Long> sendMessageToChat(String text, Long userId, Long chatId) {
+        Chat chat = getChatById(chatId);
         checkUserAccessToChat(chatId, userId);
         LocalDateTime sendingTime = LocalDateTime.now();
         checkUserAccessToChat(chatId, userId);
-        Chat chat = getChatById(chatId);
         ChatMember sender = chatMemberDao.findByUserIdAndChatId(userId, chatId);
         Message message = new Message(sender, chat, sendingTime, text, false);
         messageDao.save(message);
@@ -120,6 +128,7 @@ public class ChatServiceImpl implements ChatService {
             ChatMember recipient = new ChatMember(recipientId, recipientName, chat, true);
             chatMemberDao.save(sender);
             chatMemberDao.save(recipient);
+            chat.setChatMembers(new ArrayList<>(List.of(sender, recipient)));
         } else {
             sender = chatMemberDao.findByUserIdAndChatId(senderId, chat.getId());
             notify = chatMemberDao.findByUserIdAndChatId(recipientId, chat.getId()).getNotify();
@@ -136,14 +145,14 @@ public class ChatServiceImpl implements ChatService {
     public void markMessageAsRead(Long userId, Long messageId) {
         Message message = getMessageById(messageId);
         checkUserAccessToChat(message.getChat().getId(), userId);
-        message.setRead(true);
+        message.setIsRead(true);
     }
 
     public void markAllChatMessagesAsRead(Long userId, Long chatId) {
         checkUserAccessToChat(chatId, userId);
-        List<Message> unreadMessages = messageDao.findByChatIdAndRead(chatId, false);
+        List<Message> unreadMessages = messageDao.findByChatIdAndIsRead(chatId, false);
         for (Message message : unreadMessages) {
-            message.setRead(true);
+            message.setIsRead(true);
         }
     }
 
@@ -157,14 +166,24 @@ public class ChatServiceImpl implements ChatService {
         if (chat.getChatType().equals(ChatType.GROUP) || chat.getChatType().equals(ChatType.PRIVATE)) {
             chat.setChatType(ChatType.GROUP);
             chatMember = new ChatMember(newMemberId, newMemberName, chat, true);
+            chat.getChatMembers().add(chatMember);
             chatMemberDao.save(chatMember);
             return;
         }
-        throw new AccessDeniedException("This chat can not be for group");
+        throw new AccessDeniedException("This chat can not become a group chat");
     }
 
     public void sendToSupport(Long userId, String username, String theme, String text) {
+        if (userId == 0 || username.isBlank()) {
+            throw new AccessDeniedException("User is not set");
+        }
         Chat chat = new Chat();
+        if (theme.isBlank()) {
+            throw new IncorrectDataException("You have to specify the subject of the message");
+        }
+        if (text.isBlank()) {
+            throw new IncorrectDataException("Message question is not specified");
+        }
         chat.setName(theme);
         chat.setChatType(ChatType.SUPPORT_UNASSIGNED);
         chatDao.save(chat);
@@ -180,15 +199,21 @@ public class ChatServiceImpl implements ChatService {
     }
 
     public void assignSupportChat(Long supporterId, String supporterName, Long chatId, Long oldSupporterId) {
+        if (supporterId == 0 || supporterName.isBlank()) {
+            throw new AccessDeniedException("Supporter is not set");
+        }
         Chat chat = getChatById(chatId);
         if (oldSupporterId != null) {
             if (!(ChatType.SUPPORT_QUESTION.equals(chat.getChatType()) || ChatType.SUPPORT_UNASSIGNED.equals(chat.getChatType()))) {
                 throw new AccessDeniedException("User doesn't need support anymore");
             }
             ChatMember oldChatMember = chatMemberDao.findByUserIdAndChatId(oldSupporterId, chatId);
-            chatMemberDao.deleteById(oldChatMember.getId());
-        }
-        if (oldSupporterId == null) {
+            if (oldChatMember == null) {
+                throw new NotFoundException("This question is not supported by user " + oldSupporterId);
+            }
+            oldChatMember.setUserId(supporterId);
+            oldChatMember.setMemberName(supporterName);
+        } else {
             if (ChatType.SUPPORT_QUESTION.equals(chat.getChatType())) {
                 throw new AccessDeniedException("This question is already assigned");
             }
@@ -198,32 +223,40 @@ public class ChatServiceImpl implements ChatService {
             if (!ChatType.SUPPORT_UNASSIGNED.equals(chat.getChatType())) {
                 throw new AccessDeniedException("This chat is not unassigned for support");
             }
+            ChatMember supporter = new ChatMember(supporterId, supporterName, chat, true);
+            chatMemberDao.save(supporter);
+            chat.getChatMembers().add(supporter);
         }
-        ChatMember supporter = new ChatMember(supporterId, supporterName, chat, true);
-        chatMemberDao.save(supporter);
         chat.setChatType(ChatType.SUPPORT_QUESTION);
     }
 
     public List<Long> closeQuestion(Long userId, Long chatId, Boolean isAdmin) {
+        Chat chat = getChatById(chatId);
         if (!isAdmin) {
             checkUserAccessToChat(chatId, userId);
         }
-        Chat chat = getChatById(chatId);
+        if (ChatType.SUPPORT_CLOSED.equals(chat.getChatType())) {
+            throw new IncorrectDataException("This question is already closed");
+        }
+        if (!ChatType.SUPPORT_QUESTION.equals(chat.getChatType()) && !ChatType.SUPPORT_UNASSIGNED.equals(chat.getChatType())) {
+            throw new IncorrectDataException("This chat is not for technical support");
+        }
         chat.setChatType(ChatType.SUPPORT_CLOSED);
         return chat.getChatMembers().stream().map(ChatMember::getUserId).collect(Collectors.toList());
     }
 
     public List<Chat> getSupportChats(Long userId) {
-        List<Chat> chats = chatDao.findByUserIdAndChatType(userId, ChatType.SUPPORT_QUESTION);
-        chats.addAll(chatDao.findByUserIdAndChatType(userId, ChatType.SUPPORT_UNASSIGNED));
+        List<Chat> chats = chatDao.findByUserIdAndChatType(userId, ChatType.SUPPORT_QUESTION.name());
+        chats.addAll(chatDao.findByUserIdAndChatType(userId, ChatType.SUPPORT_UNASSIGNED.name()));
         return chats;
     }
 
     @Override
     public void changeSendingNotifications(Long userId, Long chatId, Boolean send) {
+        getChatById(chatId);
         ChatMember chatMember = chatMemberDao.findByUserIdAndChatId(userId, chatId);
         if (chatMember == null) {
-            throw new NotFoundException("User " + userId + " is not a member of chat " + chatId);
+            throw new IncorrectDataException("User " + userId + " is not a member of chat " + chatId);
         }
         chatMember.setNotify(send);
     }

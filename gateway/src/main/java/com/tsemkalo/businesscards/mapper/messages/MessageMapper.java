@@ -46,7 +46,7 @@ public class MessageMapper implements Mapper<AbstractEntity, MessageDTO, Message
                 .setChatId(dto.getChatId())
                 .setSendingTime(timestamp)
                 .setText(dto.getText())
-                .setRead(dto.getRead());
+                .setRead(dto.getIsRead());
         if (dto.getId() != null) {
             builder.setId(dto.getId());
         }
@@ -67,7 +67,7 @@ public class MessageMapper implements Mapper<AbstractEntity, MessageDTO, Message
                 .toLocalDateTime();
         dto.setSendingTime(sendingTime);
         dto.setText(proto.getText());
-        dto.setRead(proto.getRead());
+        dto.setIsRead(proto.getRead());
         return dto;
     }
 }

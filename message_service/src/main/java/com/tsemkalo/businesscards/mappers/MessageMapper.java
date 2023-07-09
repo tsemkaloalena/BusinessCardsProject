@@ -4,7 +4,6 @@ import com.google.protobuf.Timestamp;
 import com.tsemkalo.businesscards.MessageProto;
 import com.tsemkalo.businesscards.dao.ChatDao;
 import com.tsemkalo.businesscards.dao.ChatMemberDao;
-import com.tsemkalo.businesscards.dao.MessageDao;
 import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;
 import com.tsemkalo.businesscards.dao.entities.Message;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Optional;
 
@@ -36,7 +34,7 @@ public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> 
         dto.setChatId(entity.getChat().getId());
         dto.setSendingTime(entity.getSendingTime());
         dto.setText(entity.getText());
-        dto.setRead(entity.getRead());
+        dto.setIsRead(entity.getIsRead());
         return dto;
     }
 
@@ -52,7 +50,7 @@ public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> 
         optionalChat.ifPresent(message::setChat);
         message.setSendingTime(dto.getSendingTime());
         message.setText(dto.getText());
-        message.setRead(dto.getRead());
+        message.setIsRead(dto.getIsRead());
         return message;
     }
 
@@ -72,7 +70,7 @@ public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> 
                 .toLocalDateTime();
         message.setSendingTime(sendingTime);
         message.setText(proto.getText());
-        message.setRead(proto.getRead());
+        message.setIsRead(proto.getRead());
         return message;
     }
 
@@ -88,7 +86,7 @@ public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> 
                 .setChatId(entity.getChat().getId())
                 .setSendingTime(timestamp)
                 .setText(entity.getText())
-                .setRead(entity.getRead());
+                .setRead(entity.getIsRead());
         if (entity.getId() != null) {
             builder.setId(entity.getId());
         }
@@ -107,7 +105,7 @@ public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> 
                 .setChatId(dto.getChatId())
                 .setSendingTime(timestamp)
                 .setText(dto.getText())
-                .setRead(dto.getRead());
+                .setRead(dto.getIsRead());
         if (dto.getId() != null) {
             builder.setId(dto.getId());
         }
@@ -128,7 +126,7 @@ public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> 
                 .toLocalDateTime();
         dto.setSendingTime(sendingTime);
         dto.setText(proto.getText());
-        dto.setRead(proto.getRead());
+        dto.setIsRead(proto.getRead());
         return dto;
     }
 }

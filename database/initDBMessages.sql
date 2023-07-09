@@ -6,11 +6,11 @@ chat_type varchar(64) NOT NULL
 
 CREATE TABLE IF NOT EXISTS messages (
 id bigserial PRIMARY KEY,
-user_id bigint NOT NULL,
+member_id bigint NOT NULL,
 chat_id bigint REFERENCES chats(id),
 sending_time TIMESTAMP NOT NULL,
 text varchar(1024) NOT NULL,
-read boolean NOT NULL DEFAULT FALSE
+is_read boolean NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS chat_members (

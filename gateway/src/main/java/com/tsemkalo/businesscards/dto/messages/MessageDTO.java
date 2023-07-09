@@ -17,5 +17,5 @@ public class MessageDTO extends AbstractDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime sendingTime;
     private String text;
-    private Boolean read;
+    private Boolean isRead;
 }

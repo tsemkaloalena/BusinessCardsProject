@@ -37,5 +37,5 @@ public class Message extends AbstractEntity {
     private String text;
 
     @Column
-    private Boolean read;
+    private Boolean isRead;
 }
