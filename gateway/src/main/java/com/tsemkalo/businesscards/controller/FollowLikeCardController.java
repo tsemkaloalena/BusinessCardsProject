@@ -77,7 +77,7 @@ public class FollowLikeCardController {
         body.put("message", "User " + user.getId() + " unfollowed card " + cardId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
-
+// TODO LIKE
     @PreAuthorize(FOLLOW_LIKE)
     @GetMapping("/followings")
     public List<CardDTO> getUserFollowings() {

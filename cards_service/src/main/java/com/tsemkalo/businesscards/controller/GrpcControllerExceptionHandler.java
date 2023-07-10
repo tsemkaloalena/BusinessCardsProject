@@ -9,9 +9,16 @@ import io.grpc.StatusException;
 import io.grpc.StatusRuntimeException;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @GrpcAdvice
+@EnableRabbit
 public class GrpcControllerExceptionHandler {
+	@Autowired
+	private RabbitTemplate template;
+
 	@GrpcExceptionHandler(NotFoundException.class)
 	public StatusRuntimeException handleNotFoundException(NotFoundException exception) {
 		Status status = Status.NOT_FOUND.withDescription(exception.getMessage()).withCause(exception);

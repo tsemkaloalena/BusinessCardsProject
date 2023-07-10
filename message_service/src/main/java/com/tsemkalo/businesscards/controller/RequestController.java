@@ -32,6 +32,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
 @RestController // TODO not rest?
 @EnableRabbit
 @GrpcService
+@Transactional(rollbackFor = Exception.class)
 public class RequestController extends MessageServiceGrpc.MessageServiceImplBase {
     @Autowired
     private ChatService chatService;

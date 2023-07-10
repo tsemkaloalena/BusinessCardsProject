@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "errors")
+@Table(name = "error_messages")
 @NoArgsConstructor
 @Getter
 @Setter

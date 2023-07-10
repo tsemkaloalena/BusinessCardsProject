@@ -47,7 +47,7 @@ public class RequestController extends AdminServiceGrpc.AdminServiceImplBase {
         adminService.addTechSupportRequest(userDTO.getUsername());
     }
 
-    @RabbitListener(queues = QueueConstants.SEND_ERROR_MESSAGE)
+    @RabbitListener(queues = QueueConstants.SEND_ERROR_TO_ADMIN)
     public void saveErrorMessage(ErrorMessageDTO errorMessageDTO) {
         ErrorMessage errorMessage = errorMessageMapper.dtoToEntity(errorMessageDTO);
         adminService.saveErrorMessage(errorMessage);

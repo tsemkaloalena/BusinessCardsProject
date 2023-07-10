@@ -348,7 +348,7 @@ public abstract class AbstractTest {
                 }
             }
             return messages;
-        }).when(messageDao).findByChatIdAndIsRead(any(Long.class), any(Boolean.class));
+        }).when(messageDao).findByChatIdAndIsReadOrderBySendingTimeAsc(any(Long.class), any(Boolean.class));
     }
 
     private void messageDaoSaveSetup() {

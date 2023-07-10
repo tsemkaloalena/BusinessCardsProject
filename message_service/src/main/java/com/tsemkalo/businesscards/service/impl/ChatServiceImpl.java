@@ -66,7 +66,8 @@ public class ChatServiceImpl implements ChatService {
     public List<Message> getChatMessages(Long chatId, Long userId) {
         Chat chat = getChatById(chatId);
         checkUserAccessToChat(chatId, userId);
-        return chat.getMessages();
+        List<Message> messages = chat.getMessages();
+        return messages;
     }
 
     public List<ChatMember> getChatMembersByChatId(Long chatId, Long userId) {
@@ -145,14 +146,19 @@ public class ChatServiceImpl implements ChatService {
     public void markMessageAsRead(Long userId, Long messageId) {
         Message message = getMessageById(messageId);
         checkUserAccessToChat(message.getChat().getId(), userId);
+        if (userId.equals(message.getChatMember().getUserId())) {
+            return;
+        }
         message.setIsRead(true);
     }
 
     public void markAllChatMessagesAsRead(Long userId, Long chatId) {
         checkUserAccessToChat(chatId, userId);
-        List<Message> unreadMessages = messageDao.findByChatIdAndIsRead(chatId, false);
+        List<Message> unreadMessages = messageDao.findByChatIdAndIsReadOrderBySendingTimeAsc(chatId, false);
         for (Message message : unreadMessages) {
-            message.setIsRead(true);
+            if (!userId.equals(message.getChatMember().getUserId())) {
+                message.setIsRead(true);
+            }
         }
     }
 

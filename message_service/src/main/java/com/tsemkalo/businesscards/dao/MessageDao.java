@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MessageDao extends JpaRepository<Message, Long> {
-    List<Message> findByChatIdAndIsRead(Long chatId, Boolean isRead);
+    List<Message> findByChatIdAndIsReadOrderBySendingTimeAsc(Long chatId, Boolean isRead);
 }

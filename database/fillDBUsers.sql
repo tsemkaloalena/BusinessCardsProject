@@ -53,3 +53,15 @@ SELECT setval('nonactivated_users_id_seq', 1, true);
 --(11, 'edik', 'blue', 'Edik', 'NotYarik', 3),
 --(12, 'derevo', 'tree', 'Drevo', 'Obrabotka', 3),
 --(13, 'sashenka', 'sladkiy', 'Danya', 'Saharok', 3);
+
+{
+    "username":"voron",
+    "password":"vasya",
+    "name":"Vasya",
+    "surname":"Voron",
+    "roleDTO": {
+        "id": 2,
+        "name":"TECHNICAL_SUPPORT"
+    },
+    "email":"tsemkaloalena@gmail.com"
+}

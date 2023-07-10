@@ -11,6 +11,7 @@ import com.tsemkalo.businesscards.UsernameProto;
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
 import com.tsemkalo.businesscards.configuration.constants.SecurityConstants;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
+import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import com.tsemkalo.businesscards.dto.LoginDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.dto.UserDTO;
@@ -120,9 +121,13 @@ public class UserController {
 
     @RabbitListener(queues = QueueConstants.ACTIVATE_ACCOUNT_MAIL + ".dlq")
     public String sendActivateAccountMailFailed(Exception failed) {
-        // TODO write to db
-
-        System.out.println(failed.toString());
+        if (failed.getMessage() != null && !failed.getMessage().isBlank()) {
+            sendErrorToAdmin(500, failed.getMessage());
+        } else if (failed.getCause() != null) {
+            sendErrorToAdmin(500, failed.getCause().toString());
+        } else {
+            sendErrorToAdmin(500, "Could not send account activation email");
+        }
         return failed.toString();
     }
 
@@ -175,9 +180,13 @@ public class UserController {
 
     @RabbitListener(queues = QueueConstants.FORGOT_PASSWORD_MAIL + ".dlq")
     public String sendForgotPasswordMailFailed(Exception failed) {
-        // TODO write to db
-
-        System.out.println(failed.toString());
+        if (failed.getMessage() != null && !failed.getMessage().isBlank()) {
+            sendErrorToAdmin(500, failed.getMessage());
+        } else if (failed.getCause() != null) {
+            sendErrorToAdmin(500, failed.getCause().toString());
+        } else {
+            sendErrorToAdmin(500, "Could not send email with resetting password link");
+        }
         return failed.toString();
     }
 
@@ -190,5 +199,9 @@ public class UserController {
         userService.editInfo(request);
         body.put("message", "Your info is successfully edited.");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
+    }
+
+    private void sendErrorToAdmin(Integer code, String text) {
+        template.convertAndSend(QueueConstants.SEND_ERROR_TO_ADMIN, new ErrorMessageDTO(code, text));
     }
 }

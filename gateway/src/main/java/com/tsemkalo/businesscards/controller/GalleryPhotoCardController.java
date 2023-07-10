@@ -53,7 +53,7 @@ public class GalleryPhotoCardController {
                 .setCardId(cardId)
                 .build();
         cardService.addGalleryPhoto(editGalleryPhotoProto);
-        body.put("message", "Contact is added to card " + cardId);
+        body.put("message", "Gallery photo is added to card " + cardId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 
@@ -85,7 +85,7 @@ public class GalleryPhotoCardController {
                 .setCardId(cardId)
                 .build();
         cardService.deleteGalleryPhoto(deleteGalleryPhotoProto);
-        body.put("message", "Address of card " + cardId + " is deleted");
+        body.put("message", "Gallery photo of card " + cardId + " is deleted");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 }

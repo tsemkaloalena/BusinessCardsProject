@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -88,6 +89,14 @@ public class MessageController {
     @PreAuthorize(CHAT)
     @GetMapping("/chats")
     public List<ChatDTO> getUserChats() {
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<ChatProto> protos = messageService.getUserChats(IdMessageServiceValue.newBuilder().setId(user.getId()).build()).getChatList();
+        return protos.stream().map(chatMapper::protoToDTO).collect(Collectors.toList());
+    }
+
+    @PreAuthorize(CHAT)
+    @GetMapping("/chats/private")
+    public List<ChatDTO> getUserPrivateChats() {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<ChatProto> protos = messageService.getUserChats(IdMessageServiceValue.newBuilder().setId(user.getId()).build()).getChatList();
         return protos.stream().map(chatMapper::protoToDTO).collect(Collectors.toList());
@@ -215,7 +224,7 @@ public class MessageController {
 
     @PreAuthorize(CHAT)
     @PostMapping("/support/new_question")
-    public ResponseEntity<Object> sendToSupport(@PathVariable Long chatId, @RequestParam String theme, @RequestBody String text) {
+    public ResponseEntity<Object> sendToSupport(@RequestParam String theme, @RequestBody String text) {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         SendMessageToSupportRequest sendMessageToSupportRequest = SendMessageToSupportRequest.newBuilder()
                 .setText(text)
@@ -230,7 +239,7 @@ public class MessageController {
     }
 
     @PreAuthorize(RESOLVE_QUESTIONS)
-    @PostMapping("/support/chats/unassigned")
+    @GetMapping("/support/chats/unassigned")
     public List<ChatDTO> getUnassignedSupportChats() {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<ChatProto> chatProtos = messageService.getUnassignedSupportChats(Empty.newBuilder().build()).getChatList();
@@ -334,15 +343,15 @@ public class MessageController {
     }
 
     @PreAuthorize(CHAT)
-    @PostMapping("/chat/{chaId}/message/{messageId}/read")
-    public void markMessageAsRead(@PathVariable Long chatId, @PathVariable Long messageId) {
+    @PostMapping("/chat/{chatId}/message/{messageId}/read")
+    public void markMessageAsRead(@PathVariable("chatId") Long chatId, @PathVariable("messageId") Long messageId) {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         UserChatIdDTO dto = new UserChatIdDTO(user.getId(), messageId);
         template.convertAndSend(QueueConstants.MARK_MESSAGE_AS_READ, dto);
     }
 
     @PreAuthorize(CHAT)
-    @PostMapping("/chat/{chaId}/messages/read")
+    @PostMapping("/chat/{chatId}/messages/read")
     public void markChatMessagesAsRead(@PathVariable Long chatId) {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         UserChatIdDTO dto = new UserChatIdDTO(user.getId(), chatId);

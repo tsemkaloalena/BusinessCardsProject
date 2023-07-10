@@ -60,6 +60,13 @@ public class CardController {
         return cardProtos.stream().map(cardMapper::protoToDTO).collect(Collectors.toList());
     }
 
+    @GetMapping("/cards")
+    public List<CardDTO> getCurrentUserCards() {
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<CardProto> cardProtos = cardService.getAllCardsInfoByUser(IdValue.newBuilder().setId(user.getId()).build()).getCardsList();
+        return cardProtos.stream().map(cardMapper::protoToDTO).collect(Collectors.toList());
+    }
+
     @PreAuthorize(EDIT)
     @PostMapping("/card/new")
     public ResponseEntity<Object> addCard(@RequestBody CardDTO cardDTO) {
@@ -107,8 +114,6 @@ public class CardController {
         body.put("message", "Card " + cardId + " is deleted");
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
-
-    //getFollowedCards
 
     @PreAuthorize(EDIT)
     @PostMapping("/card/{cardId}/edit/appearance")

@@ -1,10 +1,15 @@
 package com.tsemkalo.businesscards.exceptions.handler;
 
+import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import com.tsemkalo.businesscards.exceptions.AuthenticationCredentialsReadingException;
 import com.tsemkalo.businesscards.exceptions.AuthorizationErrorException;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
 import com.tsemkalo.businesscards.exceptions.NotFoundException;
 import io.grpc.Status;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -19,25 +24,29 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
+@EnableRabbit
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
+    @Autowired
+    private RabbitTemplate template;
+
     @ExceptionHandler({AuthenticationCredentialsReadingException.class, IOException.class})
     public ResponseEntity<Object> handleInternalErrorException(RuntimeException exception, WebRequest request) {
-        return makeResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return makeResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, true);
     }
 
     @ExceptionHandler({IncorrectDataException.class, IllegalArgumentException.class, IllegalStateException.class})
     public ResponseEntity<Object> handleIllegalArgumentException(RuntimeException exception, WebRequest request) {
-        return makeResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return makeResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST, false);
     }
 
     @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<Object> handleNotFoundException(RuntimeException exception, WebRequest request) {
-        return makeResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return makeResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND, false);
     }
 
     @ExceptionHandler({AuthorizationErrorException.class, AuthenticationException.class})
     public ResponseEntity<Object> handleUnauthorizedErrorException(RuntimeException exception, WebRequest request) {
-        return makeResponseEntity(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+        return makeResponseEntity(exception.getMessage(), HttpStatus.UNAUTHORIZED, true);
     }
 
     @ExceptionHandler({RuntimeException.class, Exception.class})
@@ -52,15 +61,21 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             default -> httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         if (status.getDescription() == null) {
-            return makeResponseEntity(status.getCause().getMessage(), httpStatus);
+            return makeResponseEntity(status.getCause().getMessage(), httpStatus, true);
         }
-        return makeResponseEntity( status.getDescription(), httpStatus);
+        return makeResponseEntity( status.getDescription(), httpStatus, true);
     }
 
-    private ResponseEntity<Object> makeResponseEntity(String message, HttpStatus httpStatus) {
+    private ResponseEntity<Object> makeResponseEntity(String message, HttpStatus httpStatus, boolean sendToAdmin) {
+        sendErrorToAdmin(httpStatus.value(), message);
+
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", Calendar.getInstance());
         body.put("message", message);
         return new ResponseEntity<>(body, httpStatus);
+    }
+
+    private void sendErrorToAdmin(Integer code, String text) {
+        template.convertAndSend(QueueConstants.SEND_ERROR_TO_ADMIN, new ErrorMessageDTO(code, text));
     }
 }
