@@ -20,9 +20,6 @@ public class LikeServiceImpl extends AbstractServiceImpl<Like, LikeDao> implemen
     @Autowired
     private CardDao cardDao;
 
-    @Autowired
-    private LikeDao likeDao;
-
     @Override
     public Class<Like> getEntityClass() {
         return Like.class;
@@ -36,20 +33,23 @@ public class LikeServiceImpl extends AbstractServiceImpl<Like, LikeDao> implemen
         if (optionalCard.isEmpty()) {
             throw new NotFoundException(getEntityClass().getSimpleName() + " with id " + cardId);
         }
-        if (likeDao.findByUserIdAndCardId(userId, cardId) != null) {
+        if (getDefaultDao().findByUserIdAndCardId(userId, cardId) != null) {
             throw new AlreadyExistsException("User " + userId + " already liked card " + cardId);
         }
         like.setCard(optionalCard.get());
-        likeDao.save(like);
+        getDefaultDao().save(like);
     }
 
     @Override
     public void delete(Long userId, Long cardId) {
-        Like like = likeDao.findByUserIdAndCardId(userId, cardId);
+        if (!cardDao.existsById(cardId)) {
+            throw new NotFoundException("Card " + cardId + " is not found");
+        }
+        Like like = getDefaultDao().findByUserIdAndCardId(userId, cardId);
         if (like == null) {
             throw new IncorrectDataException("User " + userId + " didn't check like card " + cardId);
         }
-        likeDao.delete(like);
+        getDefaultDao().delete(like);
     }
 
     @Override

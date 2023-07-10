@@ -18,6 +18,7 @@ import com.tsemkalo.businesscards.mappers.ChatMemberMapper;
 import com.tsemkalo.businesscards.mappers.MessageMapper;
 import com.tsemkalo.businesscards.service.impl.ChatServiceImpl;
 import io.grpc.internal.testing.StreamRecorder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,8 +27,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,30 +73,6 @@ public class IntegrationMessageServiceTest {
 
     @InjectMocks
     private RequestController requestController;
-
-    private Map<Long, Chat> getChatTable() {
-        Map<Long, Chat> chatTable = new HashMap<>();
-        for (Chat chat : chatDao.findAll()) {
-            chatTable.put(chat.getId(), chat);
-        }
-        return chatTable;
-    }
-
-    private Map<Long, ChatMember> getChatMemberTable() {
-        Map<Long, ChatMember> chatMemberTable = new HashMap<>();
-        for (ChatMember chatMember : chatMemberDao.findAll()) {
-            chatMemberTable.put(chatMember.getId(), chatMember);
-        }
-        return chatMemberTable;
-    }
-
-    private Map<Long, Message> getMessageTable() {
-        Map<Long, Message> messageTable = new HashMap<>();
-        for (Message message : messageDao.findAll()) {
-            messageTable.put(message.getId(), message);
-        }
-        return messageTable;
-    }
 
     @Test
     public void getUserChats_whenUserHasChats_thenReturnChats() throws Exception {
@@ -1324,7 +1303,7 @@ public class IntegrationMessageServiceTest {
             if (currentUserId.equals(chatMember.getUserId())) {
                 assertFalse(chatMember.getNotify());
             } else {
-                assertTrue( chatMember.getNotify());
+                assertTrue(chatMember.getNotify());
             }
         }
     }
@@ -1355,5 +1334,29 @@ public class IntegrationMessageServiceTest {
 
         StreamRecorder<Empty> responseObserver = StreamRecorder.create();
         assertThrows(IncorrectDataException.class, () -> requestController.changeSendingNotifications(request, responseObserver));
+    }
+
+    private Map<Long, Chat> getChatTable() {
+        Map<Long, Chat> chatTable = new HashMap<>();
+        for (Chat chat : chatDao.findAll()) {
+            chatTable.put(chat.getId(), chat);
+        }
+        return chatTable;
+    }
+
+    private Map<Long, ChatMember> getChatMemberTable() {
+        Map<Long, ChatMember> chatMemberTable = new HashMap<>();
+        for (ChatMember chatMember : chatMemberDao.findAll()) {
+            chatMemberTable.put(chatMember.getId(), chatMember);
+        }
+        return chatMemberTable;
+    }
+
+    private Map<Long, Message> getMessageTable() {
+        Map<Long, Message> messageTable = new HashMap<>();
+        for (Message message : messageDao.findAll()) {
+            messageTable.put(message.getId(), message);
+        }
+        return messageTable;
     }
 }

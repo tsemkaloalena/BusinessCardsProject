@@ -1,4 +1,4 @@
-package com.tsemkalo.businesscards;
+package com.tsemkalo.businesscards.controller;
 
 import com.tsemkalo.businesscards.configuration.enums.ContactType;
 import com.tsemkalo.businesscards.configuration.enums.GalleryType;
@@ -24,13 +24,25 @@ import com.tsemkalo.businesscards.mapper.ContactMapper;
 import com.tsemkalo.businesscards.mapper.FollowMapper;
 import com.tsemkalo.businesscards.mapper.GalleryPhotoMapper;
 import com.tsemkalo.businesscards.mapper.LikeMapper;
+import com.tsemkalo.businesscards.service.impl.AbstractServiceImpl;
+import com.tsemkalo.businesscards.service.impl.AddressServiceImpl;
+import com.tsemkalo.businesscards.service.impl.AppearanceServiceImpl;
+import com.tsemkalo.businesscards.service.impl.CardServiceImpl;
+import com.tsemkalo.businesscards.service.impl.ContactServiceImpl;
+import com.tsemkalo.businesscards.service.impl.FollowServiceImpl;
+import com.tsemkalo.businesscards.service.impl.GalleryPhotoServiceImpl;
+import com.tsemkalo.businesscards.service.impl.LikeServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,49 +54,60 @@ import static org.mockito.Mockito.lenient;
 @Setter
 @Getter
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class AbstracServicetTest {
-
+//@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+public abstract class AbstractTest {
     @Mock
     private AddressDao addressDao;
-
     @Mock
     private AppearanceDao appearanceDao;
-
     @Mock
     private CardDao cardDao;
-
     @Mock
     private ContactDao contactDao;
-
     @Mock
     private FollowDao followDao;
-
     @Mock
     private GalleryPhotoDao galleryPhotoDao;
-
     @Mock
     private LikeDao likeDao;
 
     @Spy
+    @InjectMocks
     private AddressMapper addressMapper;
-
     @Spy
+    @InjectMocks
     private AppearanceMapper appearanceMapper;
-
     @Spy
+    @InjectMocks
     private CardMapper cardMapper;
-
     @Spy
+    @InjectMocks
     private ContactMapper contactMapper;
-
     @Spy
+    @InjectMocks
     private FollowMapper followMapper;
-
     @Spy
+    @InjectMocks
     private GalleryPhotoMapper galleryPhotoMapper;
+    @Spy
+    @InjectMocks
+    private LikeMapper likeMapper;
 
     @Spy
-    private LikeMapper likeMapper;
+    private AddressServiceImpl addressService;
+    @Spy
+    private AppearanceServiceImpl appearanceService;
+    @Spy
+    private CardServiceImpl cardService;
+    @Spy
+    private ContactServiceImpl contactService;
+    @Spy
+    private FollowServiceImpl followService;
+    @Spy
+    private GalleryPhotoServiceImpl galleryPhotoService;
+    @Spy
+    private LikeServiceImpl likeService;
 
     private Map<Long, Address> addressTable = new HashMap<>();
     private Map<Long, Appearance> appearanceTable = new HashMap<>();
@@ -111,9 +134,9 @@ public abstract class AbstracServicetTest {
         followTable = new HashMap<>();
         galleryPhotoTable = new HashMap<>();
         likeTable = new HashMap<>();
+        fillCardTable();
         fillAddressTable();
         fillAppearanceTable();
-        fillCardTable();
         fillContactTable();
         fillFollowTable();
         fillGalleryPhotoTable();
@@ -129,6 +152,35 @@ public abstract class AbstracServicetTest {
         followDaoSetup();
         galleryPhotoDaoSetup();
         likeDaoSetup();
+    }
+
+    @BeforeEach
+    public void setupServices() {
+        try {
+            Field defaultDaoFollowField = AbstractServiceImpl.class.getDeclaredField("defaultDao");
+            defaultDaoFollowField.setAccessible(true);
+            defaultDaoFollowField.set(appearanceService, appearanceDao);
+            defaultDaoFollowField.set(addressService, addressDao);
+            defaultDaoFollowField.set(cardService, cardDao);
+            defaultDaoFollowField.set(contactService, contactDao);
+            defaultDaoFollowField.set(followService, followDao);
+            defaultDaoFollowField.set(galleryPhotoService, galleryPhotoDao);
+            defaultDaoFollowField.set(likeService, likeDao);
+            defaultDaoFollowField.setAccessible(false);
+
+            Field cardDaoFollowField = FollowServiceImpl.class.getDeclaredField("cardDao");
+            cardDaoFollowField.setAccessible(true);
+            cardDaoFollowField.set(followService, cardDao);
+            cardDaoFollowField.setAccessible(false);
+
+            Field cardDaoLikeField = LikeServiceImpl.class.getDeclaredField("cardDao");
+            cardDaoLikeField.setAccessible(true);
+            cardDaoLikeField.set(likeService, cardDao);
+            cardDaoLikeField.setAccessible(false);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fillAddressTable() {
@@ -149,6 +201,8 @@ public abstract class AbstracServicetTest {
 
     private void fillAppearanceTable() {
         addAppearance(1L, 1L, "font1", "#ffffff", "", PictureStretchingType.FULL_SCREEN, "#ff0000", "#f000ff", GalleryType.COLLAGE);
+        addAppearance(2L, 2L, "font2", "#eeffff", "/img/path.jpg", PictureStretchingType.DOCUMENT_CENTER, "#ee0000", "#f0e0ff", GalleryType.GRID);
+        addAppearance(3L, 3L, "font3", "#eeffff", "/img/path3.jpg", PictureStretchingType.FULL_DOCUMENT_STRETCH, "#ee0000", "#f0e0ff", GalleryType.CAROUSEL);
     }
 
     public void addAppearance(Long id, Long cardId, String fontName, String backgroundColor, String backgroundImagePath, PictureStretchingType pictureStretching, String mainColor, String secondColor, GalleryType galleryType) {
@@ -169,6 +223,8 @@ public abstract class AbstracServicetTest {
 
     private void fillCardTable() {
         addCard(1L, 10L, "title2", "logo1", "line1", "d1");
+        addCard(2L, 10L, "title3", "logo2", "line2", "d2");
+        addCard(3L, 11L, "title4", "logo3", "line3", "d3");
     }
 
     public void addCard(Long id, Long userId, String title, String logoImgPath, String headline, String description) {
@@ -190,6 +246,8 @@ public abstract class AbstracServicetTest {
     private void fillContactTable() {
         addContact(1L, ContactType.SOCIAL_NETWORK, "inst_link", 1L);
         addContact(2L, ContactType.MAIL_ADDRESS, "test@gmail.com", 1L);
+        addContact(3L, ContactType.PHONE_NUMBER, "909456480849", 2L);
+        addContact(4L, ContactType.MAIL_ADDRESS, "test2@gmail.com", 3L);
     }
 
     public void addContact(Long id, ContactType type, String content, Long cardId) {
@@ -206,6 +264,9 @@ public abstract class AbstracServicetTest {
     private void fillGalleryPhotoTable() {
         addGalleryPhoto(1L, "path1", 1L);
         addGalleryPhoto(2L, "path2", 1L);
+        addGalleryPhoto(3L, "path3", 2L);
+        addGalleryPhoto(4L, "path4", 2L);
+        addGalleryPhoto(5L, "path5", 3L);
     }
 
     public void addGalleryPhoto(Long id, String imgPath, Long cardId) {
@@ -221,6 +282,8 @@ public abstract class AbstracServicetTest {
     private void fillFollowTable() {
         addFollow(1L, 8L, 1L);
         addFollow(2L, 11L, 1L);
+        addFollow(3L, 5L, 2L);
+        addFollow(4L, 5L, 3L);
     }
 
     public void addFollow(Long id, Long userId, Long cardId) {
@@ -238,6 +301,8 @@ public abstract class AbstracServicetTest {
         addLike(2L, 9L, 1L);
         addLike(3L, 10L, 1L);
         addLike(4L, 11L, 1L);
+        addLike(5L, 4L, 2L);
+        addLike(6L, 4L, 3L);
     }
 
     public void addLike(Long id, Long userId, Long cardId) {
@@ -256,6 +321,7 @@ public abstract class AbstracServicetTest {
         addressCommonMethodsSetUpper.saveSetup(addressTable, addressDao, Address.class);
         addressCommonMethodsSetUpper.deleteSetup(addressTable, addressDao, Address.class);
         addressCommonMethodsSetUpper.deleteByIdSetup(addressTable, addressDao);
+        addressCommonMethodsSetUpper.existSetup(addressTable, addressDao);
     }
 
     private void appearanceDaoSetup() {
@@ -264,6 +330,7 @@ public abstract class AbstracServicetTest {
         appearanceCommonMethodsSetUpper.saveSetup(appearanceTable, appearanceDao, Appearance.class);
         appearanceCommonMethodsSetUpper.deleteSetup(appearanceTable, appearanceDao, Appearance.class);
         appearanceCommonMethodsSetUpper.deleteByIdSetup(appearanceTable, appearanceDao);
+        appearanceCommonMethodsSetUpper.existSetup(appearanceTable, appearanceDao);
     }
 
     private void cardDaoSetup() {
@@ -272,6 +339,7 @@ public abstract class AbstracServicetTest {
         cardCommonMethodsSetUpper.saveSetup(cardTable, cardDao, Card.class);
         cardCommonMethodsSetUpper.deleteSetup(cardTable, cardDao, Card.class);
         cardCommonMethodsSetUpper.deleteByIdSetup(cardTable, cardDao);
+        cardCommonMethodsSetUpper.existSetup(cardTable, cardDao);
         lenient().doAnswer(invocationOnMock -> {
             Long userId = invocationOnMock.getArgument(0);
             List<Card> cards = new ArrayList<>();
@@ -290,6 +358,7 @@ public abstract class AbstracServicetTest {
         contactCommonMethodsSetUpper.saveSetup(contactTable, contactDao, Contact.class);
         contactCommonMethodsSetUpper.deleteSetup(contactTable, contactDao, Contact.class);
         contactCommonMethodsSetUpper.deleteByIdSetup(contactTable, contactDao);
+        contactCommonMethodsSetUpper.existSetup(contactTable, contactDao);
     }
 
     private void followDaoSetup() {
@@ -298,6 +367,7 @@ public abstract class AbstracServicetTest {
         followCommonMethodsSetUpper.saveSetup(followTable, followDao, Follow.class);
         followCommonMethodsSetUpper.deleteSetup(followTable, followDao, Follow.class);
         followCommonMethodsSetUpper.deleteByIdSetup(followTable, followDao);
+        followCommonMethodsSetUpper.existSetup(followTable, followDao);
         lenient().doAnswer(invocationOnMock -> {
             Long userId = invocationOnMock.getArgument(0);
             Long cardId = invocationOnMock.getArgument(1);
@@ -326,6 +396,7 @@ public abstract class AbstracServicetTest {
         galleryPhotoCommonMethodsSetUpper.saveSetup(galleryPhotoTable, galleryPhotoDao, GalleryPhoto.class);
         galleryPhotoCommonMethodsSetUpper.deleteSetup(galleryPhotoTable, galleryPhotoDao, GalleryPhoto.class);
         galleryPhotoCommonMethodsSetUpper.deleteByIdSetup(galleryPhotoTable, galleryPhotoDao);
+        galleryPhotoCommonMethodsSetUpper.existSetup(galleryPhotoTable, galleryPhotoDao);
     }
 
     private void likeDaoSetup() {
@@ -334,6 +405,7 @@ public abstract class AbstracServicetTest {
         likeCommonMethodsSetUpper.saveSetup(likeTable, likeDao, Like.class);
         likeCommonMethodsSetUpper.deleteSetup(likeTable, likeDao, Like.class);
         likeCommonMethodsSetUpper.deleteByIdSetup(likeTable, likeDao);
+        likeCommonMethodsSetUpper.existSetup(likeTable, likeDao);
         lenient().doAnswer(invocationOnMock -> {
             Long userId = invocationOnMock.getArgument(0);
             Long cardId = invocationOnMock.getArgument(1);

@@ -2,7 +2,7 @@ package com.tsemkalo.businesscards.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.tsemkalo.businesscards.AbstractServiceTest;
+import com.tsemkalo.businesscards.AbstractTest;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dao.entity.User;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceImplTest extends AbstractServiceTest {
+public class UserServiceImplTest extends AbstractTest {
     @InjectMocks
     private UserServiceImpl userService = new UserServiceImpl();
 

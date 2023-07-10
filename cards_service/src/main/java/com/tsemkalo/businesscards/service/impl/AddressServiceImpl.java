@@ -15,9 +15,6 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class AddressServiceImpl extends AbstractServiceImpl<Address, AddressDao> implements AddressService {
-    @Autowired
-    private AddressDao addressDao;
-
     @Override
     public Class<Address> getEntityClass() {
         return Address.class;
@@ -28,6 +25,6 @@ public class AddressServiceImpl extends AbstractServiceImpl<Address, AddressDao>
         if (!oldAddress.getCard().getId().equals(editedAddress.getCard().getId())) {
             throw new AccessDeniedException("You can not change card id");
         }
-        addressDao.save(editedAddress);
+        getDefaultDao().save(editedAddress);
     }
 }

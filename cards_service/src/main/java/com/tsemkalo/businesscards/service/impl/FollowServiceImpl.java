@@ -4,6 +4,7 @@ import com.tsemkalo.businesscards.dao.CardDao;
 import com.tsemkalo.businesscards.dao.FollowDao;
 import com.tsemkalo.businesscards.dao.entity.Card;
 import com.tsemkalo.businesscards.dao.entity.Follow;
+import com.tsemkalo.businesscards.exception.AccessDeniedException;
 import com.tsemkalo.businesscards.exception.AlreadyExistsException;
 import com.tsemkalo.businesscards.exception.IncorrectDataException;
 import com.tsemkalo.businesscards.exception.NotFoundException;
@@ -20,9 +21,6 @@ import java.util.stream.Collectors;
 @Component
 public class FollowServiceImpl extends AbstractServiceImpl<Follow, FollowDao> implements FollowService {
     @Autowired
-    private FollowDao followDao;
-
-    @Autowired
     private CardDao cardDao;
 
     @Override
@@ -38,20 +36,26 @@ public class FollowServiceImpl extends AbstractServiceImpl<Follow, FollowDao> im
         if (optionalCard.isEmpty()) {
             throw new NotFoundException(getEntityClass().getSimpleName() + " with id " + cardId);
         }
-        if (followDao.findByUserIdAndCardId(userId, cardId) != null) {
+        if (getDefaultDao().findByUserIdAndCardId(userId, cardId) != null) {
             throw new AlreadyExistsException("User " + userId + " already follows card " + cardId);
         }
+        if (userId.equals(optionalCard.get().getUserId())) {
+            throw new AccessDeniedException("You can not follow your own card");
+        }
         follow.setCard(optionalCard.get());
-        followDao.save(follow);
+        getDefaultDao().save(follow);
     }
 
     @Override
     public void delete(Long userId, Long cardId) {
-        Follow follow = followDao.findByUserIdAndCardId(userId, cardId);
+        if (!cardDao.existsById(cardId)) {
+            throw new NotFoundException("Card " + cardId + " is not found");
+        }
+        Follow follow = getDefaultDao().findByUserIdAndCardId(userId, cardId);
         if (follow == null) {
             throw new IncorrectDataException("User " + userId + " doesn't follow card " + cardId);
         }
-        followDao.delete(follow);
+        getDefaultDao().delete(follow);
     }
 
     @Override
@@ -61,7 +65,7 @@ public class FollowServiceImpl extends AbstractServiceImpl<Follow, FollowDao> im
 
     @Override
     public List<Card> getUserFollowings(Long userId) {
-        List<Follow> follows = followDao.findByUserId(userId);
+        List<Follow> follows = getDefaultDao().findByUserId(userId);
         return follows.stream().map(Follow::getCard).collect(Collectors.toList());
     }
 }

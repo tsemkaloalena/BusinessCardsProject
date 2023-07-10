@@ -137,7 +137,9 @@ public class UserServiceImpl implements UserService {
         if (!editedInfo.getUsername().equals(currentUsername)) {
             throw new AccessDeniedException("You can not change username");
         }
-
+        if (!editedInfo.getRoleDTO().getName().equals(user.getRole().getName())) {
+            throw new AccessDeniedException("You can not change yor account type");
+        }
         if (!editedInfo.getName().isBlank() && !editedInfo.getEmail().equals(user.getEmail())) {
             user.setEmail(editedInfo.getEmail());
             // TODO send email to check

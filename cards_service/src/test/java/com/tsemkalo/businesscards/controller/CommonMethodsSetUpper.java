@@ -1,4 +1,4 @@
-package com.tsemkalo.businesscards;
+package com.tsemkalo.businesscards.controller;
 
 import com.tsemkalo.businesscards.dao.entity.AbstractEntity;
 import com.tsemkalo.businesscards.exception.NotFoundException;
@@ -30,11 +30,16 @@ public class CommonMethodsSetUpper<T extends AbstractEntity> {
     public void saveSetup(Map<Long, T> hashMap, JpaRepository<T, Long> dao, Class<T> type) {
         lenient().doAnswer(invocationOnMock -> {
             T entity = invocationOnMock.getArgument(0);
-            Long id = (long) hashMap.size() + 1;
-            while (hashMap.containsKey(id)) {
-                id++;
+            Long id;
+            if (entity.getId() == null) {
+                id = (long) hashMap.size() + 1;
+                while (hashMap.containsKey(id)) {
+                    id++;
+                }
+                entity.setId(id);
+            } else {
+                id = entity.getId();
             }
-            entity.setId(id);
             hashMap.put(id, entity);
             findAllSetup(hashMap, dao);
             findByIdSetup(hashMap, dao);
@@ -54,6 +59,13 @@ public class CommonMethodsSetUpper<T extends AbstractEntity> {
             }
             return null;
         }).when(dao).deleteById(any(Long.class));
+    }
+
+    public void existSetup(Map<Long, T> hashMap, JpaRepository<T, Long> dao) {
+        lenient().doAnswer(invocationOnMock -> {
+            Long id = invocationOnMock.getArgument(0);
+            return hashMap.containsKey(id);
+        }).when(dao).existsById(any(Long.class));
     }
 
     public void deleteSetup(Map<Long, T> hashMap, JpaRepository<T, Long> dao, Class<T> type) {

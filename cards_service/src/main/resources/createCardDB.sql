@@ -1,3 +1,65 @@
+DROP TABLE IF EXISTS gallery_photos;
+DROP TABLE IF EXISTS contacts;
+DROP TABLE IF EXISTS addresses;
+DROP TABLE IF EXISTS follows;
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS appearances;
+DROP TABLE IF EXISTS cards;
+
+CREATE TABLE IF NOT EXISTS cards (
+id bigserial PRIMARY KEY,
+title varchar(64) NOT NULL,
+logo_img_path varchar(256) NOT NULL,
+headline varchar(64) NOT NULL,
+description varchar(1024) NOT NULL,
+user_id bigint NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS gallery_photos (
+id bigserial PRIMARY KEY,
+card_id bigint REFERENCES cards(id),
+img_path varchar(256) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS contacts (
+id bigserial PRIMARY KEY,
+type varchar(64) NOT NULL,
+content varchar(64) NOT NULL,
+card_id bigint REFERENCES cards(id)
+);
+
+CREATE TABLE IF NOT EXISTS addresses (
+id bigserial PRIMARY KEY,
+address varchar(256) NOT NULL,
+card_id bigint REFERENCES cards(id),
+show_on_map boolean NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS follows (
+id bigserial PRIMARY KEY,
+user_id bigint NOT NULL,
+card_id bigint REFERENCES cards(id)
+);
+
+CREATE TABLE IF NOT EXISTS likes (
+id bigserial PRIMARY KEY,
+user_id bigint NOT NULL,
+card_id bigint REFERENCES cards(id)
+);
+
+CREATE TABLE IF NOT EXISTS appearances (
+id bigserial PRIMARY KEY,
+card_id bigint REFERENCES cards(id),
+font_name varchar(64) NOT NULL,
+background_color varchar(64) NOT NULL,
+background_image_path varchar(256),
+picture_stretching varchar(64),
+main_color varchar(64) NOT NULL,
+second_color varchar(64) NOT NULL,
+gallery_type varchar(64) NOT NULL
+);
+
+
 INSERT INTO cards (id, title, logo_img_path, headline, description, user_id) VALUES
 (1, 'title2', 'logo1', 'line1', 'd1', 10),
 (2, 'title3', 'logo2', 'line2', 'd2', 10),
@@ -45,44 +107,3 @@ INSERT INTO appearances (id, card_id, font_name, background_color, background_im
 (2, 2, 'font2', '#eeffff', '/img/path.jpg', 'DOCUMENT_CENTER', '#ee0000', '#f0e0ff', 'GRID'),
 (3, 3, 'font3', '#eeffff', '/img/path3.jpg', 'FULL_DOCUMENT_STRETCH', '#ee0000', '#f0e0ff', 'CAROUSEL');
 SELECT setval('appearances_id_seq', 3, true);
-
-
-{
-    "title":"title2",
-    "logoImgPath":"logo1",
-    "headline":"line1",
-    "description":"d1",
-    "appearanceDTO":{
-        "fontName":"font1",
-        "backgroundColor":"#ffffff",
-        "backgroundImagePath":"",
-        "pictureStretching":"FULL_SCREEN",
-        "mainColor":"#ff0000",
-        "secondColor":"#f000ff",
-        "galleryType":"COLLAGE"
-    },
-    "photoDTOS":[
-        {
-            "imgPath":"path1"
-        },
-        {
-            "imgPath":"path2"
-        }
-    ],
-    "contactDTOS":[
-        {
-            "type":"SOCIAL_NETWORK",
-            "content":"inst_link"
-        }
-    ],
-    "addressDTOS":[
-        {
-            "address":"add1",
-            "showOnMap":true
-        },
-        {
-            "address":"add2",
-            "showOnMap":false
-        }
-    ]
-}

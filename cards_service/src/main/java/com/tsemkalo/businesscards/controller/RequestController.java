@@ -2,6 +2,7 @@ package com.tsemkalo.businesscards.controller;
 
 
 import com.google.protobuf.Empty;
+import com.tsemkalo.businesscards.AppearanceProto;
 import com.tsemkalo.businesscards.CardListProto;
 import com.tsemkalo.businesscards.CardProto;
 import com.tsemkalo.businesscards.CardServiceGrpc;

@@ -5,15 +5,26 @@ import com.tsemkalo.businesscards.dao.entity.Card;
 import com.tsemkalo.businesscards.exception.IncorrectDataException;
 import com.tsemkalo.businesscards.exception.NotFoundException;
 import com.tsemkalo.businesscards.service.AbstractService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public abstract class AbstractServiceImpl<T extends AbstractEntity, D extends JpaRepository<T, Long>> implements AbstractService<T> {
+public abstract class AbstractServiceImpl<T extends AbstractEntity, D extends JpaRepository<T, Long>> implements AbstractService<T, D> {
     @Autowired
+    @Getter
     private D defaultDao;
+
+    protected AbstractServiceImpl(D defaultDao) {
+        this.defaultDao = defaultDao;
+    }
+
+    protected AbstractServiceImpl() {
+        this.defaultDao = null;
+    }
 
     public abstract Class<T> getEntityClass();
 

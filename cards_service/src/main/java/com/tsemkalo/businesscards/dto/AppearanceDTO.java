@@ -15,7 +15,11 @@ public class AppearanceDTO extends AbstractDTO {
     private String fontName;
     private String backgroundColor;
     private String backgroundImagePath;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonSerialize(using = ToStringSerializer.class)
     private PictureStretchingType pictureStretching;
+
     private String mainColor;
     private String secondColor;
 

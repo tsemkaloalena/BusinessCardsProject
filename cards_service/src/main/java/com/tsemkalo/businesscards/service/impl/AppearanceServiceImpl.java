@@ -15,9 +15,6 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class AppearanceServiceImpl extends AbstractServiceImpl<Appearance, AppearanceDao> implements AppearanceService {
-    @Autowired
-    private AppearanceDao appearanceDao;
-
     @Override
     public Class<Appearance> getEntityClass() {
         return Appearance.class;
@@ -28,6 +25,6 @@ public class AppearanceServiceImpl extends AbstractServiceImpl<Appearance, Appea
         if (!oldAppearance.getCard().getId().equals(editedAppearance.getCard().getId())) {
             throw new AccessDeniedException("You can not change card id");
         }
-        appearanceDao.save(editedAppearance);
+        getDefaultDao().save(editedAppearance);
     }
 }

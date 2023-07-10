@@ -19,9 +19,6 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class CardServiceImpl extends AbstractServiceImpl<Card, CardDao> implements CardService {
-    @Autowired
-    private CardDao cardDao;
-
     @Override
     public Class<Card> getEntityClass() {
         return Card.class;
@@ -30,14 +27,29 @@ public class CardServiceImpl extends AbstractServiceImpl<Card, CardDao> implemen
     @Override
     public void edit(Card oldCard, Card editedCard) {
         if (!editedCard.getUserId().equals(oldCard.getUserId())) {
-            throw new IncorrectDataException("User id doesn't match to the original one");
+            throw new AccessDeniedException("User id doesn't match to the original one");
         }
-        cardDao.save(editedCard);
+        if (editedCard.getTitle().isBlank()) {
+            throw new IncorrectDataException("Card title is blank");
+        }
+        if (editedCard.getLogoImgPath().isBlank()) {
+            throw new IncorrectDataException("Card logo image path is blank");
+        }
+        if (editedCard.getHeadline().isBlank()) {
+            throw new IncorrectDataException("Card headline is blank");
+        }
+        if (editedCard.getDescription().isBlank()) {
+            throw new IncorrectDataException("Card description is blank");
+        }
+        oldCard.setTitle(editedCard.getTitle());
+        oldCard.setLogoImgPath(editedCard.getLogoImgPath());
+        oldCard.setHeadline(editedCard.getHeadline());
+        oldCard.setDescription(editedCard.getDescription());
     }
 
     @Override
     public List<Card> getCardsByUserId(Long userId) {
-        return cardDao.findByUserId(userId);
+        return getDefaultDao().findByUserId(userId);
     }
 
     @Override

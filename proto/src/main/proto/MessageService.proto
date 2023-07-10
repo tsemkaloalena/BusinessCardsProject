@@ -44,7 +44,7 @@ message ChatUserProto {
   int64 userId = 2;
 }
 
-message ChatMemberIdList {
+message ChatUserIdList {
   repeated int64 userId = 1;
 }
 
@@ -114,16 +114,16 @@ enum ChatTypeProto {
 service MessageService {
   rpc getUserChats(IdMessageServiceValue) returns (ChatProtoList);
   rpc getChatMessages(ChatUserProto) returns (MessageProtoList);
-  rpc getChatMemberIds(ChatUserProto) returns (ChatMemberIdList);
+  rpc getChatUsersIds(ChatUserProto) returns (ChatUserIdList);
   rpc changeMemberName(ChangeNameRequest) returns (google.protobuf.Empty);
   rpc changeChatName(ChangeNameRequest) returns (google.protobuf.Empty);
-  rpc sendMessageToChat(SendMessageToChatRequest) returns (ChatMemberIdList);
+  rpc sendMessageToChat(SendMessageToChatRequest) returns (ChatUserIdList);
   rpc sendMessageToUser(SendMessageToUserRequest) returns (IdMessageServiceValue);
   rpc inviteMemberToChat(InviteMemberRequest) returns (IdMessageServiceValue);
   rpc sendToSupport(SendMessageToSupportRequest) returns (google.protobuf.Empty);
   rpc getUnassignedSupportChats(google.protobuf.Empty) returns (ChatProtoList);
   rpc assignSupportChat(AssignSupportChatRequest) returns (google.protobuf.Empty);
-  rpc closeQuestion(CloseQuestionRequest) returns (ChatMemberIdList);
+  rpc closeQuestion(CloseQuestionRequest) returns (ChatUserIdList);
   rpc getSupportChats(IdMessageServiceValue) returns (ChatProtoList);
   rpc changeSendingNotifications(ChangeSendingNotificationsRequest) returns (google.protobuf.Empty);
   //  rpc sendToAdmin() returns ();

@@ -1,3 +1,41 @@
+DROP TABLE IF EXISTS permissions;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS nonactivated_users;
+DROP TABLE IF EXISTS roles;
+
+
+CREATE TABLE IF NOT EXISTS roles (
+id bigserial PRIMARY KEY,
+name varchar(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS permissions (
+id bigserial PRIMARY KEY,
+name varchar(64) NOT NULL,
+role_id bigint REFERENCES roles(id)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+id bigserial PRIMARY KEY,
+username varchar(64) NOT NULL UNIQUE,
+password varchar(64) NOT NULL,
+name varchar(64) NOT NULL,
+surname varchar(64) NOT NULL,
+role_id bigint REFERENCES roles(id),
+email varchar(64) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS nonactivated_users (
+id bigserial PRIMARY KEY,
+username varchar(64) NOT NULL UNIQUE,
+password varchar(64) NOT NULL,
+name varchar(64) NOT NULL,
+surname varchar(64) NOT NULL,
+role_id bigint REFERENCES roles(id),
+email varchar(64) NOT NULL
+);
+
+
 INSERT INTO roles(id, name) VALUES
 (1, 'ADMIN'),
 (2, 'TECHNICAL_SUPPORT'),
@@ -37,7 +75,6 @@ SELECT setval('users_id_seq', 12, true);
 INSERT INTO nonactivated_users (id, username, password, name, surname, role_id, email) VALUES
 (1, 'sashenka', '$2a$10$bo4DgfkF4rXX2x0iO3Xn0eMvBGm4wOvxOkx0utSPrdnml2/V/r32.', 'Danya', 'Saharok', 3, 'tsemkaloalena@gmail.com');
 SELECT setval('nonactivated_users_id_seq', 1, true);
-
 
 
 --(1, 'svetlana', 'nevazhno', 'Svetlana', 'Oleina', 1),

@@ -17,9 +17,6 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class GalleryPhotoServiceImpl extends AbstractServiceImpl<GalleryPhoto, GalleryPhotoDao> implements GalleryPhotoService {
-    @Autowired
-    private GalleryPhotoDao galleryPhotoDao;
-
     @Override
     public Class<GalleryPhoto> getEntityClass() {
         return GalleryPhoto.class;
@@ -30,6 +27,6 @@ public class GalleryPhotoServiceImpl extends AbstractServiceImpl<GalleryPhoto, G
         if (!oldGalleryPhoto.getCard().getId().equals(editedGalleryPhoto.getCard().getId())) {
             throw new AccessDeniedException("You can not change card id");
         }
-        galleryPhotoDao.save(editedGalleryPhoto);
+        getDefaultDao().save(editedGalleryPhoto);
     }
 }

@@ -16,9 +16,6 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class ContactServiceImpl extends AbstractServiceImpl<Contact, ContactDao> implements ContactService {
-    @Autowired
-    private ContactDao contactDao;
-
     @Override
     public Class<Contact> getEntityClass() {
         return Contact.class;
@@ -29,6 +26,6 @@ public class ContactServiceImpl extends AbstractServiceImpl<Contact, ContactDao>
         if (!oldContact.getCard().getId().equals(editedContact.getCard().getId())) {
             throw new AccessDeniedException("You can not change card id");
         }
-        contactDao.save(editedContact);
+        getDefaultDao().save(editedContact);
     }
 }

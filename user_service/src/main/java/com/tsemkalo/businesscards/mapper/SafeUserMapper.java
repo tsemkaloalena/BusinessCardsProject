@@ -98,7 +98,7 @@ public class SafeUserMapper implements Mapper<User, SafeUserDTO, SafeUserProto> 
 
     @Override
     public SafeUserDTO protoToDTO(SafeUserProto proto) {
-        RoleDTO roleDTO = new RoleDTO(proto.getId(), RoleType.valueOf(proto.getName()));
+        RoleDTO roleDTO = new RoleDTO(proto.getRole().getId(), RoleType.valueOf(proto.getRole().getName().name()));
         return new SafeUserDTO(proto.getId(),
                 proto.getUsername(),
                 proto.getName(),
