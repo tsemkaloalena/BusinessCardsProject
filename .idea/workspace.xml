@@ -8,8 +8,12 @@
       <change afterPath="$PROJECT_DIR$/../RabbitMQProject/src/main/java/com/rabbitmq/example1/Example1Configuration.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SenlaFinalProject/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthenticationFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SenlaFinalProject/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mail_service/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mail_service/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_service/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/resources/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/build.gradle" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/proguard-rules.pro" beforeDir="false" />
