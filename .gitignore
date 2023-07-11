@@ -1,4 +1,7 @@
+!target/generated-sources/protobuf/grpc-java/
+!target/generated-sources/protobuf/java/
 target/
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
