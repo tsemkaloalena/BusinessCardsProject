@@ -2,7 +2,6 @@ package com.tsemkalo.businesscards.mapper.cards;
 
 import com.tsemkalo.businesscards.GalleryPhotoProto;
 import com.tsemkalo.businesscards.dto.cards.GalleryPhotoDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 

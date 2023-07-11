@@ -2,7 +2,6 @@ package com.tsemkalo.businesscards.controller;
 
 
 import com.google.protobuf.Empty;
-import com.tsemkalo.businesscards.AppearanceProto;
 import com.tsemkalo.businesscards.CardListProto;
 import com.tsemkalo.businesscards.CardProto;
 import com.tsemkalo.businesscards.CardServiceGrpc;
@@ -23,10 +22,7 @@ import com.tsemkalo.businesscards.dao.entity.Appearance;
 import com.tsemkalo.businesscards.dao.entity.Card;
 import com.tsemkalo.businesscards.dao.entity.Contact;
 import com.tsemkalo.businesscards.dao.entity.GalleryPhoto;
-import com.tsemkalo.businesscards.exception.AccessDeniedException;
-import com.tsemkalo.businesscards.exception.AlreadyExistsException;
 import com.tsemkalo.businesscards.exception.IncorrectDataException;
-import com.tsemkalo.businesscards.exception.NotFoundException;
 import com.tsemkalo.businesscards.mapper.AddressMapper;
 import com.tsemkalo.businesscards.mapper.AppearanceMapper;
 import com.tsemkalo.businesscards.mapper.CardMapper;
@@ -41,19 +37,18 @@ import com.tsemkalo.businesscards.service.ContactService;
 import com.tsemkalo.businesscards.service.FollowService;
 import com.tsemkalo.businesscards.service.GalleryPhotoService;
 import com.tsemkalo.businesscards.service.LikeService;
-import io.grpc.Status;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@RestController
+@Controller
 @EnableRabbit
 @GrpcService
 @Transactional(rollbackFor = Exception.class)

@@ -5,12 +5,12 @@ import com.tsemkalo.businesscards.ProtoPermissionType;
 import com.tsemkalo.businesscards.ProtoRoleType;
 import com.tsemkalo.businesscards.RoleProto;
 import com.tsemkalo.businesscards.UserProto;
+import com.tsemkalo.businesscards.configuration.enums.PermissionType;
+import com.tsemkalo.businesscards.configuration.enums.RoleType;
+import com.tsemkalo.businesscards.dto.UserDTO;
 import com.tsemkalo.businesscards.entity.Permission;
 import com.tsemkalo.businesscards.entity.Role;
 import com.tsemkalo.businesscards.entity.User;
-import com.tsemkalo.businesscards.dto.UserDTO;
-import com.tsemkalo.businesscards.configuration.enums.PermissionType;
-import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

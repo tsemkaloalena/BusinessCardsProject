@@ -1,7 +1,5 @@
 package com.tsemkalo.businesscards.service;
 
-import com.tsemkalo.businesscards.dto.SafeUserDTO;
-import com.tsemkalo.businesscards.dto.cards.CardDTO;
 import com.tsemkalo.businesscards.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

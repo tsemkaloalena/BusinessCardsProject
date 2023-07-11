@@ -1,12 +1,12 @@
 package com.tsemkalo.businesscards.service.impl;
 
+import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import com.tsemkalo.businesscards.dao.ChatDao;
 import com.tsemkalo.businesscards.dao.ChatMemberDao;
 import com.tsemkalo.businesscards.dao.MessageDao;
 import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;
 import com.tsemkalo.businesscards.dao.entities.Message;
-import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import com.tsemkalo.businesscards.exceptions.AccessDeniedException;
 import com.tsemkalo.businesscards.exceptions.AlreadyExistsException;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
@@ -266,6 +266,4 @@ public class ChatServiceImpl implements ChatService {
         }
         chatMember.setNotify(send);
     }
-    //sendToAdmin (for errors)
-    //for admin: getErrorChats
 }

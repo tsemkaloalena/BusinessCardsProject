@@ -5,7 +5,7 @@ import com.tsemkalo.businesscards.CardServiceGrpc;
 import com.tsemkalo.businesscards.FollowProto;
 import com.tsemkalo.businesscards.GRPCServiceNames;
 import com.tsemkalo.businesscards.IdValue;
-import com.tsemkalo.businesscards.dto.SafeUserDTO;
+import com.tsemkalo.businesscards.LikeProto;
 import com.tsemkalo.businesscards.dto.cards.CardDTO;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.mapper.cards.CardMapper;
@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.FOLLOW_LIKE;
-import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.READ;
 
 @RestController
 @RequestMapping("/card")
@@ -77,12 +76,40 @@ public class FollowLikeCardController {
         body.put("message", "User " + user.getId() + " unfollowed card " + cardId);
         return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
-// TODO LIKE
+
     @PreAuthorize(FOLLOW_LIKE)
     @GetMapping("/followings")
     public List<CardDTO> getUserFollowings() {
         User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<CardProto> cardProtos = cardService.getUserFollowings(IdValue.newBuilder().setId(user.getId()).build()).getCardsList();
         return cardProtos.stream().map(cardMapper::protoToDTO).collect(Collectors.toList());
+    }
+
+    @PreAuthorize(FOLLOW_LIKE)
+    @PostMapping("/{cardId}/like")
+    public ResponseEntity<Object> like(@PathVariable Long cardId) {
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        LikeProto likeProto = LikeProto.newBuilder()
+                .setCardId(cardId)
+                .setUserId(user.getId())
+                .build();
+        cardService.addLike(likeProto);
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("message", "User " + user.getId() + " liked the card " + cardId);
+        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
+    }
+
+    @PreAuthorize(FOLLOW_LIKE)
+    @PostMapping("/{cardId}/unlike")
+    public ResponseEntity<Object> unlike(@PathVariable Long cardId) {
+        User user = (User) authorizationService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        LikeProto likeProto = LikeProto.newBuilder()
+                .setCardId(cardId)
+                .setUserId(user.getId())
+                .build();
+        cardService.deleteLike(likeProto);
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("message", "User " + user.getId() + " unliked the card " + cardId);
+        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
     }
 }

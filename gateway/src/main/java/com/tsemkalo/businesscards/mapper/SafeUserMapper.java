@@ -6,7 +6,6 @@ import com.tsemkalo.businesscards.SafeUserProto;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.RoleDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
-import com.tsemkalo.businesscards.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component

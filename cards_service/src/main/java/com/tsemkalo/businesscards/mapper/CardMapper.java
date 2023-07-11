@@ -9,12 +9,10 @@ import com.tsemkalo.businesscards.dao.entity.Card;
 import com.tsemkalo.businesscards.dao.entity.Contact;
 import com.tsemkalo.businesscards.dao.entity.GalleryPhoto;
 import com.tsemkalo.businesscards.dto.CardDTO;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

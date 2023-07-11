@@ -1,15 +1,12 @@
 package com.tsemkalo.businesscards.service.impl;
 
 import com.tsemkalo.businesscards.dao.entity.AbstractEntity;
-import com.tsemkalo.businesscards.dao.entity.Card;
 import com.tsemkalo.businesscards.exception.IncorrectDataException;
 import com.tsemkalo.businesscards.exception.NotFoundException;
 import com.tsemkalo.businesscards.service.AbstractService;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

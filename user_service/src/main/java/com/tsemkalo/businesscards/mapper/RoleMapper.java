@@ -1,6 +1,5 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.RoleProto;
 import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dto.RoleDTO;
 import org.springframework.stereotype.Component;

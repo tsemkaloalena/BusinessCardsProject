@@ -2,8 +2,6 @@ package com.tsemkalo.businesscards.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.tsemkalo.businesscards.ChangePasswordRequest;
-import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dao.NonActivatedUserDao;
 import com.tsemkalo.businesscards.dao.UserDao;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
@@ -24,12 +22,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.EXPIRATION_TIME;
-import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET;
 import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET_ACTIVATE_ACCOUNT;
 import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.SECRET_FORGOT_PASSWORD;
 
@@ -142,7 +137,6 @@ public class UserServiceImpl implements UserService {
         }
         if (!editedInfo.getName().isBlank() && !editedInfo.getEmail().equals(user.getEmail())) {
             user.setEmail(editedInfo.getEmail());
-            // TODO send email to check
         }
         if (!editedInfo.getName().isBlank()) {
             user.setName(editedInfo.getName());
@@ -161,38 +155,6 @@ public class UserServiceImpl implements UserService {
         }
         return users;
     }
-
-//    /**
-//     * @param currentUsername username of current user
-//     * @param newUsername     new username
-//     * @param password        password for checking with current
-//     * @return message with new generated token
-//     */
-//    @Override
-//    public String changeUsername(String currentUsername, String newUsername, String password) {
-//        if (newUsername == null) {
-//            throw new IncorrectDataException("You didn't set new username");
-//        }
-//        if (password == null) {
-//            throw new IncorrectDataException("You didn't set your password");
-//        }
-//        User user = loadUserByUsername(currentUsername);
-//        User userWithGivenUserName = userDao.findByUsername(newUsername);
-//        if (userWithGivenUserName != null && !userWithGivenUserName.getId().equals(user.getId())) {
-//            throw new UserExistsException(newUsername);
-//        }
-//        if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
-//            user.setUsername(newUsername);
-//            String token = JWT.create()
-//                    .withSubject(user.getUsername())
-//                    .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-//                    .sign(Algorithm.HMAC512(SECRET.getBytes()));
-//
-//            return "Your username is changed successfully. Your new token: " + token;
-//        }
-//        throw new AccessDeniedException(user.getUsername() + "'s password is not correct.");
-//    }
-
 
     /**
      * @param resetPasswordToken token from email by which the username is taken

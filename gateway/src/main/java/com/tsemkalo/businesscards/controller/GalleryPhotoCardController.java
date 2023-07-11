@@ -1,7 +1,6 @@
 package com.tsemkalo.businesscards.controller;
 
 import com.tsemkalo.businesscards.CardServiceGrpc;
-import com.tsemkalo.businesscards.DeleteAddressProto;
 import com.tsemkalo.businesscards.DeleteGalleryPhotoProto;
 import com.tsemkalo.businesscards.EditGalleryPhotoProto;
 import com.tsemkalo.businesscards.GRPCServiceNames;
@@ -10,7 +9,6 @@ import com.tsemkalo.businesscards.dto.cards.GalleryPhotoDTO;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.mapper.cards.GalleryPhotoMapper;
 import com.tsemkalo.businesscards.service.AuthorizationService;
-import io.grpc.Status;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

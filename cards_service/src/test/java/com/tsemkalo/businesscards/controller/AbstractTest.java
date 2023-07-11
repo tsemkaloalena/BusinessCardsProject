@@ -54,7 +54,6 @@ import static org.mockito.Mockito.lenient;
 @Setter
 @Getter
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//@RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
 public abstract class AbstractTest {
     @Mock

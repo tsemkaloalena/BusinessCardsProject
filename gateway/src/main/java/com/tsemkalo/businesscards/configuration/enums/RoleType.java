@@ -4,5 +4,4 @@ public enum RoleType {
     ADMIN,
     TECHNICAL_SUPPORT,
     USER
-//    COMPANY_REPRESENTATIVE
 }

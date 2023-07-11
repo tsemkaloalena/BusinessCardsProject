@@ -8,7 +8,6 @@ import com.tsemkalo.businesscards.AdminServiceGrpc;
 import com.tsemkalo.businesscards.ErrorMessageProto;
 import com.tsemkalo.businesscards.ErrorMessageProtoList;
 import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
-import com.tsemkalo.businesscards.dao.entities.AddSupporterRequest;
 import com.tsemkalo.businesscards.dao.entities.ErrorMessage;
 import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
@@ -21,12 +20,12 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @EnableRabbit
 @GrpcService
 public class RequestController extends AdminServiceGrpc.AdminServiceImplBase {

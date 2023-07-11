@@ -17,9 +17,6 @@ import com.tsemkalo.businesscards.UserIdProtoList;
 import com.tsemkalo.businesscards.UserProto;
 import com.tsemkalo.businesscards.UsernameProto;
 import com.tsemkalo.businesscards.dao.entity.Role;
-import com.tsemkalo.businesscards.dao.entity.User;
-import com.tsemkalo.businesscards.dto.RoleDTO;
-import com.tsemkalo.businesscards.dto.SafeUserDTO;
 import com.tsemkalo.businesscards.exceptions.IncorrectDataException;
 import com.tsemkalo.businesscards.exceptions.LinkExpiredException;
 import com.tsemkalo.businesscards.exceptions.UserExistsException;
@@ -298,8 +295,6 @@ public class RequestControllerTest extends AbstractTest {
         assertNotNull(getNonActivatedUserDao().findByUsername(username));
         assertNull(getUserDao().findByUsername(username));
     }
-
-    // TODO deleteUserIfNotActivated
 
     @Test
     public void deleteNonActivatedAccount_ifNotActivated_thenDelete() {

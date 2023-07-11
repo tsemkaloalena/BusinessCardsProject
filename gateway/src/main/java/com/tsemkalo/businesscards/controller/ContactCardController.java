@@ -9,7 +9,6 @@ import com.tsemkalo.businesscards.dto.cards.ContactDTO;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.mapper.cards.ContactMapper;
 import com.tsemkalo.businesscards.service.AuthorizationService;
-import io.grpc.Status;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

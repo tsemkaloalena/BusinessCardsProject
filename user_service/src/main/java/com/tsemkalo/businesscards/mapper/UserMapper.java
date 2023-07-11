@@ -4,7 +4,6 @@ import com.tsemkalo.businesscards.PermissionProto;
 import com.tsemkalo.businesscards.ProtoPermissionType;
 import com.tsemkalo.businesscards.ProtoRoleType;
 import com.tsemkalo.businesscards.RoleProto;
-import com.tsemkalo.businesscards.SafeUserProto;
 import com.tsemkalo.businesscards.UserProto;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dao.RoleDao;

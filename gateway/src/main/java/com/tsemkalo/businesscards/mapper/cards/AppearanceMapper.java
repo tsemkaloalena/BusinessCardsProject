@@ -6,7 +6,6 @@ import com.tsemkalo.businesscards.ProtoPictureStretchingType;
 import com.tsemkalo.businesscards.configuration.enums.cards.GalleryType;
 import com.tsemkalo.businesscards.configuration.enums.cards.PictureStretchingType;
 import com.tsemkalo.businesscards.dto.cards.AppearanceDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 

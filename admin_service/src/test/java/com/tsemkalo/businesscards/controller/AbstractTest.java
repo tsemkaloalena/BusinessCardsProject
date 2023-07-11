@@ -6,7 +6,6 @@ import com.tsemkalo.businesscards.dao.entities.AddSupporterRequest;
 import com.tsemkalo.businesscards.dao.entities.ErrorMessage;
 import com.tsemkalo.businesscards.mappers.AddSupporterRequestMapper;
 import com.tsemkalo.businesscards.mappers.ErrorMessageMapper;
-import com.tsemkalo.businesscards.services.impl.AdminServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,23 +84,6 @@ public abstract class AbstractTest {
         addSupporterRequestDaoSetup();
         errorMessageDaoSetup();
     }
-
-//    @BeforeEach
-//    public void setupServices() {
-//        try {
-//            Field chatDaoField = AdminServiceImpl.class.getDeclaredField("addSupporterRequestDao");
-//            chatDaoField.setAccessible(true);
-//            chatDaoField.set(adminService, addSupporterRequestDao);
-//            chatDaoField.setAccessible(false);
-//
-//            Field chatMemberDaoField = AdminServiceImpl.class.getDeclaredField("errorMessageDao");
-//            chatMemberDaoField.setAccessible(true);
-//            chatMemberDaoField.set(adminService, errorMessageDao);
-//            chatMemberDaoField.setAccessible(false);
-//        } catch (NoSuchFieldException | IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void addSupporterRequestDaoSetup() {
         addSupporterRequestCommonMethodsSetUpper.findAllSetup(addSupporterRequestTable, addSupporterRequestDao);

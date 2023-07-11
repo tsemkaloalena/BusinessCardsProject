@@ -1199,7 +1199,7 @@ public class RequestControllerTest extends AbstractTest {
             if (currentUserId.equals(chatMember.getUserId())) {
                 assertFalse(chatMember.getNotify());
             } else {
-                assertTrue( chatMember.getNotify());
+                assertTrue(chatMember.getNotify());
             }
         }
     }

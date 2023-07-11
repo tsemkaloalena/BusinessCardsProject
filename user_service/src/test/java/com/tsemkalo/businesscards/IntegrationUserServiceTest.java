@@ -299,8 +299,6 @@ public class IntegrationUserServiceTest {
         assertNull(findUserByUsername(username));
     }
 
-    // TODO deleteUserIfNotActivated
-
     @Test
     public void deleteNonActivatedAccount_ifNotActivated_thenDelete() {
         String username = "sashenka";

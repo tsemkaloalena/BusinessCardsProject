@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException {
-		response.setContentType("application/json;charset=UTF-8");
-		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		response.getWriter().write(new JSONObject()
-				.put("timestamp", LocalDateTime.now())
-				.put("message", "Access denied")
-				.toString());
-	}
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write(new JSONObject()
+                .put("timestamp", LocalDateTime.now())
+                .put("message", "Access denied")
+                .toString());
+    }
 }

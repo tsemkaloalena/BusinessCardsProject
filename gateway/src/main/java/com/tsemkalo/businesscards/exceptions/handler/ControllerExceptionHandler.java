@@ -63,7 +63,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         if (status.getDescription() == null) {
             return makeResponseEntity(status.getCause().getMessage(), httpStatus, true);
         }
-        return makeResponseEntity( status.getDescription(), httpStatus, true);
+        return makeResponseEntity(status.getDescription(), httpStatus, true);
     }
 
     private ResponseEntity<Object> makeResponseEntity(String message, HttpStatus httpStatus, boolean sendToAdmin) {

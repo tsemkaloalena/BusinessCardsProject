@@ -16,36 +16,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 @GrpcAdvice
 @EnableRabbit
 public class GrpcControllerExceptionHandler {
-	@Autowired
-	private RabbitTemplate template;
+    @Autowired
+    private RabbitTemplate template;
 
-	@GrpcExceptionHandler(NotFoundException.class)
-	public StatusRuntimeException handleNotFoundException(NotFoundException exception) {
-		Status status = Status.NOT_FOUND.withDescription(exception.getMessage()).withCause(exception);
-		return status.asRuntimeException();
-	}
+    @GrpcExceptionHandler(NotFoundException.class)
+    public StatusRuntimeException handleNotFoundException(NotFoundException exception) {
+        Status status = Status.NOT_FOUND.withDescription(exception.getMessage()).withCause(exception);
+        return status.asRuntimeException();
+    }
 
-	@GrpcExceptionHandler(AccessDeniedException.class)
-	public StatusRuntimeException handleAccessDeniedException(AccessDeniedException exception) {
-		Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage()).withCause(exception);
-		return status.asRuntimeException();
-	}
+    @GrpcExceptionHandler(AccessDeniedException.class)
+    public StatusRuntimeException handleAccessDeniedException(AccessDeniedException exception) {
+        Status status = Status.PERMISSION_DENIED.withDescription(exception.getMessage()).withCause(exception);
+        return status.asRuntimeException();
+    }
 
-	@GrpcExceptionHandler(IncorrectDataException.class)
-	public StatusRuntimeException handleIncorrectDataException(IncorrectDataException exception) {
-		Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage()).withCause(exception);
-		return status.asRuntimeException();
-	}
+    @GrpcExceptionHandler(IncorrectDataException.class)
+    public StatusRuntimeException handleIncorrectDataException(IncorrectDataException exception) {
+        Status status = Status.INVALID_ARGUMENT.withDescription(exception.getMessage()).withCause(exception);
+        return status.asRuntimeException();
+    }
 
-	@GrpcExceptionHandler(AlreadyExistsException.class)
-	public StatusRuntimeException handleAlreadyExistsException(AlreadyExistsException exception) {
-		Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage()).withCause(exception);
-		return status.asRuntimeException();
-	}
+    @GrpcExceptionHandler(AlreadyExistsException.class)
+    public StatusRuntimeException handleAlreadyExistsException(AlreadyExistsException exception) {
+        Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage()).withCause(exception);
+        return status.asRuntimeException();
+    }
 
-	@GrpcExceptionHandler(Exception.class)
-	public StatusException handleOtherException(Exception exception) {
-		Status status = Status.UNKNOWN.withDescription(exception.getMessage()).withCause(exception);
-		return status.asException();
-	}
+    @GrpcExceptionHandler(Exception.class)
+    public StatusException handleOtherException(Exception exception) {
+        Status status = Status.UNKNOWN.withDescription(exception.getMessage()).withCause(exception);
+        return status.asException();
+    }
 }

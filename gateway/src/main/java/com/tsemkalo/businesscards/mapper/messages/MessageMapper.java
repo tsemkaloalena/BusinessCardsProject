@@ -3,7 +3,6 @@ package com.tsemkalo.businesscards.mapper.messages;
 import com.google.protobuf.Timestamp;
 import com.tsemkalo.businesscards.MessageProto;
 import com.tsemkalo.businesscards.dto.messages.MessageDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 

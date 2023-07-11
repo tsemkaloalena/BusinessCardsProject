@@ -25,13 +25,13 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @EnableRabbit
 @GrpcService
 public class RequestController extends UserServiceGrpc.UserServiceImplBase {
@@ -59,7 +59,7 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void getNonActivatedUserByUsername(UsernameProto request,
-                                  StreamObserver<SafeUserProto> responseObserver) {
+                                              StreamObserver<SafeUserProto> responseObserver) {
         NonActivatedUser user = userService.loadNonActivateUserByUsername(request.getUsername());
         SafeUserProto response = nonActivatedUserMapper.entityToSafeProto(user);
         responseObserver.onNext(response);
@@ -129,64 +129,4 @@ public class RequestController extends UserServiceGrpc.UserServiceImplBase {
         responseObserver.onNext(safeUserProtoList);
         responseObserver.onCompleted();
     }
-
-//    @RabbitListener(queues = QueueName.SIGN_UP_USER)
-//    public SafeUserDTO saveUser(UserDTO userDTO, @Header(AmqpHeaders.RECEIVED_ROUTING_KEY) String key) {
-//    }
-
-//    /**
-//     * @param userDto current password and new password
-//     * @return message about successful password change
-//     */
-//    @PostMapping("/change_password")
-//    public ResponseEntity<Object> changePassword(@RequestBody UserDto userDto) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        userService.changePassword(authentication.getName(), userDto.getOldPassword(), userDto.getPassword());
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("message",  "Your password is successfully changed.");
-//        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
-//    }
-//
-//    /**
-//     * @param userDto current password and new username
-//     * @return new token
-//     */
-//    @PostMapping("/change_username")
-//    public ResponseEntity<Object> changeUsername(@RequestBody UserDto userDto) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("message",  userService.changeUsername(authentication.getName(), userDto.getUsername(), userDto.getPassword()));
-//        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
-//    }
-//
-//    /**
-//     * @param userDto user data that should be edited (email, name or surname)
-//     * @return edited user data
-//     */
-//    @PostMapping("/edit")
-//    public PersonalAccountDto editInfo(@RequestBody UserDto userDto) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.getById(userService.editInfo(authentication.getName(), userMapper.toEntity(userDto)));
-//        return personalAccountMapper.toDto(user);
-//    }
-//
-//    /**
-//     * @return personal account info (user data)
-//     */
-//    @GetMapping
-//    public PersonalAccountDto getPersonalInfo() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) userService.loadUserByUsername(authentication.getName());
-//        return personalAccountMapper.toDto(user);
-//    }
-//
-//    @PostMapping("/forgot_password")
-//    public ResponseEntity<Object> sendForgotPasswordEmail(@RequestParam String username) {
-//        userService.sendForgotPasswordEmail(username);
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("message",  "Email for resetting your password is sent. Follow the instructions and don't lose your new password :)");
-//        return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
-//    }
-//
-
 }

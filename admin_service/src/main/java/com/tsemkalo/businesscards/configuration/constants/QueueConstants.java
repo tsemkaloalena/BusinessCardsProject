@@ -2,7 +2,7 @@ package com.tsemkalo.businesscards.configuration.constants;
 
 import java.util.ArrayList;
 import java.util.List;
-//TODO check all used
+
 public class QueueConstants {
     public final static String EXCHANGE_NAME = "x.direct-exchange";
     public final static String DELAYED_EXCHANGE_NAME = "x.delayed-exchange";
@@ -19,6 +19,6 @@ public class QueueConstants {
     }
 
     public static List<String> getDelayedQueueNames() {
-        return new ArrayList<>(List.of(new String[] {}));
+        return new ArrayList<>(List.of(new String[]{}));
     }
 }

@@ -12,7 +12,6 @@ import com.tsemkalo.businesscards.dao.entity.Role;
 import com.tsemkalo.businesscards.dao.entity.User;
 import com.tsemkalo.businesscards.dto.RoleDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
-import com.tsemkalo.businesscards.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

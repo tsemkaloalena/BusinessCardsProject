@@ -2,9 +2,9 @@ package com.tsemkalo.businesscards.mappers;
 
 import com.tsemkalo.businesscards.ChatProto;
 import com.tsemkalo.businesscards.ChatTypeProto;
+import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dto.ChatDTO;
-import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import org.springframework.stereotype.Component;
 
 @Component

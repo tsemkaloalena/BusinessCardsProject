@@ -1,10 +1,8 @@
 package com.tsemkalo.businesscards.service;
 
-import com.tsemkalo.businesscards.ChangePasswordRequest;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;
 import com.tsemkalo.businesscards.dao.entity.User;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
-import com.tsemkalo.businesscards.dto.UserDTO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;

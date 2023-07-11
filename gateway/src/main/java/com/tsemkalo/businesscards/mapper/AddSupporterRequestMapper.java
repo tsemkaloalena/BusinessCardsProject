@@ -2,7 +2,6 @@ package com.tsemkalo.businesscards.mapper;
 
 import com.tsemkalo.businesscards.AddSupporterRequestProto;
 import com.tsemkalo.businesscards.dto.AddSupporterRequestDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
 import org.springframework.stereotype.Component;
 
 @Component

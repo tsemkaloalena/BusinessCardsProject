@@ -126,6 +126,4 @@ service MessageService {
   rpc closeQuestion(CloseQuestionRequest) returns (ChatUserIdList);
   rpc getSupportChats(IdMessageServiceValue) returns (ChatProtoList);
   rpc changeSendingNotifications(ChangeSendingNotificationsRequest) returns (google.protobuf.Empty);
-  //  rpc sendToAdmin() returns ();
-  //  rpc getErrorChats() returns ();
 }

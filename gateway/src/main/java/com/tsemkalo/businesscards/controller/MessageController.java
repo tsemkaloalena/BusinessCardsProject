@@ -43,7 +43,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -357,7 +356,6 @@ public class MessageController {
         UserChatIdDTO dto = new UserChatIdDTO(user.getId(), chatId);
         template.convertAndSend(QueueConstants.MARK_CHAT_MESSAGES_AS_READ, dto);
     }
-    //TODO dlq
 
     private void notifyUsers(List<Long> userIdsToNotify, String theme, String text) {
         UserIdProtoList userIdProtoList = UserIdProtoList.newBuilder()

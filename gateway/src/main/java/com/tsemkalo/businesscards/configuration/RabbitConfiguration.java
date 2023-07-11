@@ -44,19 +44,6 @@ public class RabbitConfiguration {
         return new Jackson2JsonMessageConverter();
     }
 
-//    @Bean
-//    public TopicExchange exchange(String exchange) {
-//        return new TopicExchange(exchange);
-//    }
-//
-//    @Bean
-//    public Binding jsonBinding(Queue jsonQueue, TopicExchange exchange, String routingJsonKey) {
-//        return BindingBuilder
-//                .bind(jsonQueue)
-//                .to(exchange)
-//                .with(routingJsonKey);
-//    }
-
     @Bean
     public Declarables directBindings() {
         AmqpAdmin amqpAdmin = amqpAdmin();
@@ -88,39 +75,6 @@ public class RabbitConfiguration {
         amqpAdmin.declareQueue(dlq);
         amqpAdmin.declareBinding(BindingBuilder.bind(dlq).to(dlqExchange).with(queueName + ".dlq").noargs());
     }
-
-//    @Bean
-//    public Declarables directBindings() {
-//        List<Declarable> declarables = new ArrayList<>();
-//        Exchange exchange = new DirectExchange(EXCHANGE_NAME);
-//        Exchange dlqExchange = new DirectExchange(DLQ_EXCHANGE_NAME);
-//        Map<String, Object> args = new HashMap<String, Object>();
-//        args.put("x-delayed-type", "direct");
-//        Exchange delayedExchange = new CustomExchange(DELAYED_EXCHANGE_NAME, "x-delayed-message", true, false, args);
-//        declarables.add(exchange);
-//        declarables.add(dlqExchange);
-//        declarables.add(delayedExchange);
-//        for (String queueName : QueueConstants.getQueueNames()) {
-//            Queue queue = QueueBuilder.durable(queueName).withArgument("x-dead-letter-exchange", DLQ_EXCHANGE_NAME).withArgument("x-dead-letter-routing-key", queueName + ".dlq").build();
-//            declarables.add(queue);
-//            declarables.add(BindingBuilder.bind(queue).to(exchange).with(queueName).noargs());
-//            declareDLQ(declarables, dlqExchange, queueName);
-//        }
-//        for (String queueName : QueueConstants.getDelayedQueueNames()) {
-//            Queue queue = QueueBuilder.durable(queueName).withArgument(MessageProperties.X_DELAY, MESSAGE_DELAY_TIME).withArgument("x-dead-letter-exchange", DLQ_EXCHANGE_NAME).withArgument("x-dead-letter-routing-key", queueName + ".dlq").build();
-//            declarables.add(queue);
-//            declarables.add(BindingBuilder.bind(queue).to(delayedExchange).with(queueName).noargs());
-//            declareDLQ(declarables, dlqExchange, queueName);
-//        }
-//
-//        return new Declarables(declarables.toArray(new Declarable[0]));
-//    }
-//
-//    private void declareDLQ(List<Declarable> declarables, Exchange dlqExchange, String queueName) {
-//        Queue dlq = QueueBuilder.durable(queueName + ".dlq").build();
-//        declarables.add(dlq);
-//        declarables.add(BindingBuilder.bind(dlq).to(dlqExchange).with(queueName + ".dlq").noargs());
-//    }
 
     @Bean
     public RabbitTemplate rabbitTemplate() {

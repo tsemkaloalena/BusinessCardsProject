@@ -365,7 +365,6 @@ public abstract class AbstractTest {
                 id = message.getId();
             }
             messageTable.put(id, message);
-//            message.getChat().getMessages().add(message);
             messageDaoSetup();
             return message;
         }).when(messageDao).save(any(Message.class));
