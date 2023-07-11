@@ -2,33 +2,11 @@ package com.tsemkalo.businesscards.mapper.cards;
 
 import com.tsemkalo.businesscards.AddressProto;
 import com.tsemkalo.businesscards.dto.cards.AddressDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AddressMapper implements Mapper<AbstractEntity, AddressDTO, AddressProto> {
-
-    @Override
-    public AddressDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(AddressDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(AddressProto proto) {
-        return null;
-    }
-
-    @Override
-    public AddressProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class AddressMapper implements DTOProtoMapper<AddressDTO, AddressProto> {
     @Override
     public AddressProto dtoToProto(AddressDTO dto) {
         AddressProto.Builder builder = AddressProto.newBuilder()

@@ -3,31 +3,11 @@ package com.tsemkalo.businesscards.mapper.cards;
 import com.tsemkalo.businesscards.GalleryPhotoProto;
 import com.tsemkalo.businesscards.dto.cards.GalleryPhotoDTO;
 import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GalleryPhotoMapper implements Mapper<AbstractEntity, GalleryPhotoDTO, GalleryPhotoProto> {
-    @Override
-    public GalleryPhotoDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(GalleryPhotoDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(GalleryPhotoProto proto) {
-        return null;
-    }
-
-    @Override
-    public GalleryPhotoProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class GalleryPhotoMapper implements DTOProtoMapper<GalleryPhotoDTO, GalleryPhotoProto> {
     @Override
     public GalleryPhotoProto dtoToProto(GalleryPhotoDTO dto) {
         GalleryPhotoProto.Builder builder = GalleryPhotoProto.newBuilder()

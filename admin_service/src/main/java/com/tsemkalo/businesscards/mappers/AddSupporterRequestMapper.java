@@ -6,9 +6,9 @@ import com.tsemkalo.businesscards.dto.AddSupporterRequestDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AddSupporterRequestMapper implements Mapper<AddSupporterRequest, AddSupporterRequestDTO, AddSupporterRequestProto> {
+public class AddSupporterRequestMapper implements DTOProtoMapper<AddSupporterRequestDTO, AddSupporterRequestProto>, EntityDTOMapper<AddSupporterRequest, AddSupporterRequestDTO>, EntityProtoMapper<AddSupporterRequest, AddSupporterRequestProto> {
     @Override
-    public AddSupporterRequestDTO entityToDto(AddSupporterRequest entity) {
+    public AddSupporterRequestDTO entityToDTO(AddSupporterRequest entity) {
         AddSupporterRequestDTO dto = new AddSupporterRequestDTO();
         if (entity.getId() != null) {
             dto.setId(entity.getId());

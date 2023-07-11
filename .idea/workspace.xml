@@ -8,46 +8,47 @@
       <change afterPath="$PROJECT_DIR$/../RabbitMQProject/src/main/java/com/rabbitmq/example1/Example1Configuration.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SenlaFinalProject/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthenticationFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SenlaFinalProject/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/dao/entity/Appearance.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/dao/entity/Appearance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/dto/AppearanceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/dto/AppearanceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/AbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/AbstractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/AddressService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/AppearanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/AppearanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/CardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/CardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/ContactService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/FollowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/FollowService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/GalleryPhotoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/GalleryPhotoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/LikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/LikeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/AbstractServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/AbstractServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/AddressServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/AppearanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/AppearanceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/CardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/CardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/ContactServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/ContactServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/FollowServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/FollowServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/GalleryPhotoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/GalleryPhotoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/LikeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/service/impl/LikeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/AbstracServicetTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/CommonMethodsSetUpper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/controller/CommonMethodsSetUpper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/service/impl/AddressServiceImplTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/service/impl/CardServiceImplTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/fillDBCards.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/fillDBCards.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/fillDBMessages.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/fillDBMessages.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/fillDBUsers.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/fillDBUsers.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/resources/createMessageDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/resources/createMessageDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/test/java/com/tsemkalo/businesscards/IntegrationMessageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/test/java/com/tsemkalo/businesscards/IntegrationMessageServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proto/src/main/proto/MessageService.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/src/main/proto/MessageService.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/controller/GrpcControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/controller/GrpcControllerExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/dao/AddSupporterRequestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/dao/AddSupporterRequestDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/dao/entities/ErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/dao/entities/ErrorMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/AddSupporterRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/AddSupporterRequestMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/ErrorMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/ErrorMessageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/Mapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/services/impl/AdminServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/services/impl/AdminServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AddressMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AppearanceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AppearanceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/CardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/CardMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/ContactMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/ContactMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/FollowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/FollowMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/GalleryPhotoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/GalleryPhotoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/LikeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/LikeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/Mapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/AddSupporterRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/AddSupporterRequestMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/ErrorMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/ErrorMessageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AddressMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AppearanceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AppearanceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/CardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/CardMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/ContactMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/ContactMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/FollowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/FollowMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/GalleryPhotoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/GalleryPhotoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/LikeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/LikeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMemberMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/MessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/MessageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMemberMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/Mapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/MessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/MessageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/Mapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/NonActivatedUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/NonActivatedUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/PermissionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/PermissionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/RoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/RoleMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/resources/createDB.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/resources/fillDB.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/AbstractServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/service/impl/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/service/impl/UserServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/build.gradle" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/proguard-rules.pro" beforeDir="false" />
@@ -176,7 +177,7 @@
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="SELECTIVE" />
     <property name="jdk.selected.JAVA_MODULE" value="17" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/cards_service/src/test/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/message_service/src/test/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -184,11 +185,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\mirea\BusinessCardsProject\admin_service\src\main\java\com\tsemkalo\businesscards\mappers" />
+      <recent name="C:\mirea\BusinessCardsProject\cards_service\src\main\java\com\tsemkalo\businesscards\mapper" />
+      <recent name="C:\mirea\BusinessCardsProject\message_service\src\main\java\com\tsemkalo\businesscards\mappers" />
+      <recent name="C:\mirea\BusinessCardsProject\user_service\src\main\java\com\tsemkalo\businesscards\mapper" />
       <recent name="C:\mirea\BusinessCardsProject\message_service\src\test\java" />
-      <recent name="C:\mirea\BusinessCardsProject\cards_service\src\test\java\ com\tsemkalo\businesscards\controller" />
-      <recent name="C:\mirea\BusinessCardsProject\gateway\src\main\java\com\tsemkalo\businesscards\mapper" />
-      <recent name="C:\mirea\BusinessCardsProject\gateway\src\main\java\com\tsemkalo\businesscards\dto" />
-      <recent name="C:\mirea\BusinessCardsProject\admin_service\src\main\java\com\tsemkalo\businesscards\dto" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\mirea\BusinessCardsProject\message_service\src\main\resources" />
@@ -205,10 +206,10 @@
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.tsemkalo.businesscards.exceptions" />
+      <recent name="com.tsemkalo.businesscards.controller" />
       <recent name="com.tsemkalo.businesscards.configuration.enums" />
       <recent name="com.tsemkalo.businesscards.dto" />
       <recent name="com.tsemkalo.businesscards.mappers" />
-      <recent name="com.tsemkalo.businesscards.controller" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -216,70 +217,22 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RequestControllerTest">
-    <configuration name="IntegrationCardServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="cards_service" />
+  <component name="RunManager" selected="JUnit.AdminServiceImplTest">
+    <configuration name="AdminServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.AdminServiceApplication" />
+      <module name="admin_service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
+          <option name="PATTERN" value="com.tsemkalo.businesscards.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards" />
-      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.IntegrationCardServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntegrationCardServiceTest.editCard_whenCurrentUserIsAdmin_thenSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="cards_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards" />
-      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.IntegrationCardServiceTest" />
-      <option name="METHOD_NAME" value="editCard_whenCurrentUserIsAdmin_thenSuccess" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IntegrationMessageServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="message_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards" />
-      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.IntegrationMessageServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IntegrationUserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="user_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards" />
-      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.IntegrationUserServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RequestControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="cards_service" />
+    <configuration name="AdminServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin_service" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
@@ -287,8 +240,56 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.controller.RequestControllerTest" />
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.controller.AdminServiceImplTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminServiceImplTest.gerErrorMessages" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.controller.AdminServiceImplTest" />
+      <option name="METHOD_NAME" value="gerErrorMessages" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminServiceImplTest.getAddSupporterRequests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.controller.AdminServiceImplTest" />
+      <option name="METHOD_NAME" value="getAddSupporterRequests" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminServiceImplTest.saveErrorMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="admin_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.businesscards.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsemkalo.businesscards.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.controller.AdminServiceImplTest" />
+      <option name="METHOD_NAME" value="saveErrorMessage" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -306,11 +307,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RequestControllerTest" />
-        <item itemvalue="JUnit.IntegrationCardServiceTest" />
-        <item itemvalue="JUnit.IntegrationCardServiceTest.editCard_whenCurrentUserIsAdmin_thenSuccess" />
-        <item itemvalue="JUnit.IntegrationUserServiceTest" />
-        <item itemvalue="JUnit.IntegrationMessageServiceTest" />
+        <item itemvalue="JUnit.AdminServiceImplTest" />
+        <item itemvalue="JUnit.AdminServiceImplTest.gerErrorMessages" />
+        <item itemvalue="JUnit.AdminServiceImplTest.getAddSupporterRequests" />
+        <item itemvalue="JUnit.AdminServiceImplTest.saveErrorMessage" />
+        <item itemvalue="Application.AdminServiceApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -347,7 +348,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/dto/messages/UserChatIdDTO.java</url>
-          <line>10</line>
+          <line>12</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -382,7 +383,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/service/impl/ChatServiceImpl.java</url>
-          <line>120</line>
+          <line>121</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -402,13 +403,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/service/impl/ChatServiceImpl.java</url>
-          <line>248</line>
+          <line>254</line>
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java</url>
           <line>131</line>
           <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/service/impl/ChatServiceImpl.java</url>
+          <line>146</line>
+          <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java</url>
+          <line>194</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin_service/src/test/java/com/tsemkalo/businesscards/controller/AbstractTest.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="137" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

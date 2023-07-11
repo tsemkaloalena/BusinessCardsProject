@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GalleryPhotoMapper implements Mapper<GalleryPhoto, GalleryPhotoDTO, GalleryPhotoProto> {
+public class GalleryPhotoMapper implements DTOProtoMapper<GalleryPhotoDTO, GalleryPhotoProto>, EntityDTOMapper<GalleryPhoto, GalleryPhotoDTO>, EntityProtoMapper<GalleryPhoto, GalleryPhotoProto> {
     @Autowired
     private CardDao cardDao;
 

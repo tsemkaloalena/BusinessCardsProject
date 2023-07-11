@@ -6,9 +6,9 @@ import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ErrorMessageMapper implements Mapper<ErrorMessage, ErrorMessageDTO, ErrorMessageProto> {
+public class ErrorMessageMapper implements DTOProtoMapper<ErrorMessageDTO, ErrorMessageProto>, EntityDTOMapper<ErrorMessage, ErrorMessageDTO>, EntityProtoMapper<ErrorMessage, ErrorMessageProto> {
     @Override
-    public ErrorMessageDTO entityToDto(ErrorMessage entity) {
+    public ErrorMessageDTO entityToDTO(ErrorMessage entity) {
         ErrorMessageDTO dto = new ErrorMessageDTO();
         if (entity.getId() != null) {
             dto.setId(entity.getId());

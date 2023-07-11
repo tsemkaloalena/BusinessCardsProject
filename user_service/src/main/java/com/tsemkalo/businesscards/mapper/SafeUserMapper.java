@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SafeUserMapper implements Mapper<User, SafeUserDTO, SafeUserProto> {
+public class SafeUserMapper implements DTOProtoMapper<SafeUserDTO, SafeUserProto>, EntityDTOMapper<User, SafeUserDTO>, EntityProtoMapper<User, SafeUserProto> {
     @Autowired
     private RoleDao roleDao;
 
     @Override
-    public SafeUserDTO entityToDto(User user) {
+    public SafeUserDTO entityToDTO(User user) {
         RoleDTO roleDTO = new RoleDTO(user.getRole().getId(), user.getRole().getName());
         return new SafeUserDTO(user.getId(), user.getUsername(), user.getName(), user.getSurname(), roleDTO, user.getEmail());
     }

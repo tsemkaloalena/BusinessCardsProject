@@ -6,28 +6,7 @@ import com.tsemkalo.businesscards.entity.AbstractEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ErrorMessageMapper implements Mapper<AbstractEntity, ErrorMessageDTO, ErrorMessageProto> {
-
-    @Override
-    public ErrorMessageDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(ErrorMessageDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(ErrorMessageProto proto) {
-        return null;
-    }
-
-    @Override
-    public ErrorMessageProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class ErrorMessageMapper implements DTOProtoMapper<ErrorMessageDTO, ErrorMessageProto> {
     @Override
     public ErrorMessageProto dtoToProto(ErrorMessageDTO dto) {
         ErrorMessageProto.Builder builder = ErrorMessageProto.newBuilder()

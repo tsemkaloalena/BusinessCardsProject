@@ -6,9 +6,9 @@ import com.tsemkalo.businesscards.dto.RoleDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RoleMapper implements Mapper<Role, RoleDTO, RoleProto> {
+public class RoleMapper implements EntityDTOMapper<Role, RoleDTO> {
     @Override
-    public RoleDTO entityToDto(Role role) {
+    public RoleDTO entityToDTO(Role role) {
         return new RoleDTO(role.getId(), role.getName());
     }
 
@@ -17,25 +17,5 @@ public class RoleMapper implements Mapper<Role, RoleDTO, RoleProto> {
         Role role = new Role(dto.getName());
         role.setId(dto.getId());
         return role;
-    }
-
-    @Override
-    public Role protoToEntity(RoleProto userProto) {
-        return null;
-    }
-
-    @Override
-    public RoleProto entityToProto(Role user) {
-        return null;
-    }
-
-    @Override
-    public RoleProto dtoToProto(RoleDTO DTOEntity) {
-        return null;
-    }
-
-    @Override
-    public RoleDTO protoToDTO(RoleProto proto) {
-        return null;
     }
 }

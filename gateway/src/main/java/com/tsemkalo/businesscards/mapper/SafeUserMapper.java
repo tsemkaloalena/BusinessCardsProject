@@ -10,28 +10,7 @@ import com.tsemkalo.businesscards.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SafeUserMapper implements Mapper<User, SafeUserDTO, SafeUserProto> {
-
-    @Override
-    public SafeUserDTO entityToDTO(User user) {
-        return null;
-    }
-
-    @Override
-    public User dtoToEntity(SafeUserDTO DTO) {
-        return null;
-    }
-
-    @Override
-    public User protoToEntity(SafeUserProto safeUserProto) {
-        return null;
-    }
-
-    @Override
-    public SafeUserProto entityToProto(User user) {
-        return null;
-    }
-
+public class SafeUserMapper implements DTOProtoMapper<SafeUserDTO, SafeUserProto> {
     @Override
     public SafeUserProto dtoToProto(SafeUserDTO safeUserDTO) {
         RoleProto.Builder roleProto = RoleProto.newBuilder()

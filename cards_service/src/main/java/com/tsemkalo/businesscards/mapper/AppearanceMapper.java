@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppearanceMapper implements Mapper<Appearance, AppearanceDTO, AppearanceProto> {
+public class AppearanceMapper implements DTOProtoMapper<AppearanceDTO, AppearanceProto>, EntityDTOMapper<Appearance, AppearanceDTO>, EntityProtoMapper<Appearance, AppearanceProto> {
     @Autowired
     private CardDao cardDao;
 

@@ -1,5 +1,6 @@
 package com.tsemkalo.businesscards.controller;
 
+import com.tsemkalo.businesscards.exceptions.AlreadyExistsException;
 import com.tsemkalo.businesscards.exceptions.NotFoundException;
 import io.grpc.Status;
 import io.grpc.StatusException;
@@ -12,6 +13,12 @@ public class GrpcControllerExceptionHandler {
     @GrpcExceptionHandler(NotFoundException.class)
     public StatusRuntimeException handleNotFoundException(NotFoundException exception) {
         Status status = Status.NOT_FOUND.withDescription(exception.getMessage()).withCause(exception);
+        return status.asRuntimeException();
+    }
+
+    @GrpcExceptionHandler(AlreadyExistsException.class)
+    public StatusRuntimeException handleAlreadyExistsException(AlreadyExistsException exception) {
+        Status status = Status.ALREADY_EXISTS.withDescription(exception.getMessage()).withCause(exception);
         return status.asRuntimeException();
     }
 

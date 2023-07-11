@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FollowMapper implements Mapper<Follow, FollowDTO, FollowProto> {
+public class FollowMapper implements DTOProtoMapper<FollowDTO, FollowProto>, EntityDTOMapper<Follow, FollowDTO>, EntityProtoMapper<Follow, FollowProto> {
     @Autowired
     private CardDao cardDao;
 

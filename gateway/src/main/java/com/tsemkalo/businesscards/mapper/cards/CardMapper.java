@@ -5,8 +5,7 @@ import com.tsemkalo.businesscards.CardProto;
 import com.tsemkalo.businesscards.ContactProto;
 import com.tsemkalo.businesscards.GalleryPhotoProto;
 import com.tsemkalo.businesscards.dto.cards.CardDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CardMapper implements Mapper<AbstractEntity, CardDTO, CardProto> {
+public class CardMapper implements DTOProtoMapper<CardDTO, CardProto> {
     @Autowired
     private GalleryPhotoMapper galleryPhotoMapper;
 
@@ -32,26 +31,6 @@ public class CardMapper implements Mapper<AbstractEntity, CardDTO, CardProto> {
 
     @Autowired
     private AppearanceMapper appearanceMapper;
-
-    @Override
-    public CardDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(CardDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(CardProto proto) {
-        return null;
-    }
-
-    @Override
-    public CardProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
 
     @Override
     public CardProto dtoToProto(CardDTO dto) {

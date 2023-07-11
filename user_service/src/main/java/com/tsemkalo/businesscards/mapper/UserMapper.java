@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class UserMapper implements Mapper<User, UserDTO, UserProto> {
+public class UserMapper implements DTOProtoMapper<UserDTO, UserProto>, EntityDTOMapper<User, UserDTO>, EntityProtoMapper<User, UserProto> {
     @Autowired
     private RoleDao roleDao;
 
@@ -37,7 +37,7 @@ public class UserMapper implements Mapper<User, UserDTO, UserProto> {
     }
 
     @Override
-    public UserDTO entityToDto(User user) {
+    public UserDTO entityToDTO(User user) {
         RoleDTO roleDTO = new RoleDTO(user.getRole().getId(), user.getRole().getName());
         return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), roleDTO, user.getEmail());
     }

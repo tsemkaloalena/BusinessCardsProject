@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class ChatMemberMapper implements Mapper<ChatMember, ChatMemberDTO, ChatMemberProto> {
+public class ChatMemberMapper implements DTOProtoMapper<ChatMemberDTO, ChatMemberProto>, EntityDTOMapper<ChatMember, ChatMemberDTO>, EntityProtoMapper<ChatMember, ChatMemberProto> {
     @Autowired
     private ChatDao chatDao;
 

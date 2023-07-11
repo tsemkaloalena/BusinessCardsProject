@@ -2,32 +2,11 @@ package com.tsemkalo.businesscards.mapper.cards;
 
 import com.tsemkalo.businesscards.FollowProto;
 import com.tsemkalo.businesscards.dto.cards.FollowDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FollowMapper implements Mapper<AbstractEntity, FollowDTO, FollowProto> {
-    @Override
-    public FollowDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(FollowDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(FollowProto proto) {
-        return null;
-    }
-
-    @Override
-    public FollowProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class FollowMapper implements DTOProtoMapper<FollowDTO, FollowProto> {
     @Override
     public FollowProto dtoToProto(FollowDTO dto) {
         FollowProto.Builder builder = FollowProto.newBuilder()

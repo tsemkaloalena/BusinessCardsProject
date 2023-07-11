@@ -17,17 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UserMapper implements Mapper<User, UserDTO, UserProto> {
-    @Override
-    public UserDTO entityToDTO(User user) {
-        return null;
-    }
-
-    @Override
-    public User dtoToEntity(UserDTO DTO) {
-        return null;
-    }
-
+public class UserMapper implements EntityProtoMapper<User, UserProto>, DTOProtoMapper<UserDTO, UserProto> {
     @Override
     public User protoToEntity(UserProto userProto) {
         Role role = new Role();

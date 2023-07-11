@@ -17,7 +17,7 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 
 @Component
-public class MessageMapper implements Mapper<Message, MessageDTO, MessageProto> {
+public class MessageMapper implements DTOProtoMapper<MessageDTO, MessageProto>, EntityDTOMapper<Message, MessageDTO>, EntityProtoMapper<Message, MessageProto> {
     @Autowired
     private ChatDao chatDao;
 

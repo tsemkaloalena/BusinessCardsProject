@@ -4,7 +4,7 @@ import com.google.protobuf.Timestamp;
 import com.tsemkalo.businesscards.MessageProto;
 import com.tsemkalo.businesscards.dto.messages.MessageDTO;
 import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -12,28 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Component
-public class MessageMapper implements Mapper<AbstractEntity, MessageDTO, MessageProto> {
-
-    @Override
-    public MessageDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(MessageDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(MessageProto proto) {
-        return null;
-    }
-
-    @Override
-    public MessageProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class MessageMapper implements DTOProtoMapper<MessageDTO, MessageProto> {
     @Override
     public MessageProto dtoToProto(MessageDTO dto) {
         Instant instant = dto.getSendingTime().toInstant(ZoneOffset.UTC);

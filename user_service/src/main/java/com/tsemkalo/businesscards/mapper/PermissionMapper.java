@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class PermissionMapper implements Mapper<Permission, PermissionDTO, PermissionProto> {
+public class PermissionMapper implements DTOProtoMapper<PermissionDTO, PermissionProto>, EntityDTOMapper<Permission, PermissionDTO>, EntityProtoMapper<Permission, PermissionProto> {
     @Autowired
     RoleDao roleDao;
 
     @Override
-    public PermissionDTO entityToDto(Permission permission) {
+    public PermissionDTO entityToDTO(Permission permission) {
         Role role = permission.getRole();
         Long roleId = null;
         if (role != null) {

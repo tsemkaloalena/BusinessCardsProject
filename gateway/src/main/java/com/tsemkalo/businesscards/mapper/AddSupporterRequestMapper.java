@@ -6,27 +6,7 @@ import com.tsemkalo.businesscards.entity.AbstractEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AddSupporterRequestMapper implements Mapper<AbstractEntity, AddSupporterRequestDTO, AddSupporterRequestProto> {
-    @Override
-    public AddSupporterRequestDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(AddSupporterRequestDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(AddSupporterRequestProto proto) {
-        return null;
-    }
-
-    @Override
-    public AddSupporterRequestProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class AddSupporterRequestMapper implements DTOProtoMapper<AddSupporterRequestDTO, AddSupporterRequestProto> {
     @Override
     public AddSupporterRequestProto dtoToProto(AddSupporterRequestDTO dto) {
         AddSupporterRequestProto.Builder builder = AddSupporterRequestProto.newBuilder()

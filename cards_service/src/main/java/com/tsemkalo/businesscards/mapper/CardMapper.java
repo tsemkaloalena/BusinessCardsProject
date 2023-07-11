@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CardMapper implements Mapper<Card, CardDTO, CardProto> {
+public class CardMapper implements DTOProtoMapper<CardDTO, CardProto>, EntityDTOMapper<Card, CardDTO>, EntityProtoMapper<Card, CardProto> {
     @Autowired
     private GalleryPhotoMapper galleryPhotoMapper;
 

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AddressMapper implements Mapper<Address, AddressDTO, AddressProto> {
+public class AddressMapper implements DTOProtoMapper<AddressDTO, AddressProto>, EntityDTOMapper<Address, AddressDTO>, EntityProtoMapper<Address, AddressProto> {
     @Autowired
     private CardDao cardDao;
 

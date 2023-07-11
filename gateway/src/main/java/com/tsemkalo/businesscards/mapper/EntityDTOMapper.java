@@ -1,0 +1,11 @@
+package com.tsemkalo.businesscards.mapper;
+
+import com.google.protobuf.GeneratedMessageV3;
+import com.tsemkalo.businesscards.dto.AbstractDTO;
+import com.tsemkalo.businesscards.entity.AbstractEntity;
+
+public interface EntityDTOMapper<E extends AbstractEntity, D extends AbstractDTO> {
+    D entityToDTO(E entity);
+
+    E dtoToEntity(D dto);
+}

@@ -8,7 +8,7 @@ import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ChatMapper implements Mapper<Chat, ChatDTO, ChatProto> {
+public class ChatMapper implements DTOProtoMapper<ChatDTO, ChatProto>, EntityDTOMapper<Chat, ChatDTO>, EntityProtoMapper<Chat, ChatProto> {
     @Override
     public ChatDTO entityToDTO(Chat entity) {
         ChatDTO dto = new ChatDTO();

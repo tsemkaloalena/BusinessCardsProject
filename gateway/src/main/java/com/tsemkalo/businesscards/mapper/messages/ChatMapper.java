@@ -4,33 +4,11 @@ import com.tsemkalo.businesscards.ChatProto;
 import com.tsemkalo.businesscards.ChatTypeProto;
 import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import com.tsemkalo.businesscards.dto.messages.ChatDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ChatMapper implements Mapper<AbstractEntity, ChatDTO, ChatProto> {
-
-    @Override
-    public ChatDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(ChatDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(ChatProto proto) {
-        return null;
-    }
-
-    @Override
-    public ChatProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class ChatMapper implements DTOProtoMapper<ChatDTO, ChatProto> {
     @Override
     public ChatProto dtoToProto(ChatDTO dto) {
         ChatProto.Builder builder = ChatProto.newBuilder()

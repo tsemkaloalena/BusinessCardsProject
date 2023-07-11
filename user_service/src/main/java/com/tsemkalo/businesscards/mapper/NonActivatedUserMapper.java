@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class NonActivatedUserMapper implements Mapper<NonActivatedUser, UserDTO, UserProto> {
+public class NonActivatedUserMapper implements DTOProtoMapper<UserDTO, UserProto>, EntityDTOMapper<NonActivatedUser, UserDTO>, EntityProtoMapper<NonActivatedUser, UserProto> {
     @Autowired
     private RoleDao roleDao;
 
     @Override
-    public UserDTO entityToDto(NonActivatedUser user) {
+    public UserDTO entityToDTO(NonActivatedUser user) {
         RoleDTO roleDTO = new RoleDTO(user.getRole().getId(), user.getRole().getName());
         return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), roleDTO, user.getEmail());
     }

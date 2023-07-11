@@ -4,6 +4,7 @@ import com.tsemkalo.businesscards.dao.AddSupporterRequestDao;
 import com.tsemkalo.businesscards.dao.ErrorMessageDao;
 import com.tsemkalo.businesscards.dao.entities.AddSupporterRequest;
 import com.tsemkalo.businesscards.dao.entities.ErrorMessage;
+import com.tsemkalo.businesscards.exceptions.AlreadyExistsException;
 import com.tsemkalo.businesscards.exceptions.NotFoundException;
 import com.tsemkalo.businesscards.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addTechSupportRequest(String username) {
+        if (addSupporterRequestDao.findByUsername(username) != null) {
+            throw new AlreadyExistsException("Request for adding tech supporter " + username + " already exists");
+        }
         AddSupporterRequest addSupporterRequest = new AddSupporterRequest(username);
         addSupporterRequestDao.save(addSupporterRequest);
     }

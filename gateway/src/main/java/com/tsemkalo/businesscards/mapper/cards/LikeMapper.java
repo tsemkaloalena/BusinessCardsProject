@@ -2,32 +2,11 @@ package com.tsemkalo.businesscards.mapper.cards;
 
 import com.tsemkalo.businesscards.LikeProto;
 import com.tsemkalo.businesscards.dto.cards.LikeDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LikeMapper implements Mapper<AbstractEntity, LikeDTO, LikeProto> {
-    @Override
-    public LikeDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(LikeDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(LikeProto proto) {
-        return null;
-    }
-
-    @Override
-    public LikeProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class LikeMapper implements DTOProtoMapper<LikeDTO, LikeProto> {
     @Override
     public LikeProto dtoToProto(LikeDTO dto) {
         LikeProto.Builder builder = LikeProto.newBuilder()

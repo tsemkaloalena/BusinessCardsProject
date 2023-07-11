@@ -7,31 +7,11 @@ import com.tsemkalo.businesscards.configuration.enums.cards.GalleryType;
 import com.tsemkalo.businesscards.configuration.enums.cards.PictureStretchingType;
 import com.tsemkalo.businesscards.dto.cards.AppearanceDTO;
 import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppearanceMapper implements Mapper<AbstractEntity, AppearanceDTO, AppearanceProto> {
-    @Override
-    public AppearanceDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(AppearanceDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(AppearanceProto proto) {
-        return null;
-    }
-
-    @Override
-    public AppearanceProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class AppearanceMapper implements DTOProtoMapper<AppearanceDTO, AppearanceProto> {
     @Override
     public AppearanceProto dtoToProto(AppearanceDTO dto) {
         AppearanceProto.Builder builder = AppearanceProto.newBuilder()

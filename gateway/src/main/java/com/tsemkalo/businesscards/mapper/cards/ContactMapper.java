@@ -4,33 +4,11 @@ import com.tsemkalo.businesscards.ContactProto;
 import com.tsemkalo.businesscards.ProtoContactType;
 import com.tsemkalo.businesscards.configuration.enums.cards.ContactType;
 import com.tsemkalo.businesscards.dto.cards.ContactDTO;
-import com.tsemkalo.businesscards.entity.AbstractEntity;
-import com.tsemkalo.businesscards.mapper.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ContactMapper implements Mapper<AbstractEntity, ContactDTO, ContactProto> {
-    @Override
-    public ContactDTO entityToDTO(AbstractEntity entity) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity dtoToEntity(ContactDTO dto) {
-        return null;
-    }
-
-    @Override
-    public AbstractEntity protoToEntity(ContactProto proto) {
-        return null;
-    }
-
-    @Override
-    public ContactProto entityToProto(AbstractEntity entity) {
-        return null;
-    }
-
+public class ContactMapper implements DTOProtoMapper<ContactDTO, ContactProto> {
     @Override
     public ContactProto dtoToProto(ContactDTO dto) {
         ContactProto.Builder builder = ContactProto.newBuilder()
