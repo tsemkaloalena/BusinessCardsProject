@@ -1,14 +1,14 @@
 package com.tsemkalo.businesscards.controller;
 
-import com.tsemkalo.businesscards.ChangePasswordRequest;
-import com.tsemkalo.businesscards.EditInfoRequest;
-import com.tsemkalo.businesscards.ForgotPasswordRequest;
-import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
-import com.tsemkalo.businesscards.Token;
-import com.tsemkalo.businesscards.UserProto;
+import com.tsemkalo.businesscards.generatedProtos.ChangePasswordRequest;
+import com.tsemkalo.businesscards.generatedProtos.EditInfoRequest;
+import com.tsemkalo.businesscards.generatedProtos.ForgotPasswordRequest;
+import com.tsemkalo.businesscards.constants.GRPCServiceNames;
+import com.tsemkalo.businesscards.generatedProtos.Token;
+import com.tsemkalo.businesscards.generatedProtos.UserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;
-import com.tsemkalo.businesscards.UsernameProto;
-import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.generatedProtos.UsernameProto;
+import com.tsemkalo.businesscards.constants.QueueConstants;
 import com.tsemkalo.businesscards.configuration.constants.SecurityConstants;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
@@ -45,7 +45,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.MESSAGE_DELAY_TIME;
+import static com.tsemkalo.businesscards.constants.QueueConstants.MESSAGE_DELAY_TIME;
 import static com.tsemkalo.businesscards.configuration.constants.SecurityConstants.COOKIE_EXPIRATION_TIME;
 
 @RestController

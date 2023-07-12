@@ -1,15 +1,15 @@
 package com.tsemkalo.businesscards.controller;
 
 import com.google.protobuf.Empty;
-import com.tsemkalo.businesscards.AddSupporterReplyProto;
-import com.tsemkalo.businesscards.AddSupporterRequestProto;
+import com.tsemkalo.businesscards.generatedProtos.AddSupporterReplyProto;
+import com.tsemkalo.businesscards.generatedProtos.AddSupporterRequestProto;
 import com.tsemkalo.businesscards.AdminServiceGrpc;
-import com.tsemkalo.businesscards.ErrorMessageProto;
-import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
-import com.tsemkalo.businesscards.SafeUserProto;
+import com.tsemkalo.businesscards.generatedProtos.ErrorMessageProto;
+import com.tsemkalo.businesscards.constants.GRPCServiceNames;
+import com.tsemkalo.businesscards.generatedProtos.SafeUserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;
-import com.tsemkalo.businesscards.UsernameProto;
-import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.generatedProtos.UsernameProto;
+import com.tsemkalo.businesscards.constants.QueueConstants;
 import com.tsemkalo.businesscards.dto.AddSupporterRequestDTO;
 import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;
@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.tsemkalo.businesscards.configuration.constants.PermissionsForController.CONTROL_SUPPORT;
-import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.MESSAGE_DELAY_TIME;
+import static com.tsemkalo.businesscards.constants.QueueConstants.MESSAGE_DELAY_TIME;
 
 @RestController
 @EnableRabbit

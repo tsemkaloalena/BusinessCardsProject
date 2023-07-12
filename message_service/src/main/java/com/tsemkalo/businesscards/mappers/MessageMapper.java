@@ -1,7 +1,7 @@
 package com.tsemkalo.businesscards.mappers;
 
 import com.google.protobuf.Timestamp;
-import com.tsemkalo.businesscards.MessageProto;
+import com.tsemkalo.businesscards.generatedProtos.MessageProto;
 import com.tsemkalo.businesscards.dao.ChatDao;
 import com.tsemkalo.businesscards.dao.ChatMemberDao;
 import com.tsemkalo.businesscards.dao.entities.Chat;

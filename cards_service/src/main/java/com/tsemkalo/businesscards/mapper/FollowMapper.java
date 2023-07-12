@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.FollowProto;
+import com.tsemkalo.businesscards.generatedProtos.FollowProto;
 import com.tsemkalo.businesscards.dao.CardDao;
 import com.tsemkalo.businesscards.dao.entity.Follow;
 import com.tsemkalo.businesscards.dto.FollowDTO;

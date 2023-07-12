@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.AddressProto;
+import com.tsemkalo.businesscards.generatedProtos.AddressProto;
 import com.tsemkalo.businesscards.dao.CardDao;
 import com.tsemkalo.businesscards.dao.entity.Address;
 import com.tsemkalo.businesscards.dto.AddressDTO;

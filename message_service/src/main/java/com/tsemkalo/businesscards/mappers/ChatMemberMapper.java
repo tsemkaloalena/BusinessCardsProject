@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mappers;
 
-import com.tsemkalo.businesscards.ChatMemberProto;
+import com.tsemkalo.businesscards.generatedProtos.ChatMemberProto;
 import com.tsemkalo.businesscards.dao.ChatDao;
 import com.tsemkalo.businesscards.dao.entities.Chat;
 import com.tsemkalo.businesscards.dao.entities.ChatMember;

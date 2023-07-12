@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mappers;
 
-import com.tsemkalo.businesscards.AddSupporterRequestProto;
+import com.tsemkalo.businesscards.generatedProtos.AddSupporterRequestProto;
 import com.tsemkalo.businesscards.dao.entities.AddSupporterRequest;
 import com.tsemkalo.businesscards.dto.AddSupporterRequestDTO;
 import org.springframework.stereotype.Component;

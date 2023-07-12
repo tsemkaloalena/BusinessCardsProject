@@ -1,22 +1,21 @@
 package com.tsemkalo.businesscards.controller;
 
-
 import com.google.protobuf.Empty;
-import com.tsemkalo.businesscards.CardListProto;
-import com.tsemkalo.businesscards.CardProto;
+import com.tsemkalo.businesscards.generatedProtos.CardListProto;
+import com.tsemkalo.businesscards.generatedProtos.CardProto;
 import com.tsemkalo.businesscards.CardServiceGrpc;
-import com.tsemkalo.businesscards.DeleteAddressProto;
-import com.tsemkalo.businesscards.DeleteCardProto;
-import com.tsemkalo.businesscards.DeleteContactProto;
-import com.tsemkalo.businesscards.DeleteGalleryPhotoProto;
-import com.tsemkalo.businesscards.EditAddressProto;
-import com.tsemkalo.businesscards.EditAppearanceProto;
-import com.tsemkalo.businesscards.EditCardProto;
-import com.tsemkalo.businesscards.EditContactProto;
-import com.tsemkalo.businesscards.EditGalleryPhotoProto;
-import com.tsemkalo.businesscards.FollowProto;
-import com.tsemkalo.businesscards.IdValue;
-import com.tsemkalo.businesscards.LikeProto;
+import com.tsemkalo.businesscards.generatedProtos.DeleteAddressProto;
+import com.tsemkalo.businesscards.generatedProtos.DeleteCardProto;
+import com.tsemkalo.businesscards.generatedProtos.DeleteContactProto;
+import com.tsemkalo.businesscards.generatedProtos.DeleteGalleryPhotoProto;
+import com.tsemkalo.businesscards.generatedProtos.EditAddressProto;
+import com.tsemkalo.businesscards.generatedProtos.EditAppearanceProto;
+import com.tsemkalo.businesscards.generatedProtos.EditCardProto;
+import com.tsemkalo.businesscards.generatedProtos.EditContactProto;
+import com.tsemkalo.businesscards.generatedProtos.EditGalleryPhotoProto;
+import com.tsemkalo.businesscards.generatedProtos.FollowProto;
+import com.tsemkalo.businesscards.generatedProtos.IdValue;
+import com.tsemkalo.businesscards.generatedProtos.LikeProto;
 import com.tsemkalo.businesscards.dao.entity.Address;
 import com.tsemkalo.businesscards.dao.entity.Appearance;
 import com.tsemkalo.businesscards.dao.entity.Card;

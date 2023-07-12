@@ -1,7 +1,7 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.ContactProto;
-import com.tsemkalo.businesscards.ProtoContactType;
+import com.tsemkalo.businesscards.generatedProtos.ContactProto;
+import com.tsemkalo.businesscards.generatedProtos.ProtoContactType;
 import com.tsemkalo.businesscards.configuration.enums.ContactType;
 import com.tsemkalo.businesscards.dao.CardDao;
 import com.tsemkalo.businesscards.dao.entity.Contact;

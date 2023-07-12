@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.exceptions.handler;
 
-import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.constants.QueueConstants;
 import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import com.tsemkalo.businesscards.exceptions.AuthenticationCredentialsReadingException;
 import com.tsemkalo.businesscards.exceptions.AuthorizationErrorException;

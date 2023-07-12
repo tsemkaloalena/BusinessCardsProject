@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper.cards;
 
-import com.tsemkalo.businesscards.LikeProto;
+import com.tsemkalo.businesscards.generatedProtos.LikeProto;
 import com.tsemkalo.businesscards.dto.cards.LikeDTO;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.LikeProto;
+import com.tsemkalo.businesscards.generatedProtos.LikeProto;
 import com.tsemkalo.businesscards.dao.CardDao;
 import com.tsemkalo.businesscards.dao.entity.Like;
 import com.tsemkalo.businesscards.dto.LikeDTO;

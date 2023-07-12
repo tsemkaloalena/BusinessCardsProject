@@ -1,7 +1,7 @@
 package com.tsemkalo.businesscards.mapper.messages;
 
-import com.tsemkalo.businesscards.ChatProto;
-import com.tsemkalo.businesscards.ChatTypeProto;
+import com.tsemkalo.businesscards.generatedProtos.ChatProto;
+import com.tsemkalo.businesscards.generatedProtos.ChatTypeProto;
 import com.tsemkalo.businesscards.configuration.enums.ChatType;
 import com.tsemkalo.businesscards.dto.messages.ChatDTO;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;

@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.PermissionProto;
+import com.tsemkalo.businesscards.generatedProtos.PermissionProto;
 import com.tsemkalo.businesscards.dao.RoleDao;
 import com.tsemkalo.businesscards.dao.entity.Permission;
 import com.tsemkalo.businesscards.dao.entity.Role;

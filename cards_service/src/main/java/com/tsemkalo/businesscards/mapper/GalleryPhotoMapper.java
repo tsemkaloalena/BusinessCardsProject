@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.GalleryPhotoProto;
+import com.tsemkalo.businesscards.generatedProtos.GalleryPhotoProto;
 import com.tsemkalo.businesscards.dao.CardDao;
 import com.tsemkalo.businesscards.dao.entity.GalleryPhoto;
 import com.tsemkalo.businesscards.dto.GalleryPhotoDTO;

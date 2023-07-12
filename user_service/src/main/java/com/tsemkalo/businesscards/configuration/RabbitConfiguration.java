@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.configuration;
 
-import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.constants.QueueConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.BindingBuilder;
@@ -21,9 +21,9 @@ import org.springframework.context.annotation.Bean;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.DELAYED_EXCHANGE_NAME;
-import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.DLQ_EXCHANGE_NAME;
-import static com.tsemkalo.businesscards.configuration.constants.QueueConstants.EXCHANGE_NAME;
+import static com.tsemkalo.businesscards.constants.QueueConstants.DELAYED_EXCHANGE_NAME;
+import static com.tsemkalo.businesscards.constants.QueueConstants.DLQ_EXCHANGE_NAME;
+import static com.tsemkalo.businesscards.constants.QueueConstants.EXCHANGE_NAME;
 
 @Slf4j
 public class RabbitConfiguration {

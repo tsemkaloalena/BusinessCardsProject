@@ -1,8 +1,8 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.ProtoRoleType;
-import com.tsemkalo.businesscards.RoleProto;
-import com.tsemkalo.businesscards.SafeUserProto;
+import com.tsemkalo.businesscards.generatedProtos.ProtoRoleType;
+import com.tsemkalo.businesscards.generatedProtos.RoleProto;
+import com.tsemkalo.businesscards.generatedProtos.SafeUserProto;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.RoleDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;

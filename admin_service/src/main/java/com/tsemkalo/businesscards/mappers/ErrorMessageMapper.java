@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mappers;
 
-import com.tsemkalo.businesscards.ErrorMessageProto;
+import com.tsemkalo.businesscards.generatedProtos.ErrorMessageProto;
 import com.tsemkalo.businesscards.dao.entities.ErrorMessage;
 import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import org.springframework.stereotype.Component;

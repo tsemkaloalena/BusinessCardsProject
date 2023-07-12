@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper.messages;
 
-import com.tsemkalo.businesscards.ChatMemberProto;
+import com.tsemkalo.businesscards.generatedProtos.ChatMemberProto;
 import com.tsemkalo.businesscards.dto.messages.ChatMemberDTO;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;

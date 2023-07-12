@@ -1,9 +1,9 @@
 package com.tsemkalo.businesscards.mapper.cards;
 
-import com.tsemkalo.businesscards.AddressProto;
-import com.tsemkalo.businesscards.CardProto;
-import com.tsemkalo.businesscards.ContactProto;
-import com.tsemkalo.businesscards.GalleryPhotoProto;
+import com.tsemkalo.businesscards.generatedProtos.AddressProto;
+import com.tsemkalo.businesscards.generatedProtos.CardProto;
+import com.tsemkalo.businesscards.generatedProtos.ContactProto;
+import com.tsemkalo.businesscards.generatedProtos.GalleryPhotoProto;
 import com.tsemkalo.businesscards.dto.cards.CardDTO;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;

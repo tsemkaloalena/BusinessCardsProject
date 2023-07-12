@@ -1,6 +1,6 @@
 package com.tsemkalo.businesscards.mapper.cards;
 
-import com.tsemkalo.businesscards.FollowProto;
+import com.tsemkalo.businesscards.generatedProtos.FollowProto;
 import com.tsemkalo.businesscards.dto.cards.FollowDTO;
 import com.tsemkalo.businesscards.mapper.DTOProtoMapper;
 import org.springframework.stereotype.Component;

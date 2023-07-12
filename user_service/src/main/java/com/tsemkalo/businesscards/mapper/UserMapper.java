@@ -1,10 +1,10 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.PermissionProto;
-import com.tsemkalo.businesscards.ProtoPermissionType;
-import com.tsemkalo.businesscards.ProtoRoleType;
-import com.tsemkalo.businesscards.RoleProto;
-import com.tsemkalo.businesscards.UserProto;
+import com.tsemkalo.businesscards.generatedProtos.PermissionProto;
+import com.tsemkalo.businesscards.generatedProtos.ProtoPermissionType;
+import com.tsemkalo.businesscards.generatedProtos.ProtoRoleType;
+import com.tsemkalo.businesscards.generatedProtos.RoleProto;
+import com.tsemkalo.businesscards.generatedProtos.UserProto;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dao.RoleDao;
 import com.tsemkalo.businesscards.dao.entity.NonActivatedUser;

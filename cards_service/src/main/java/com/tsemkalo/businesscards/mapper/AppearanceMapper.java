@@ -1,8 +1,8 @@
 package com.tsemkalo.businesscards.mapper;
 
-import com.tsemkalo.businesscards.AppearanceProto;
-import com.tsemkalo.businesscards.ProtoGalleryType;
-import com.tsemkalo.businesscards.ProtoPictureStretchingType;
+import com.tsemkalo.businesscards.generatedProtos.AppearanceProto;
+import com.tsemkalo.businesscards.generatedProtos.ProtoGalleryType;
+import com.tsemkalo.businesscards.generatedProtos.ProtoPictureStretchingType;
 import com.tsemkalo.businesscards.configuration.enums.GalleryType;
 import com.tsemkalo.businesscards.configuration.enums.PictureStretchingType;
 import com.tsemkalo.businesscards.dao.CardDao;

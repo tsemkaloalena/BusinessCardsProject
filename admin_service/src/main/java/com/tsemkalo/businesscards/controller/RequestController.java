@@ -1,13 +1,13 @@
 package com.tsemkalo.businesscards.controller;
 
 import com.google.protobuf.Empty;
-import com.tsemkalo.businesscards.AddSupporterReplyProto;
-import com.tsemkalo.businesscards.AddSupporterRequestProto;
-import com.tsemkalo.businesscards.AddSupporterRequestProtoList;
+import com.tsemkalo.businesscards.generatedProtos.AddSupporterReplyProto;
+import com.tsemkalo.businesscards.generatedProtos.AddSupporterRequestProto;
+import com.tsemkalo.businesscards.generatedProtos.AddSupporterRequestProtoList;
 import com.tsemkalo.businesscards.AdminServiceGrpc;
-import com.tsemkalo.businesscards.ErrorMessageProto;
-import com.tsemkalo.businesscards.ErrorMessageProtoList;
-import com.tsemkalo.businesscards.configuration.constants.QueueConstants;
+import com.tsemkalo.businesscards.generatedProtos.ErrorMessageProto;
+import com.tsemkalo.businesscards.generatedProtos.ErrorMessageProtoList;
+import com.tsemkalo.businesscards.constants.QueueConstants;
 import com.tsemkalo.businesscards.dao.entities.ErrorMessage;
 import com.tsemkalo.businesscards.dto.ErrorMessageDTO;
 import com.tsemkalo.businesscards.dto.SafeUserDTO;

@@ -1,11 +1,11 @@
 package com.tsemkalo.businesscards.controller;
 
-import com.tsemkalo.businesscards.CardProto;
+import com.tsemkalo.businesscards.generatedProtos.CardProto;
 import com.tsemkalo.businesscards.CardServiceGrpc;
-import com.tsemkalo.businesscards.FollowProto;
-import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
-import com.tsemkalo.businesscards.IdValue;
-import com.tsemkalo.businesscards.LikeProto;
+import com.tsemkalo.businesscards.generatedProtos.FollowProto;
+import com.tsemkalo.businesscards.constants.GRPCServiceNames;
+import com.tsemkalo.businesscards.generatedProtos.IdValue;
+import com.tsemkalo.businesscards.generatedProtos.LikeProto;
 import com.tsemkalo.businesscards.dto.cards.CardDTO;
 import com.tsemkalo.businesscards.entity.User;
 import com.tsemkalo.businesscards.mapper.cards.CardMapper;
