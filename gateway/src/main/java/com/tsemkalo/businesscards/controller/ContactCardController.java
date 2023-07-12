@@ -3,7 +3,7 @@ package com.tsemkalo.businesscards.controller;
 import com.tsemkalo.businesscards.CardServiceGrpc;
 import com.tsemkalo.businesscards.DeleteContactProto;
 import com.tsemkalo.businesscards.EditContactProto;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.cards.ContactDTO;
 import com.tsemkalo.businesscards.entity.User;

@@ -3,7 +3,7 @@ package com.tsemkalo.businesscards.controller;
 import com.tsemkalo.businesscards.ChangePasswordRequest;
 import com.tsemkalo.businesscards.EditInfoRequest;
 import com.tsemkalo.businesscards.ForgotPasswordRequest;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.Token;
 import com.tsemkalo.businesscards.UserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;

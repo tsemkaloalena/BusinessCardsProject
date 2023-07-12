@@ -5,7 +5,7 @@ import com.tsemkalo.businesscards.CardServiceGrpc;
 import com.tsemkalo.businesscards.DeleteCardProto;
 import com.tsemkalo.businesscards.EditAppearanceProto;
 import com.tsemkalo.businesscards.EditCardProto;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.IdValue;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.cards.AppearanceDTO;

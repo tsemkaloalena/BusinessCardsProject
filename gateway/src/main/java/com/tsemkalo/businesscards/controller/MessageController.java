@@ -7,7 +7,7 @@ import com.tsemkalo.businesscards.ChangeSendingNotificationsRequest;
 import com.tsemkalo.businesscards.ChatProto;
 import com.tsemkalo.businesscards.ChatUserProto;
 import com.tsemkalo.businesscards.CloseQuestionRequest;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.IdMessageServiceValue;
 import com.tsemkalo.businesscards.InviteMemberRequest;
 import com.tsemkalo.businesscards.MessageProto;

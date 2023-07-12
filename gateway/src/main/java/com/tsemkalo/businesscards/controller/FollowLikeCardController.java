@@ -3,7 +3,7 @@ package com.tsemkalo.businesscards.controller;
 import com.tsemkalo.businesscards.CardProto;
 import com.tsemkalo.businesscards.CardServiceGrpc;
 import com.tsemkalo.businesscards.FollowProto;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.IdValue;
 import com.tsemkalo.businesscards.LikeProto;
 import com.tsemkalo.businesscards.dto.cards.CardDTO;

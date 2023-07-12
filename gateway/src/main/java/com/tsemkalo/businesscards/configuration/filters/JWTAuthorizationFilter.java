@@ -1,6 +1,5 @@
 package com.tsemkalo.businesscards.configuration.filters;
 
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.tsemkalo.businesscards.configuration.constants.SecurityConstants;

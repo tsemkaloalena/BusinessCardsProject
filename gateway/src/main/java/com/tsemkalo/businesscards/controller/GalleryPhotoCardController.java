@@ -3,7 +3,7 @@ package com.tsemkalo.businesscards.controller;
 import com.tsemkalo.businesscards.CardServiceGrpc;
 import com.tsemkalo.businesscards.DeleteGalleryPhotoProto;
 import com.tsemkalo.businesscards.EditGalleryPhotoProto;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.configuration.enums.RoleType;
 import com.tsemkalo.businesscards.dto.cards.GalleryPhotoDTO;
 import com.tsemkalo.businesscards.entity.User;

@@ -5,7 +5,7 @@ import com.tsemkalo.businesscards.AddSupporterReplyProto;
 import com.tsemkalo.businesscards.AddSupporterRequestProto;
 import com.tsemkalo.businesscards.AdminServiceGrpc;
 import com.tsemkalo.businesscards.ErrorMessageProto;
-import com.tsemkalo.businesscards.GRPCServiceNames;
+import com.tsemkalo.businesscards.configuration.constants.GRPCServiceNames;
 import com.tsemkalo.businesscards.SafeUserProto;
 import com.tsemkalo.businesscards.UserServiceGrpc;
 import com.tsemkalo.businesscards.UsernameProto;
