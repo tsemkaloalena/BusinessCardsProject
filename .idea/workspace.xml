@@ -8,85 +8,8 @@
       <change afterPath="$PROJECT_DIR$/../RabbitMQProject/src/main/java/com/rabbitmq/example1/Example1Configuration.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SenlaFinalProject/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthenticationFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SenlaFinalProject/src/main/java/com/tsemkalo/senlaExperienceExchangeApp/configuration/security/JWTAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/configuration/constants/QueueConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/AddSupporterRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/AddSupporterRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/ErrorMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin_service/src/main/java/com/tsemkalo/businesscards/mappers/ErrorMessageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_service/src/main/proto/AdminService.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/proto/AdminService.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cards_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AddressMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AppearanceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/AppearanceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/CardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/CardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/ContactMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/ContactMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/FollowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/FollowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/GalleryPhotoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/GalleryPhotoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/LikeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/main/java/com/tsemkalo/businesscards/mapper/LikeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/main/proto/CardService.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/proto/CardService.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/IntegrationCardServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/IntegrationCardServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/controller/RequestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cards_service/src/test/java/com/tsemkalo/businesscards/controller/RequestControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/configuration/constants/GRPCServiceNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/com/tsemkalo/businesscards/constants/GRPCServiceNames.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/configuration/constants/QueueConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/com/tsemkalo/businesscards/constants/QueueConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/AddressCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/AddressCardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/CardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/ContactCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/ContactCardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/FollowLikeCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/FollowLikeCardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/GalleryPhotoCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/GalleryPhotoCardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/exceptions/handler/ControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/exceptions/handler/ControllerExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/AddSupporterRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/AddSupporterRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/ErrorMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/ErrorMessageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AddressMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AddressMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AppearanceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/AppearanceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/CardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/CardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/ContactMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/ContactMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/FollowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/FollowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/GalleryPhotoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/GalleryPhotoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/LikeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/cards/LikeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/ChatMemberMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/MessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/mapper/messages/MessageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/service/impl/AuthorizationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/tsemkalo/businesscards/service/impl/AuthorizationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/proto/AdminService.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/proto/CardService.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/proto/MessageService.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/proto/MessageService.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/proto/UserService.proto" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/proto/UserService.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mail_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mail_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mail_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/mail_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mail_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mail_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/configuration/constants/QueueConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/ChatMemberMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/MessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/main/java/com/tsemkalo/businesscards/mappers/MessageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/main/proto/MessageService.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/test/java/com/tsemkalo/businesscards/IntegrationMessageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/test/java/com/tsemkalo/businesscards/IntegrationMessageServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_service/src/test/java/com/tsemkalo/businesscards/controller/RequestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/message_service/src/test/java/com/tsemkalo/businesscards/controller/RequestControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/configuration/RabbitConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/configuration/constants/QueueConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/controller/RequestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/NonActivatedUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/NonActivatedUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/PermissionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/PermissionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/SafeUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/main/java/com/tsemkalo/businesscards/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/main/proto/UserService.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/IntegrationUserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/IntegrationUserServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/controller/RequestControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/user_service/src/test/java/com/tsemkalo/businesscards/controller/RequestControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/build.gradle" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../TravelCompanyApplication/app/proguard-rules.pro" beforeDir="false" />
@@ -220,7 +143,7 @@
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="SELECTIVE" />
     <property name="jdk.selected.JAVA_MODULE" value="17" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/cards_service/src/test/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/user_service/src/main/proto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/shared/target/shared-1.0-SNAPSHOT.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -261,20 +184,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Maven.shared [protobuf:compile,protobuf:compile-custom]">
-    <configuration name="AdminServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.AdminServiceApplication" />
-      <module name="admin_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tsemkalo.businesscards.generatedProtos.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.UserServiceApplication">
     <configuration name="CardsServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.CardsServiceApplication" />
       <module name="cards_service" />
@@ -301,6 +211,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MailServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.MailServiceApplication" />
+      <module name="mail_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.businesscards.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.MessageServiceApplication" />
+      <module name="message_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.businesscards.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tsemkalo.businesscards.UserServiceApplication" />
+      <module name="user_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsemkalo.businesscards.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -312,65 +261,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BusinessCardsProject [protobuf:compile,protobuf:compile-custom]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="protobuf:compile" />
-                <option value="protobuf:compile-custom" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <configuration name="shared [protobuf:compile,protobuf:compile-custom]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="protobuf:compile" />
-                <option value="protobuf:compile-custom" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$/shared" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Maven.shared [protobuf:compile,protobuf:compile-custom]" />
-        <item itemvalue="Maven.BusinessCardsProject [protobuf:compile,protobuf:compile-custom]" />
-        <item itemvalue="Application.AdminServiceApplication" />
-        <item itemvalue="Application.CardsServiceApplication" />
+        <item itemvalue="Application.UserServiceApplication" />
+        <item itemvalue="Application.MessageServiceApplication" />
+        <item itemvalue="Application.MailServiceApplication" />
         <item itemvalue="Application.GatewayApplication" />
+        <item itemvalue="Application.CardsServiceApplication" />
       </list>
     </recent_temporary>
   </component>
