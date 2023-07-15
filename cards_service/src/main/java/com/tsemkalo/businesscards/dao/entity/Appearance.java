@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "appearances")
@@ -53,4 +54,38 @@ public class Appearance extends AbstractEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private GalleryType galleryType;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        final Appearance appearance = (Appearance) o;
+        return Objects.equals(this.getId(), appearance.getId()) &&
+                Objects.equals(this.getFontName(), appearance.getFontName()) &&
+                Objects.equals(this.getBackgroundColor(), appearance.getBackgroundColor()) &&
+                Objects.equals(this.getBackgroundImagePath(), appearance.getBackgroundImagePath()) &&
+                Objects.equals(this.getPictureStretching(), appearance.getPictureStretching()) &&
+                Objects.equals(this.getMainColor(), appearance.getMainColor()) &&
+                Objects.equals(this.getSecondColor(), appearance.getSecondColor()) &&
+                Objects.equals(this.getGalleryType(), appearance.getGalleryType()) &&
+                Objects.equals(this.getCard().getId(), appearance.getCard().getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                this.getId(),
+                this.getFontName(),
+                this.getBackgroundColor(),
+                this.getBackgroundImagePath(),
+                this.getPictureStretching(),
+                this.getMainColor(),
+                this.getSecondColor(),
+                this.getGalleryType(),
+                this.getCard().getId());
+    }
 }

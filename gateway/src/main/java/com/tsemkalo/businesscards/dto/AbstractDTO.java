@@ -1,5 +1,6 @@
 package com.tsemkalo.businesscards.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

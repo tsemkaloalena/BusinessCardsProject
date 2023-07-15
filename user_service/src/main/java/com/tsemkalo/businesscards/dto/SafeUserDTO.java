@@ -1,10 +1,12 @@
 package com.tsemkalo.businesscards.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = true)
 public class SafeUserDTO extends AbstractDTO {
     private String username;
     private String name;

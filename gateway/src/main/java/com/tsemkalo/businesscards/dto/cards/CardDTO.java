@@ -1,6 +1,7 @@
 package com.tsemkalo.businesscards.dto.cards;
 
 import com.tsemkalo.businesscards.dto.AbstractDTO;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class CardDTO extends AbstractDTO {
     private Long userId;
     private String title;

@@ -1,5 +1,6 @@
 package com.tsemkalo.businesscards.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class UserDTO extends AbstractDTO {
     private String username;
     private String password;

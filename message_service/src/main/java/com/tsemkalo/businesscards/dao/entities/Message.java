@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "messages")
@@ -38,4 +39,31 @@ public class Message extends AbstractEntity {
 
     @Column
     private Boolean isRead;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        final Message message = (Message) o;
+        return Objects.equals(this.getId(), message.getId()) &&
+                Objects.equals(this.getChatMember().getId(), message.getChatMember().getId()) &&
+                Objects.equals(this.getChat().getId(), message.getChat().getId()) &&
+                Objects.equals(this.getSendingTime(), message.getSendingTime()) &&
+                Objects.equals(this.getText(), message.getText()) &&
+                Objects.equals(this.getIsRead(), message.getIsRead());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(),
+                this.getChatMember().getId(),
+                this.getChat().getId(),
+                this.getSendingTime(),
+                this.getText(),
+                this.getIsRead());
+    }
 }

@@ -2,6 +2,7 @@ package com.tsemkalo.businesscards.dto.messages;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tsemkalo.businesscards.dto.AbstractDTO;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class MessageDTO extends AbstractDTO {
     private Long memberId;
     private Long chatId;

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -75,6 +76,36 @@ public class User extends AbstractEntity implements UserDetails {
             throw new IncorrectDataException(email + " is not correct email");
         }
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        final User user = (User) o;
+        return Objects.equals(this.getId(), user.getId()) &&
+                Objects.equals(this.getUsername(), user.getUsername()) &&
+                Objects.equals(this.getPassword(), user.getPassword()) &&
+                Objects.equals(this.getName(), user.getName()) &&
+                Objects.equals(this.getSurname(), user.getSurname()) &&
+                Objects.equals(this.getRole(), user.getRole()) &&
+                Objects.equals(this.getEmail(), user.getEmail());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(),
+                this.getUsername(),
+                this.getPassword(),
+                this.getName(),
+                this.getSurname(),
+                this.getRole(),
+                this.getEmail());
     }
 
     @Override

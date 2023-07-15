@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.tsemkalo.businesscards.configuration.enums.cards.GalleryType;
 import com.tsemkalo.businesscards.configuration.enums.cards.PictureStretchingType;
 import com.tsemkalo.businesscards.dto.AbstractDTO;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = true)
 public class AppearanceDTO extends AbstractDTO {
     private Long cardId;
     private String fontName;

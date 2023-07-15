@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cards")
@@ -53,4 +54,32 @@ public class Card extends AbstractEntity {
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
     private List<Like> likes;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        final Card card = (Card) o;
+        return Objects.equals(this.getId(), card.getId()) &&
+                Objects.equals(this.getUserId(), card.getUserId()) &&
+                Objects.equals(this.getTitle(), card.getTitle()) &&
+                Objects.equals(this.getLogoImgPath(), card.getLogoImgPath()) &&
+                Objects.equals(this.getHeadline(), card.getHeadline()) &&
+                Objects.equals(this.getDescription(), card.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                this.getId(),
+                this.getUserId(),
+                this.getTitle(),
+                this.getLogoImgPath(),
+                this.getHeadline(),
+                this.getDescription());
+    }
 }

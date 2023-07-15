@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "permissions")
@@ -33,5 +34,24 @@ public class Permission extends AbstractEntity {
         this.setId(id);
         this.name = name;
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        final Permission permission = (Permission) o;
+        return Objects.equals(this.getId(), permission.getId()) &&
+                Objects.equals(this.getName(), permission.getName()) &&
+                Objects.equals(this.getRole(), permission.getRole());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(), this.getName(), this.getRole());
     }
 }
